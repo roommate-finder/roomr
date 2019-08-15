@@ -7,6 +7,7 @@
   "scripts": {
     "seed": "node script/seed.js",
     "start": "expo start",
+    "start-express": "node server/index.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -14,6 +15,7 @@
   },
   "dependencies": {
     "expo": "^34.0.1",
+    "express": "^4.17.1",
     "firebase": "^6.3.5",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
