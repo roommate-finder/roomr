@@ -29,10 +29,10 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     const { data: apartments } = await axios.get(
-      'https://1f161a02.ngrok.io/api/apartments'
+      'https://7222d805.ngrok.io/api/apartments'
     );
-
     console.log('TCL: App -> componentDidMount -> apartments', apartments);
+
     firebase
       .database()
       .ref()
@@ -49,6 +49,7 @@ export default class App extends React.Component {
           });
         }
       });
+
     firebase
       .database()
       .ref()
@@ -61,7 +62,6 @@ export default class App extends React.Component {
           }));
         }
       });
-    console.log('Hello!');
   }
 
   addItem() {
