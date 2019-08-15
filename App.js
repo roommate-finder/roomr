@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Constants } from 'expo';
 import * as firebase from 'firebase';
+import axios from 'axios';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
@@ -26,7 +27,12 @@ export default class App extends React.Component {
     this.addItem = this.addItem.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { data: apartments } = await axios.get(
+      'https://bac0a002.ngrok.io/api/apartments'
+    );
+    console.log('TCL: App -> componentDidMount -> apartments', apartments);
+
     firebase
       .database()
       .ref()
