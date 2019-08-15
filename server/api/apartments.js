@@ -1,7 +1,7 @@
-const router = require("express").Router();
-const { Apartment } = require("../db/models/");
+const router = require('express').Router();
+const { Apartment } = require('../db/models/');
 
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const apartments = await Apartment.findAll();
     res.json(apartments);

@@ -28,7 +28,8 @@
     "sequelize": "^5.15.0"
   },
   "prettier": {
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "singleQuote": true
   },
   "devDependencies": {
     "babel-preset-expo": "^6.0.0"

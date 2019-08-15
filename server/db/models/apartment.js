@@ -12,7 +12,7 @@ const Apartment = db.define('apartment', {
   numBedrooms: { type: Sequelize.INTEGER },
   numBathrooms: { type: Sequelize.INTEGER },
   squareFeet: { type: Sequelize.INTEGER },
-  monthlyRent: { type: Sequelize.INTEGER },
+  monthlyRent: { type: Sequelize.INTEGER }
   // petFriendly: { type: Sequelize.BOOLEAN },
 
   // neighborhood: { type: Sequelize.STRING },

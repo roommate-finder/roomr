@@ -12,7 +12,7 @@ var firebaseConfig = {
   projectId: 'capstone-roomr',
   storageBucket: '',
   messagingSenderId: '759179201870',
-  appId: '1:759179201870:web:c501209350a62fde',
+  appId: '1:759179201870:web:c501209350a62fde'
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -22,7 +22,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       message: '',
-      messages: [],
+      messages: []
     };
     this.addItem = this.addItem.bind(this);
   }
@@ -45,7 +45,7 @@ export default class App extends React.Component {
             initMessages.push(data[message])
           );
           this.setState({
-            messages: initMessages,
+            messages: initMessages
           });
         }
       });
@@ -58,7 +58,7 @@ export default class App extends React.Component {
         const data = snapshot.val();
         if (data) {
           this.setState(prevState => ({
-            messages: [data, ...prevState.messages],
+            messages: [data, ...prevState.messages]
           }));
         }
       });
@@ -102,24 +102,24 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#eee',
+    backgroundColor: '#eee'
     // marginTop: Constants.statusBarHeight
   },
   msgBox: {
     flexDirection: 'row',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   txtInput: {
-    flex: 1,
+    flex: 1
   },
   listItemContainer: {
     backgroundColor: '#fff',
     margin: 5,
-    borderRadius: 5,
+    borderRadius: 5
   },
   listItem: {
     fontSize: 20,
-    padding: 10,
-  },
+    padding: 10
+  }
 });
