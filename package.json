@@ -27,6 +27,9 @@
     "react-native-web": "^0.11.4",
     "sequelize": "^5.15.0"
   },
+  "prettier": {
+    "trailingComma": "none"
+  },
   "devDependencies": {
     "babel-preset-expo": "^6.0.0"
   },
