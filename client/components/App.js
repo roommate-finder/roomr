@@ -1,20 +1,20 @@
-import React from "react";
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { Constants } from "expo";
-import Login from "./components/Login";
-import * as firebase from "firebase";
-import axios from "axios";
-import AppNavigator from "./AppNavigator";
+import React from 'react';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { Constants } from 'expo';
+import Login from './Login';
+import * as firebase from 'firebase';
+import axios from 'axios';
+import AppNavigator from './AppNavigator';
 
 var firebaseConfig = {
-  apiKey: "AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI",
-  authDomain: "capstone-roomr.firebaseapp.com",
-  databaseURL: "https://capstone-roomr.firebaseio.com",
-  projectId: "capstone-roomr",
-  storageBucket: "",
-  messagingSenderId: "759179201870",
-  appId: "1:759179201870:web:c501209350a62fde"
+  apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
+  authDomain: 'capstone-roomr.firebaseapp.com',
+  databaseURL: 'https://capstone-roomr.firebaseio.com',
+  projectId: 'capstone-roomr',
+  storageBucket: '',
+  messagingSenderId: '759179201870',
+  appId: '1:759179201870:web:c501209350a62fde'
 };
 // Initialize Firebase
 // firebase.initializeApp(firebaseConfig);
@@ -23,7 +23,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      possibleFriends: ["Allie", "Gator", "Lizzie"],
+      possibleFriends: ['Allie', 'Gator', 'Lizzie'],
       currentFriends: []
     };
   }
@@ -101,26 +101,33 @@ export default class App extends React.Component {
   // }
   render() {
     return (
-      <View style={styles.container}>
-        <Login />
-        <View style={styles.msgBox}>
-          <TextInput
-            placeholder="Enter your message"
-            value={this.state.message}
-            onChangeText={text => this.setState({ message: text })}
-            style={styles.txtInput}
-          />
-          <Button title="Send" onPress={this.addItem} />
-        </View>
-        <FlatList
-          data={this.state.messages}
-          renderItem={({ item }) => (
-            <View style={styles.listItemContainer}>
-              <Text style={styles.listItem}>{item}</Text>
-            </View>
-          )}
-        />
-      </View>
+      <AppNavigator
+        screenProps={{
+          currentFriends: this.state.currentFriends,
+          possibleFriends: this.state.possibleFriends,
+          addFriend: this.addFriend
+        }}
+      />
+      // <View style={styles.container}>
+      //   <Login />
+      //   <View style={styles.msgBox}>
+      //     <TextInput
+      //       placeholder="Enter your message"
+      //       value={this.state.message}
+      //       onChangeText={text => this.setState({ message: text })}
+      //       style={styles.txtInput}
+      //     />
+      //     <Button title="Send" onPress={this.addItem} />
+      //   </View>
+      //   <FlatList
+      //     data={this.state.messages}
+      //     renderItem={({ item }) => (
+      //       <View style={styles.listItemContainer}>
+      //         <Text style={styles.listItem}>{item}</Text>
+      //       </View>
+      //     )}
+      //   />
+      // </View>
     );
   }
 }
