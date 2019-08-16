@@ -1,22 +1,11 @@
-<<<<<<< HEAD:client/App.js
 import React from "react";
 import { StyleSheet, Text, View, Button, FlatList } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Constants } from "expo";
+import Login from "./Login";
 import * as firebase from "firebase";
 import axios from "axios";
-import AllMessages from "./AllMessages";
 import AppNavigator from "./AppNavigator";
-=======
-import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import { Constants } from 'expo';
-import Login from './Login';
-import * as firebase from 'firebase';
-import axios from 'axios';
-import AppNavigator from './AppNavigator';
->>>>>>> c2bb183aa52bc8aca5c7e0fdfaa7fd3769019309:client/components/App.js
 
 var firebaseConfig = {
   apiKey: "AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI",
@@ -34,11 +23,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD:client/App.js
       possibleFriends: ["Allie", "Gator", "Lizzie"],
-=======
-      possibleFriends: ['Allie', 'Gator', 'Lizzie'],
->>>>>>> c2bb183aa52bc8aca5c7e0fdfaa7fd3769019309:client/components/App.js
       currentFriends: []
     };
   }
