@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import {
   Container,
@@ -86,6 +87,21 @@ export default class AllMessages extends React.Component {
           />
         </Container>
         <Container />
+=======
+import React, { Component } from 'react';
+import { Container, Header } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+
+export default class AllMessages extends Component {
+  render() {
+    return (
+      <Container>
+        <Header />
+        <Grid>
+          <Col style={{ backgroundColor: '#635DB7', height: 200 }} />
+          <Col style={{ backgroundColor: '#00CE9F', height: 200 }} />
+        </Grid>
+>>>>>>> 3038e9eccf09fe82c881e3970e45ab8d58c2b69a
       </Container>
     );
   }
