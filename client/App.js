@@ -30,7 +30,6 @@ export default class App extends React.Component {
   addFriend = index => {
     const { currentFriends, possibleFriends } = this.state;
 
-<<<<<<< HEAD
     // async componentDidMount() {
     // const { data: apartments } = await axios.get(
     //   'http://1f161a02.ngrok.io/api/apartments'
@@ -48,44 +47,6 @@ export default class App extends React.Component {
       possibleFriends
     });
   };
-=======
-  async componentDidMount() {
-    const { data: apartments } = await axios.get(
-      'https://1f161a02.ngrok.io/api/apartments'
-    );
-
-    console.log('TCL: App -> componentDidMount -> apartments', apartments);
-    firebase
-      .database()
-      .ref()
-      .child('messages')
-      .once('value', snapshot => {
-        const data = snapshot.val();
-        if (snapshot.val()) {
-          const initMessages = [];
-          Object.keys(data).forEach(message =>
-            initMessages.push(data[message])
-          );
-          this.setState({
-            messages: initMessages
-          });
-        }
-      });
-    firebase
-      .database()
-      .ref()
-      .child('messages')
-      .on('child_added', snapshot => {
-        const data = snapshot.val();
-        if (data) {
-          this.setState(prevState => ({
-            messages: [data, ...prevState.messages]
-          }));
-        }
-      });
-    console.log('Hello!');
-  }
->>>>>>> 3038e9eccf09fe82c881e3970e45ab8d58c2b69a
 
   // constructor() {
   //   super();
