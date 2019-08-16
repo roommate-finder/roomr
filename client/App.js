@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { Constants } from 'expo';
 import * as firebase from 'firebase';
 import axios from 'axios';
+import AllMessages from './AllMessages';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
@@ -29,7 +30,7 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     const { data: apartments } = await axios.get(
-      'https://bac0a002.ngrok.io/api/apartments'
+      'http://1f161a02.ngrok.io/api/apartments'
     );
     console.log('TCL: App -> componentDidMount -> apartments', apartments);
 
@@ -77,7 +78,8 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.msgBox}>
+        <AllMessages />
+        {/* <View style={styles.msgBox}>
           <TextInput
             placeholder="Enter your message"
             value={this.state.message}
@@ -93,7 +95,7 @@ export default class App extends React.Component {
               <Text style={styles.listItem}>{item}</Text>
             </View>
           )}
-        />
+        /> */}
       </View>
     );
   }
