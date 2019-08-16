@@ -17,6 +17,10 @@
     "axios": "^0.19.0",
     "expo": "^34.0.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    "expo-facebook": "^6.0.0",
+>>>>>>> c2bb183aa52bc8aca5c7e0fdfaa7fd3769019309
     "expo-font": "^6.0.1",
     "express": "^4.17.1",
     "firebase": "^6.3.5",
