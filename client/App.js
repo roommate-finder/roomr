@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { Constants } from 'expo';
 import * as firebase from 'firebase';
 import axios from 'axios';
+import AppNavigator from './AppNavigator';
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
@@ -18,108 +19,146 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props)
     this.state = {
-      message: '',
-      messages: []
-    };
-    this.addItem = this.addItem.bind(this);
+      possibleFriends: [
+        'Allie',
+        'Gator',
+        'Lizzie',
+      ],
+      currentFriends: [],
+    }
+  }
+  addFriend = (index) => {
+    const {
+      currentFriends,
+      possibleFriends,
+    } = this.state
+
+    // Pull friend out of possibleFriends
+    const addedFriend = possibleFriends.splice(index, 1)
+
+    // And put friend in currentFriends
+    currentFriends.push(addedFriend)
+
+    // Finally, update our app state
+    this.setState({
+      currentFriends,
+      possibleFriends,
+    })
   }
 
-  async componentDidMount() {
-    const { data: apartments } = await axios.get(
-      'https://bac0a002.ngrok.io/api/apartments'
-    );
-    console.log('TCL: App -> componentDidMount -> apartments', apartments);
 
-    firebase
-      .database()
-      .ref()
-      .child('messages')
-      .once('value', snapshot => {
-        const data = snapshot.val();
-        if (snapshot.val()) {
-          const initMessages = [];
-          Object.keys(data).forEach(message =>
-            initMessages.push(data[message])
-          );
-          this.setState({
-            messages: initMessages
-          });
-        }
-      });
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     message: '',
+  //     messages: []
+  //   };
+  //   this.addItem = this.addItem.bind(this);
+  // }
 
-    firebase
-      .database()
-      .ref()
-      .child('messages')
-      .on('child_added', snapshot => {
-        const data = snapshot.val();
-        if (data) {
-          this.setState(prevState => ({
-            messages: [data, ...prevState.messages]
-          }));
-        }
-      });
-  }
+  // async componentDidMount() {
+  //   // const { data: apartments } = await axios.get(
+  //   //   'https://bac0a002.ngrok.io/api/apartments'
+  //   // );
+  //   // console.log('TCL: App -> componentDidMount -> apartments', apartments);
 
-  addItem() {
-    if (!this.state.message) return;
+  //   firebase
+  //     .database()
+  //     .ref()
+  //     .child('messages')
+  //     .once('value', snapshot => {
+  //       const data = snapshot.val();
+  //       if (snapshot.val()) {
+  //         const initMessages = [];
+  //         Object.keys(data).forEach(message =>
+  //           initMessages.push(data[message])
+  //         );
+  //         this.setState({
+  //           messages: initMessages
+  //         });
+  //       }
+  //     });
 
-    const newMessage = firebase
-      .database()
-      .ref()
-      .child('messages')
-      .push();
-    newMessage.set(this.state.message, () => this.setState({ message: '' }));
-  }
+  //   firebase
+  //     .database()
+  //     .ref()
+  //     .child('messages')
+  //     .on('child_added', snapshot => {
+  //       const data = snapshot.val();
+  //       if (data) {
+  //         this.setState(prevState => ({
+  //           messages: [data, ...prevState.messages]
+  //         }));
+  //       }
+  //     });
+  // }
+
+  // addItem() {
+  //   if (!this.state.message) return;
+
+  //   const newMessage = firebase
+  //     .database()
+  //     .ref()
+  //     .child('messages')
+  //     .push();
+  //   newMessage.set(this.state.message, () => this.setState({ message: '' }));
+  // }
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.msgBox}>
-          <TextInput
-            placeholder="Enter your message"
-            value={this.state.message}
-            onChangeText={text => this.setState({ message: text })}
-            style={styles.txtInput}
-          />
-          <Button title="Send" onPress={this.addItem} />
-        </View>
-        <FlatList
-          data={this.state.messages}
-          renderItem={({ item }) => (
-            <View style={styles.listItemContainer}>
-              <Text style={styles.listItem}>{item}</Text>
-            </View>
-          )}
-        />
-      </View>
+      <AppNavigator
+        screenProps={{
+          currentFriends: this.state.currentFriends,
+          possibleFriends: this.state.possibleFriends,
+          addFriend: this.addFriend,
+        }}
+      />
+      // <View style={styles.container}>
+      //   <View style={styles.msgBox}>
+      //     <TextInput
+      //       placeholder="Enter your message"
+      //       value={this.state.message}
+      //       onChangeText={text => this.setState({ message: text })}
+      //       style={styles.txtInput}
+      //     />
+      //     <Button title="Send" onPress={this.addItem} />
+      //   </View>
+      //   <FlatList
+      //     data={this.state.messages}
+      //     renderItem={({ item }) => (
+      //       <View style={styles.listItemContainer}>
+      //         <Text style={styles.listItem}>{item}</Text>
+      //       </View>
+      //     )}
+      //   />
+      // </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eee'
-    // marginTop: Constants.statusBarHeight
-  },
-  msgBox: {
-    flexDirection: 'row',
-    padding: 20,
-    backgroundColor: '#fff'
-  },
-  txtInput: {
-    flex: 1
-  },
-  listItemContainer: {
-    backgroundColor: '#fff',
-    margin: 5,
-    borderRadius: 5
-  },
-  listItem: {
-    fontSize: 20,
-    padding: 10
-  }
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#eee'
+//     // marginTop: Constants.statusBarHeight
+//   },
+//   msgBox: {
+//     flexDirection: 'row',
+//     padding: 20,
+//     backgroundColor: '#fff'
+//   },
+//   txtInput: {
+//     flex: 1
+//   },
+//   listItemContainer: {
+//     backgroundColor: '#fff',
+//     margin: 5,
+//     borderRadius: 5
+//   },
+//   listItem: {
+//     fontSize: 20,
+//     padding: 10
+//   }
+// });
