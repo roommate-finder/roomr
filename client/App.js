@@ -23,7 +23,6 @@ export default class App extends React.Component {
     super();
     this.state = {
       message: '',
-      messages: [],
       messages: []
     };
     this.addItem = this.addItem.bind(this);
@@ -79,7 +78,6 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Login />
         <Login />
         <View style={styles.msgBox}>
           <TextInput

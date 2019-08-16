@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View } from 'react-native';
+import { Button, Text } from 'native-base';
 import * as Facebook from 'expo-facebook';
 import * as firebase from 'firebase';
 const firebaseConfig = {
@@ -8,7 +9,7 @@ const firebaseConfig = {
   authDomain: 'capstone-roomr.firebaseapp.com',
   databaseURL: 'https://capstone-roomr.firebaseio.com',
   projectId: 'capstone-roomr',
-  storageBucket: '',
+  storageBucket: ''
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -18,13 +19,13 @@ export default class Login extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: ''
     };
   }
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
-      if (user != null) {
-        console.log(user);
+      if (user !== null) {
+        console.log('user:', user);
       }
     });
   }
@@ -64,8 +65,7 @@ export default class Login extends Component {
           color="green"
           accessibilityLabel="Learn more about this purple button"
         >
-          {' '}
-          {/* <Text style={{ color: 'black' }} Login With Facebook /> */}
+          <Text>Login With Facebook</Text>
         </Button>
       </View>
     );
