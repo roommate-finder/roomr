@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Constants } from 'expo';
+import Login from './Login';
 import * as firebase from 'firebase';
 import axios from 'axios';
 import AppNavigator from './AppNavigator';
@@ -16,39 +17,31 @@ var firebaseConfig = {
   appId: '1:759179201870:web:c501209350a62fde'
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      possibleFriends: [
-        'Allie',
-        'Gator',
-        'Lizzie',
-      ],
-      currentFriends: [],
-    }
+      possibleFriends: ['Allie', 'Gator', 'Lizzie'],
+      currentFriends: []
+    };
   }
-  addFriend = (index) => {
-    const {
-      currentFriends,
-      possibleFriends,
-    } = this.state
+  addFriend = index => {
+    const { currentFriends, possibleFriends } = this.state;
 
     // Pull friend out of possibleFriends
-    const addedFriend = possibleFriends.splice(index, 1)
+    const addedFriend = possibleFriends.splice(index, 1);
 
     // And put friend in currentFriends
-    currentFriends.push(addedFriend)
+    currentFriends.push(addedFriend);
 
     // Finally, update our app state
     this.setState({
       currentFriends,
-      possibleFriends,
-    })
-  }
-
+      possibleFriends
+    });
+  };
 
   // constructor() {
   //   super();
@@ -112,10 +105,11 @@ export default class App extends React.Component {
         screenProps={{
           currentFriends: this.state.currentFriends,
           possibleFriends: this.state.possibleFriends,
-          addFriend: this.addFriend,
+          addFriend: this.addFriend
         }}
       />
       // <View style={styles.container}>
+      //   <Login />
       //   <View style={styles.msgBox}>
       //     <TextInput
       //       placeholder="Enter your message"
