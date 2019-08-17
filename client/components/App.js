@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { StyleSheet, Text, View, Button, FlatList } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
@@ -6,6 +7,20 @@ import Login from "./Login";
 import * as firebase from "firebase";
 import axios from "axios";
 import AppNavigator from "./AppNavigator";
+=======
+import React from 'react';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { Constants } from 'expo';
+import Login from './Login';
+import * as firebase from 'firebase';
+import axios from 'axios';
+import AppNavigator from './AppNavigator';
+//Redux stuff
+import { Provider } from 'react-redux';
+import store from '../store';
+
+>>>>>>> 42400f5e3fcf80c3cc83b73e38cd75fcbc7546a3
 
 var firebaseConfig = {
   apiKey: "AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI",
@@ -106,6 +121,7 @@ export default class App extends React.Component {
   // }
   render() {
     return (
+<<<<<<< HEAD
       // <View style={styles.container}>
 
       /* <View style={styles.msgBox}>
@@ -133,6 +149,18 @@ export default class App extends React.Component {
           addFriend: this.addFriend
         }}
       />
+=======
+      <Provider store={store}>
+        <AppNavigator
+          screenProps={{
+            currentFriends: this.state.currentFriends,
+            possibleFriends: this.state.possibleFriends,
+            addFriend: this.addFriend
+          }}
+        />
+
+      </Provider>
+>>>>>>> 42400f5e3fcf80c3cc83b73e38cd75fcbc7546a3
 
       // <View style={styles.container}>
       //   <Login />
