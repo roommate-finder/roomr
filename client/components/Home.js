@@ -3,6 +3,19 @@ import { StyleSheet, Text, View, Button } from "react-native";
 // import * as Font from 'expo-font';
 
 export default class Home extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: 'Home',
+      headerRight: (
+        <Button
+          onPress={() => navigation.navigate("Friends")}
+          title="FRIENDS"
+          color="#000"
+        />
+      ),
+    }
+
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -12,6 +25,16 @@ export default class Home extends React.Component {
         <Button
           title="Add some friends"
           onPress={() => this.props.navigation.navigate("Friends")}
+        />
+        <Button
+          title="User profile"
+          onPress={() => this.props.navigation.navigate("UserProfile")}
+
+        />
+        <Button
+          title="Phone login"
+          onPress={() => this.props.navigation.navigate("PhoneLogin")}
+
         />
       </View>
     );
