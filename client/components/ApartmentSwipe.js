@@ -14,6 +14,8 @@ import {
   Icon,
   Button
 } from 'native-base';
+import { connect } from 'react-redux';
+import { getApartmentsThunk } from '../store/apartments';
 
 const apartments = [
   {
@@ -36,8 +38,18 @@ const apartments = [
   }
 ];
 
-export default class ApartmentSwipe extends React.Component {
+class ApartmentSwipe extends React.Component {
+  componentDidMount() {
+    this.props.getApartments();
+  }
   render() {
+    // if (this.props.apartments) {
+    console.log(
+      'TCL: ApartmentSwipe -> render -> this.props.apartments',
+      this.props.apartments
+    );
+    // }
+
     return (
       <Container>
         <Header />
@@ -125,69 +137,84 @@ export default class ApartmentSwipe extends React.Component {
       </Container>
     );
   }
-
-  /* BEFORE ADDING SWIPE COMPONENT */
-  // <Button light style={{ width: 65, height: 65, borderRadius: 65 / 2 }} onPress={() => this.props.navigation.navigate("EditProfile")}>
-  //                      <Icon type="FontAwesome" name="pencil" />
-  //                  </Button>
-  // render() {
-  //   return (
-  //     <View>
-  //       <View
-  // style={{
-  //   justifyContent: 'center',
-  //   alignItems: 'center'
-  // }}
-  //       >
-  //         <Image
-  //           style={{
-  // width: 350,
-  // height: 350,
-  //             marginTop: 80
-  //           }}
-  //           source={require('../images/kitten.jpeg')}
-  //         />
-  //       </View>
-  //       <View
-  // style={{
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-around',
-  //   alignItems: 'center'
-  // }}
-  //       >
-  //         <Image
-  //           style={{
-  //             width: 64,
-  //             height: 64,
-  //             marginTop: 50
-  //           }}
-  //           source={require('../images/x-icon.png')}
-  //         />
-  //         <Image
-  //           style={{
-  //             width: 64,
-  //             height: 64,
-  //             marginTop: 50
-  //           }}
-  //           source={require('../images/heart-icon.png')}
-  //         />
-  //       </View>
-  //       <View
-  //         style={{
-  //           justifyContent: 'center',
-  //           alignItems: 'center'
-  //         }}
-  //       >
-  //         <Image
-  //           style={{
-  //             marginTop: 20,
-  //             width: 40,
-  //             height: 40
-  //           }}
-  //           source={require('../images/info-icon.png')}
-  //         />
-  //       </View>
-  //     </View>
-  //   );
-  // }
 }
+
+const mapStateToProps = state => {
+  return {
+    apartments: state.apartments
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  getApartments: () => dispatch(getApartmentsThunk())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ApartmentSwipe);
+
+/* BEFORE ADDING SWIPE COMPONENT */
+// <Button light style={{ width: 65, height: 65, borderRadius: 65 / 2 }} onPress={() => this.props.navigation.navigate("EditProfile")}>
+//                      <Icon type="FontAwesome" name="pencil" />
+//                  </Button>
+// render() {
+//   return (
+//     <View>
+//       <View
+// style={{
+//   justifyContent: 'center',
+//   alignItems: 'center'
+// }}
+//       >
+//         <Image
+//           style={{
+// width: 350,
+// height: 350,
+//             marginTop: 80
+//           }}
+//           source={require('../images/kitten.jpeg')}
+//         />
+//       </View>
+//       <View
+// style={{
+//   flexDirection: 'row',
+//   justifyContent: 'space-around',
+//   alignItems: 'center'
+// }}
+//       >
+//         <Image
+//           style={{
+//             width: 64,
+//             height: 64,
+//             marginTop: 50
+//           }}
+//           source={require('../images/x-icon.png')}
+//         />
+//         <Image
+//           style={{
+//             width: 64,
+//             height: 64,
+//             marginTop: 50
+//           }}
+//           source={require('../images/heart-icon.png')}
+//         />
+//       </View>
+//       <View
+//         style={{
+//           justifyContent: 'center',
+//           alignItems: 'center'
+//         }}
+//       >
+//         <Image
+//           style={{
+//             marginTop: 20,
+//             width: 40,
+//             height: 40
+//           }}
+//           source={require('../images/info-icon.png')}
+//         />
+//       </View>
+//     </View>
+//   );
+// }
