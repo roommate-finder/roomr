@@ -22,6 +22,11 @@ export default class Home extends React.Component {
         <Button onPress={() => this.props.navigation.navigate('FullMapView')}>
           <Text>Full Map View</Text>
         </Button>
+        <Button
+          onPress={() => this.props.navigation.navigate('ApartmentSwipe')}
+        >
+          <Text>Apartment Swipe</Text>
+        </Button>
       </View>
     );
   }
