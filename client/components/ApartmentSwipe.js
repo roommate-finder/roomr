@@ -33,7 +33,7 @@ export default class ApartmentSwipe extends React.Component {
               height: 64,
               marginTop: 50
             }}
-            source={require('../images/heart-icon.png')}
+            source={require('../images/x-icon.png')}
           />
           <Image
             style={{
@@ -41,7 +41,7 @@ export default class ApartmentSwipe extends React.Component {
               height: 64,
               marginTop: 50
             }}
-            source={require('../images/x-icon.png')}
+            source={require('../images/heart-icon.png')}
           />
         </View>
         <View
@@ -63,5 +63,3 @@ export default class ApartmentSwipe extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({});
