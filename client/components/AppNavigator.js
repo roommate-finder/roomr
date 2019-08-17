@@ -5,14 +5,21 @@ import Login from './Login';
 import UserProfile from './UserProfile'
 import EditProfile from './EditProfile'
 import PhoneLogin from './PhoneLogin'
+import FullMapView from './FullMapView';
+import ApartmentSwipe from './ApartmentSwipe';
+
+
 
 const AppNavigator = createStackNavigator({
+  PhoneLogin: { screen: PhoneLogin },
   Home: { screen: Home },
   Friends: { screen: Friends },
   Login: { screen: Login },
   UserProfile: { screen: UserProfile },
   EditProfile: { screen: EditProfile },
-  PhoneLogin: { screen: PhoneLogin }
+
+  FullMapView: { screen: FullMapView },
+  ApartmentSwipe: { screen: ApartmentSwipe }
 });
 
 const AppContainer = createAppContainer(AppNavigator);

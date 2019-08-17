@@ -1,5 +1,7 @@
-import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button, Text } from 'native-base';
+
 // import * as Font from 'expo-font';
 
 export default class Home extends React.Component {
@@ -19,23 +21,39 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          We have {this.props.screenProps.currentFriends.length} friends!
-        </Text>
         <Button
-          title="Add some friends"
           onPress={() => this.props.navigation.navigate("Friends")}
-        />
+        >
+          <Text>Add some friends</Text>
+
+
+        </Button>
         <Button
           title="User profile"
           onPress={() => this.props.navigation.navigate("UserProfile")}
 
-        />
+        >
+          <Text>
+            User Profile
+        </Text></Button>
         <Button
           title="Phone login"
           onPress={() => this.props.navigation.navigate("PhoneLogin")}
 
-        />
+        >
+          <Text>Phone login</Text>
+        </Button>
+        <Button onPress={() => this.props.navigation.navigate('Login')}>
+          <Text>Login with Facebook</Text>
+        </Button>
+        <Button onPress={() => this.props.navigation.navigate('FullMapView')}>
+          <Text>Full Map View</Text>
+        </Button>
+        <Button
+          onPress={() => this.props.navigation.navigate('ApartmentSwipe')}
+        >
+          <Text>Apartment Swipe</Text>
+        </Button>
       </View>
     );
   }
@@ -44,8 +62,8 @@ export default class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
