@@ -10,4 +10,14 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const user = awaitUser.findByPk(req.params.userId)
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+}
+);
+
 module.exports = router;

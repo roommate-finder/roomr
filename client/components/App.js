@@ -6,6 +6,10 @@ import Login from './Login';
 import * as firebase from 'firebase';
 import axios from 'axios';
 import AppNavigator from './AppNavigator';
+//Redux stuff
+import { Provider } from 'react-redux';
+import store from '../store';
+
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
@@ -101,13 +105,17 @@ export default class App extends React.Component {
   // }
   render() {
     return (
-      <AppNavigator
-        screenProps={{
-          currentFriends: this.state.currentFriends,
-          possibleFriends: this.state.possibleFriends,
-          addFriend: this.addFriend
-        }}
-      />
+      <Provider store={store}>
+        <AppNavigator
+          screenProps={{
+            currentFriends: this.state.currentFriends,
+            possibleFriends: this.state.possibleFriends,
+            addFriend: this.addFriend
+          }}
+        />
+
+      </Provider>
+
       // <View style={styles.container}>
       //   <Login />
       //   <View style={styles.msgBox}>
