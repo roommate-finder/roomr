@@ -105,12 +105,7 @@ export default class ApartmentSwipe extends React.Component {
                 >
                   <Button
                     style={{
-                      // width: 32.5,
-                      // height: 32.5,
-                      // borderRadius: 32.5 / 2,
                       backgroundColor: 'none'
-                      // alignItems: 'center',
-                      // justifyContent: 'center'
                     }}
                   >
                     <Icon
@@ -131,6 +126,7 @@ export default class ApartmentSwipe extends React.Component {
     );
   }
 
+  /* BEFORE ADDING SWIPE COMPONENT */
   // <Button light style={{ width: 65, height: 65, borderRadius: 65 / 2 }} onPress={() => this.props.navigation.navigate("EditProfile")}>
   //                      <Icon type="FontAwesome" name="pencil" />
   //                  </Button>
