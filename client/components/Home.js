@@ -5,16 +5,43 @@ import { Button, Text } from 'native-base';
 // import * as Font from 'expo-font';
 
 export default class Home extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: 'Home',
+      headerRight: (
+        <Button
+          onPress={() => navigation.navigate("Friends")}
+          title="FRIENDS"
+          color="#000"
+        />
+      ),
+    }
+
+  };
   render() {
     return (
       <View style={styles.container}>
         <Button
-          title="Add some friends"
-          onPress={() => this.props.navigation.navigate('Friends')}
+          onPress={() => this.props.navigation.navigate("Friends")}
+        >
+          <Text>Add some friends</Text>
+
+
+        </Button>
+        <Button
+          title="User profile"
+          onPress={() => this.props.navigation.navigate("UserProfile")}
+
         >
           <Text>
-            We have {this.props.screenProps.currentFriends.length} friends!
-          </Text>
+            User Profile
+        </Text></Button>
+        <Button
+          title="Phone login"
+          onPress={() => this.props.navigation.navigate("PhoneLogin")}
+
+        >
+          <Text>Phone login</Text>
         </Button>
         <Button onPress={() => this.props.navigation.navigate('Login')}>
           <Text>Login with Facebook</Text>
