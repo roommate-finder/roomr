@@ -14,9 +14,9 @@ const setUser = user => ({ type: GET_USER, user })
 /**
  * THUNK CREATORS
  */
-export const setUserThunk = (user) => async dispatch => {
+export const setUserThunk = (phone) => async dispatch => {
     try {
-        const { data } = await axios.get(`https://d4ca50f0.ngrok.io/api/user/${user.id}`)
+        const { data } = await axios.get(`https://f5eac778.ngrok.io/api/users/${phone}`)
         dispatch(getUser(data))
     } catch (err) {
         console.error(err)

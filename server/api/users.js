@@ -12,7 +12,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const user = awaitUser.findByPk(req.params.userId)
+    const user = await User.findByPk(req.params.userId)
+    //const user = await User.findOne({ where: { phone: req.params.phone } })
     res.json(user)
   } catch (err) {
     next(err)

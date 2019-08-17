@@ -16,6 +16,8 @@ class PhoneLogin extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        this.props.setUser(1234567)
+        this.props.navigation.navigate("Home")
     }
     render() {
         console.log('props', this.props)
@@ -23,11 +25,12 @@ class PhoneLogin extends React.Component {
         return (
             <View style={{ padding: 10 }}>
                 <Form onSubmit={this.handleSubmit}>
+                    <Text> HI</Text>
                     <Item fixedLabel>
                         <Label>Phone number</Label>
                         <Input value={this.state.phoneNumber} />
                     </Item>
-                    <Button onPress={() => this.props.navigation.navigate("Home")}>
+                    <Button onPress={this.handleSubmit}>
                         <Text>Submit</Text>
                     </Button>
                 </Form>
@@ -56,4 +59,4 @@ const mapDispatchToProps = (dispatch) => ({
     setUser: user => dispatch(setUserThunk(user))
 })
 
-export default connect(mapStateToProps)(PhoneLogin)
+export default connect(mapStateToProps, mapDispatchToProps)(PhoneLogin)
