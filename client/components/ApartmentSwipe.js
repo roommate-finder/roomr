@@ -17,124 +17,107 @@ import {
 import { connect } from 'react-redux';
 import { getApartmentsThunk } from '../store/apartments';
 
-const apartments = [
-  {
-    name: 'MILA',
-    description: 'apt1description',
-    image: require('../images/kitten.jpeg'),
-    address: '201 N Garland Ct'
-  },
-  {
-    name: 'K2 Apartments',
-    description: 'apt2description',
-    image: require('../images/kitten.jpeg'),
-    address: '365 N Halsted St'
-  },
-  {
-    name: 'BDHB Apartments',
-    description: 'apt3description',
-    image: require('../images/kitten.jpeg'),
-    address: '415 W Howard St'
-  }
-];
+//because database does not currently have images
+const tempImage = require('../images/kitten.jpeg');
 
 class ApartmentSwipe extends React.Component {
   componentDidMount() {
     this.props.getApartments();
   }
   render() {
-    // if (this.props.apartments) {
-    console.log(
-      'TCL: ApartmentSwipe -> render -> this.props.apartments',
-      this.props.apartments
-    );
-    // }
-
+    const { apartments } = this.props;
     return (
-      <Container>
-        <Header />
-        <View>
-          <DeckSwiper
-            dataSource={apartments}
-            renderItem={item => (
-              <Card style={{ elevation: 3 }}>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={item.image} />
-                    <Body>
-                      <Text>{item.name}</Text>
-                      <Text note>{item.address}</Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody>
-                  <Image style={{ height: 300, flex: 1 }} source={item.image} />
-                </CardItem>
-                <CardItem
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    marginTop: 20
-                  }}
-                >
-                  <Button
-                    style={{
-                      width: 65,
-                      height: 65,
-                      borderRadius: 65 / 2,
-                      backgroundColor: '#ED4A6A'
-                    }}
-                  >
-                    <Icon
-                      name="heart"
-                      type="AntDesign"
-                      style={{ color: '#FFFFFF', fontSize: 32.5 }}
-                    />
-                  </Button>
-                  <Button
-                    style={{
-                      width: 65,
-                      height: 65,
-                      borderRadius: 65 / 2,
-                      backgroundColor: '#ED4A6A',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <Icon
-                      name="times"
-                      type="FontAwesome"
-                      style={{ color: '#FFFFFF', fontSize: 32.5 }}
-                    />
-                  </Button>
-                </CardItem>
-                <CardItem
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  <Button
-                    style={{
-                      backgroundColor: 'none'
-                    }}
-                  >
-                    <Icon
-                      name="info-circle"
-                      type="FontAwesome"
-                      style={{ color: '#ED4A6A' }}
-                    />
-                  </Button>
-                </CardItem>
-                <CardItem>
-                  <Text>{item.description}</Text>
-                </CardItem>
-              </Card>
-            )}
-          />
-        </View>
-      </Container>
+      <View>
+        {this.props.apartments.length !== 0 && (
+          <Container>
+            <Header />
+            <View>
+              <DeckSwiper
+                dataSource={apartments}
+                renderItem={item => (
+                  <Card style={{ elevation: 3 }}>
+                    <CardItem>
+                      <Left>
+                        <Thumbnail source={tempImage} />
+                        <Body>
+                          <Text>{item.name}</Text>
+                          <Text note>{item.address}</Text>
+                        </Body>
+                      </Left>
+                    </CardItem>
+                    <CardItem cardBody>
+                      <Image
+                        style={{ height: 300, flex: 1 }}
+                        source={tempImage}
+                      />
+                    </CardItem>
+                    <CardItem
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        marginTop: 20
+                      }}
+                    >
+                      <Button
+                        style={{
+                          width: 65,
+                          height: 65,
+                          borderRadius: 65 / 2,
+                          backgroundColor: '#ED4A6A'
+                        }}
+                      >
+                        <Icon
+                          name="heart"
+                          type="AntDesign"
+                          style={{ color: '#FFFFFF', fontSize: 32.5 }}
+                        />
+                      </Button>
+                      <Button
+                        style={{
+                          width: 65,
+                          height: 65,
+                          borderRadius: 65 / 2,
+                          backgroundColor: '#ED4A6A',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <Icon
+                          name="times"
+                          type="FontAwesome"
+                          style={{ color: '#FFFFFF', fontSize: 32.5 }}
+                        />
+                      </Button>
+                    </CardItem>
+                    <CardItem
+                      style={{
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <Button
+                        style={{
+                          backgroundColor: 'none'
+                        }}
+                      >
+                        <Icon
+                          name="info-circle"
+                          type="FontAwesome"
+                          style={{ color: '#ED4A6A' }}
+                        />
+                      </Button>
+                    </CardItem>
+                    <CardItem>
+                      <Text>{item.description}</Text>
+                    </CardItem>
+                  </Card>
+                )}
+              />
+            </View>
+          </Container>
+        )}
+      </View>
     );
   }
 }
