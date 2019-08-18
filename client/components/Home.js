@@ -10,36 +10,28 @@ export default class Home extends React.Component {
       headerTitle: 'Home',
       headerRight: (
         <Button
-          onPress={() => navigation.navigate("Friends")}
+          onPress={() => navigation.navigate('Friends')}
           title="FRIENDS"
           color="#000"
         />
-      ),
-    }
-
+      )
+    };
   };
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          onPress={() => this.props.navigation.navigate("Friends")}
-        >
+        <Button onPress={() => this.props.navigation.navigate('Friends')}>
           <Text>Add some friends</Text>
-
-
         </Button>
         <Button
           title="User profile"
-          onPress={() => this.props.navigation.navigate("UserProfile")}
-
+          onPress={() => this.props.navigation.navigate('UserProfile')}
         >
-          <Text>
-            User Profile
-        </Text></Button>
+          <Text>User Profile</Text>
+        </Button>
         <Button
           title="Phone login"
-          onPress={() => this.props.navigation.navigate("PhoneLogin")}
-
+          onPress={() => this.props.navigation.navigate('PhoneLogin')}
         >
           <Text>Phone login</Text>
         </Button>
@@ -53,6 +45,9 @@ export default class Home extends React.Component {
           onPress={() => this.props.navigation.navigate('ApartmentSwipe')}
         >
           <Text>Apartment Swipe</Text>
+        </Button>
+        <Button onPress={() => this.props.navigation.navigate('AllMessages')}>
+          <Text>All Messages</Text>
         </Button>
       </View>
     );
