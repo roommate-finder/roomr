@@ -155,21 +155,22 @@ class ApartmentSwipe extends React.Component {
                         />
                       </Button>
                     </CardItem>
+                    <CardItem style={{ justifyContent: 'center' }}>
+                      {this.state.viewInfo === true && (
+                        <View>
+                          <SmallMapView apartment={this.state.currentApt} />
+                          <ApartmentInfo
+                            apartment={this.state.currentApt}
+                            scrollToEnd={this.scrollToEnd}
+                          />
+                        </View>
+                      )}
+                    </CardItem>
                   </Card>
                 )}
               />
             </View>
           </Container>
-        )}
-
-        {this.state.viewInfo === true && (
-          <View>
-            <SmallMapView apartment={this.state.currentApt} />
-            <ApartmentInfo
-              apartment={this.state.currentApt}
-              scrollToEnd={this.scrollToEnd}
-            />
-          </View>
         )}
       </ScrollView>
     );

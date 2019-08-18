@@ -55,7 +55,7 @@ export default class SmallMapView extends React.Component {
 }
 const styles = StyleSheet.create({
   map: {
-    width: 300,
-    height: 300
+    width: 150,
+    height: 150
   }
 });
