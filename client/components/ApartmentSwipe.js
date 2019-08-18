@@ -15,6 +15,7 @@ import {
   Button
 } from 'native-base';
 import ApartmentInfo from './ApartmentInfo';
+import SmallMapView from './SmallMapView';
 import { connect } from 'react-redux';
 import { getApartmentsThunk } from '../store/apartments';
 
@@ -33,7 +34,11 @@ class ApartmentSwipe extends React.Component {
     this.props.getApartments();
   }
   getAptInfo = apartment => {
-    this.setState({ viewInfo: !this.state.viewInfo, currentApt: apartment });
+    // this.setState({ viewInfo: !this.state.viewInfo, currentApt: apartment });
+    this.setState(prevState => ({
+      viewInfo: !prevState.viewInfo,
+      currentApt: apartment
+    }));
     if (this.state.viewInfo === false) {
       this.scrollToEnd();
     } else {
@@ -56,115 +61,116 @@ class ApartmentSwipe extends React.Component {
           this.scrollView = scrollView;
         }}
       >
-        <View>
-          {this.props.apartments.length !== 0 && (
-            <Container>
-              <Header />
-              <View>
-                <DeckSwiper
-                  ref={c => (this._deckSwiper = c)}
-                  dataSource={apartments}
-                  looping={false}
-                  onSwipeLeft={() => this.setState({ viewInfo: false })}
-                  onSwipeRight={() => this.setState({ viewInfo: false })}
-                  renderEmpty={() => (
-                    <View style={{ alignSelf: 'center' }}>
-                      <Text>Over</Text>
-                    </View>
-                  )}
-                  renderItem={item => (
-                    <Card style={{ elevation: 3 }}>
-                      <CardItem>
-                        <Left>
-                          <Thumbnail source={tempImage} />
-                          <Body>
-                            <Text>{item.name}</Text>
-                            <Text note>{item.address}</Text>
-                          </Body>
-                        </Left>
-                      </CardItem>
-                      <CardItem cardBody>
-                        <Image
-                          style={{ height: 300, flex: 1 }}
-                          source={tempImage}
-                        />
-                      </CardItem>
-                      <CardItem
+        {this.props.apartments.length !== 0 && (
+          <Container>
+            <Header />
+            <View>
+              <DeckSwiper
+                ref={c => (this._deckSwiper = c)}
+                dataSource={apartments}
+                looping={false}
+                onSwipeLeft={() => this.setState({ viewInfo: false })}
+                onSwipeRight={() => this.setState({ viewInfo: false })}
+                renderEmpty={() => (
+                  <View style={{ alignSelf: 'center' }}>
+                    <Text>Over</Text>
+                  </View>
+                )}
+                renderItem={item => (
+                  <Card style={{ elevation: 3 }}>
+                    <CardItem>
+                      <Left>
+                        <Thumbnail source={tempImage} />
+                        <Body>
+                          <Text>{item.name}</Text>
+                          <Text note>{item.address}</Text>
+                        </Body>
+                      </Left>
+                    </CardItem>
+                    <CardItem cardBody>
+                      <Image
+                        style={{ height: 300, flex: 1 }}
+                        source={tempImage}
+                      />
+                    </CardItem>
+                    <CardItem
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        marginTop: 20
+                      }}
+                    >
+                      <Button
                         style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-around',
+                          width: 65,
+                          height: 65,
+                          borderRadius: 65 / 2,
+                          backgroundColor: '#ED4A6A',
                           alignItems: 'center',
-                          marginTop: 20
+                          justifyContent: 'center'
                         }}
+                        onPress={() => this._deckSwiper._root.swipeLeft()}
                       >
-                        <Button
-                          style={{
-                            width: 65,
-                            height: 65,
-                            borderRadius: 65 / 2,
-                            backgroundColor: '#ED4A6A',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                          }}
-                          onPress={() => this._deckSwiper._root.swipeLeft()}
-                        >
-                          <Icon
-                            name="times"
-                            type="FontAwesome"
-                            style={{ color: '#FFFFFF', fontSize: 32.5 }}
-                          />
-                        </Button>
-                        <Button
-                          style={{
-                            width: 65,
-                            height: 65,
-                            borderRadius: 65 / 2,
-                            backgroundColor: '#ED4A6A'
-                          }}
-                          onPress={() => this._deckSwiper._root.swipeRight()}
-                        >
-                          <Icon
-                            name="heart"
-                            type="AntDesign"
-                            style={{ color: '#FFFFFF', fontSize: 32.5 }}
-                          />
-                        </Button>
-                      </CardItem>
-                      <CardItem
-                        style={{
-                          justifyContent: 'center',
-                          alignItems: 'center'
-                        }}
-                      >
-                        <Button
-                          style={{
-                            backgroundColor: 'none'
-                          }}
-                          onPress={() => {
-                            this.getAptInfo(item);
-                          }}
-                        >
-                          <Icon
-                            name="info-circle"
-                            type="FontAwesome"
-                            style={{ color: '#ED4A6A' }}
-                          />
-                        </Button>
-                      </CardItem>
-                      {this.state.viewInfo === true && (
-                        <ApartmentInfo
-                          name="scroll-to-element"
-                          id="scroll-to-element"
-                          apartment={this.state.currentApt}
+                        <Icon
+                          name="times"
+                          type="FontAwesome"
+                          style={{ color: '#FFFFFF', fontSize: 32.5 }}
                         />
-                      )}
-                    </Card>
-                  )}
-                />
-              </View>
-            </Container>
-          )}
-        </View>
+                      </Button>
+                      <Button
+                        style={{
+                          width: 65,
+                          height: 65,
+                          borderRadius: 65 / 2,
+                          backgroundColor: '#ED4A6A'
+                        }}
+                        onPress={() => this._deckSwiper._root.swipeRight()}
+                      >
+                        <Icon
+                          name="heart"
+                          type="AntDesign"
+                          style={{ color: '#FFFFFF', fontSize: 32.5 }}
+                        />
+                      </Button>
+                    </CardItem>
+                    <CardItem
+                      style={{
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <Button
+                        style={{
+                          backgroundColor: 'none'
+                        }}
+                        onPress={() => {
+                          this.getAptInfo(item);
+                        }}
+                      >
+                        <Icon
+                          name="info-circle"
+                          type="FontAwesome"
+                          style={{ color: '#ED4A6A' }}
+                        />
+                      </Button>
+                    </CardItem>
+                  </Card>
+                )}
+              />
+            </View>
+          </Container>
+        )}
+
+        {this.state.viewInfo === true && (
+          <View>
+            <SmallMapView apartment={this.state.currentApt} />
+            <ApartmentInfo
+              apartment={this.state.currentApt}
+              scrollToEnd={this.scrollToEnd}
+            />
+          </View>
+        )}
       </ScrollView>
     );
   }

@@ -7,19 +7,25 @@ class ApartmentInfo extends React.Component {
     super();
     this.state = {};
   }
+
   render() {
     const { apartment } = this.props;
     return (
       <View>
-        <Text>Building: {apartment.name}</Text>
-        <Text>
-          Address: {apartment.address}, Unit#{apartment.unit}
-        </Text>
-        <Text>
-          {apartment.city} {apartment.state}, {apartment.zip}
-        </Text>
+        <View>
+          <Text>Building: {apartment.name}</Text>
+          <Text>
+            Address: {apartment.address}, Unit#{apartment.unit}
+          </Text>
+          <Text>
+            {apartment.city} {apartment.state}, {apartment.zip}
+          </Text>
+          <Text>Rent: ${apartment.monthlyRent}</Text>
+        </View>
 
-        <Text>Rent: ${apartment.monthlyRent}</Text>
+        <Text style={{ paddingTop: 20 }}>
+          Description: {apartment.description}
+        </Text>
       </View>
     );
   }
