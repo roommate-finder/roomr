@@ -23,7 +23,7 @@ import {
 } from 'native-base';
 // import * as Font from 'expo-font';
 import { connect } from 'react-redux';
-import { setUserThunk } from '../store/users';
+import { setUserThunk } from '../store/user';
 
 class PhoneLogin extends React.Component {
   constructor() {
