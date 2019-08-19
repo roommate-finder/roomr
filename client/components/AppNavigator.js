@@ -8,9 +8,11 @@ import PhoneLogin from './PhoneLogin';
 import FullMapView from './FullMapView';
 import ApartmentSwipe from './ApartmentSwipe';
 import HomeScreen from './HomeScreen';
+import Signup from './Signup';
 
 const AppNavigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
+  Signup: { screen: Signup },
   PhoneLogin: { screen: PhoneLogin },
   Home: { screen: Home },
   Friends: { screen: Friends },

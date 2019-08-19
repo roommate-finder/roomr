@@ -30,6 +30,24 @@ router.put('/login', async (req, res, next) => {
   }
 });
 
+router.post('/signup', async (req, res, next) => {
+  try {
+    const user = await User.create({
+      phone: req.body.phone,
+      password: req.body.password
+    });
+    if (user) {
+      res.json(user);
+    } else {
+      const err = new Error('Error creating new user');
+      err.status = 500;
+      next(err);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);

@@ -1,8 +1,8 @@
 const User = require('./user');
 const Apartment = require('./apartment');
 
-// User.hasMany(Apartment)
-// Apartment.belongsToMany(User)
+User.belongsToMany(Apartment, { through: 'user-apartment' });
+Apartment.belongsToMany(User, { through: 'user-apartment' });
 
 module.exports = {
   User,

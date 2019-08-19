@@ -19,13 +19,10 @@ export default class HomeScreen extends Component {
         <View style={{ justifyContent: 'center', alignContent: 'center' }}>
           <Text>ROOMR</Text>
         </View>
-        <Button
-          title="Phone login"
-          onPress={() => this.props.navigation.navigate('PhoneLogin')}
-        >
+        <Button onPress={() => this.props.navigation.navigate('PhoneLogin')}>
           <Text>Phone login</Text>
         </Button>
-        <Button>
+        <Button onPress={() => this.props.navigation.navigate('Signup')}>
           <Text>Signup</Text>
         </Button>
       </Container>
