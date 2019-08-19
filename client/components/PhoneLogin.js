@@ -28,22 +28,35 @@ import { setUserThunk } from '../store/user';
 class PhoneLogin extends React.Component {
   constructor() {
     super();
-    this.state = { phoneNumber: '', text: '' };
+    this.state = { phone: '', password: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  handleSubmit() {
+    this.props.setUser(this.state);
+    this.props.navigation.navigate('Home');
   }
   render() {
     return (
       <View style={{ padding: 10 }}>
-        <Form onSubmit={this.handleSubmit}>
+        <Form>
           <Item fixedLabel>
             <Label>Phone number</Label>
-            <Input value={this.state.phoneNumber} />
+            <Input
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+              value={this.state.phone}
+              onChangeText={text => this.setState({ phone: text })}
+            />
           </Item>
-          <Button onPress={() => this.props.navigation.navigate('Home')}>
+          <Item fixedLabel>
+            <Label>Password</Label>
+            <Input
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+              value={this.state.password}
+              onChangeText={text => this.setState({ password: text })}
+            />
+          </Item>
+          <Button onPress={() => this.handleSubmit()}>
             <Text>Submit</Text>
           </Button>
         </Form>
@@ -71,4 +84,7 @@ const mapDispatchToProps = dispatch => ({
   setUser: user => dispatch(setUserThunk(user))
 });
 
-export default connect(mapStateToProps)(PhoneLogin);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PhoneLogin);
