@@ -5,6 +5,7 @@ import axios from 'axios';
  */
 const SET_USER = 'SET_USER';
 const CREATE_USER = 'CREATE_USER';
+
 /**
  * ACTION CREATORS
  */
@@ -21,6 +22,7 @@ export const setUserThunk = formData => async dispatch => {
       `https://8e6d7c94.ngrok.io/api/users/login`,
       formData
     );
+
     dispatch(setUser(data));
   } catch (err) {
     console.error(err);
