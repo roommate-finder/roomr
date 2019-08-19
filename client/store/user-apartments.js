@@ -15,11 +15,15 @@ const createUserApartment = ids => ({ type: CREATE_USER_APARTMENT, ids });
  * THUNK CREATORS
  */
 
-export const createUserApartmentThunk = ids => async dispatch => {
+export const createUserApartmentThunk = (
+  apartmentId,
+  userId,
+  likedBoolean
+) => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://8e6d7c94.ngrok.io/api/user-apartments/create`,
-      ids
+      `https://fd45d917.ngrok.io/api/user-apartment/create`,
+      { apartmentId: apartmentId, userId: userId, liked: likedBoolean }
     );
     dispatch(createUserApartment(data));
   } catch (err) {
