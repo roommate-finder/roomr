@@ -10,19 +10,10 @@ const CREATE_USER = 'CREATE_USER';
  */
 const setUser = user => ({ type: SET_USER, user });
 const createUser = user => ({ type: CREATE_USER, user });
+
 /**
  * THUNK CREATORS
  */
-// export const setUserThunk = user => async dispatch => {
-//   try {
-//     const { data } = await axios.get(
-//       ` https://8e6d7c94.ngrok.io/api/user/${user.id}`
-//     );
-//     dispatch(setUser(data));
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
 
 export const setUserThunk = formData => async dispatch => {
   try {
