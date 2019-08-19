@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, ScrollView } from 'react-native';
 import {
   Container,
   Header,
@@ -14,6 +14,8 @@ import {
   Icon,
   Button
 } from 'native-base';
+import ApartmentInfo from './ApartmentInfo';
+import SmallMapView from './SmallMapView';
 import { connect } from 'react-redux';
 import { getApartmentsThunk } from '../store/apartments';
 
@@ -21,19 +23,59 @@ import { getApartmentsThunk } from '../store/apartments';
 const tempImage = require('../images/kitten.jpeg');
 
 class ApartmentSwipe extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      viewInfo: false,
+      currentApt: {}
+    };
+  }
   componentDidMount() {
     this.props.getApartments();
   }
+  getAptInfo = apartment => {
+    // this.setState({ viewInfo: !this.state.viewInfo, currentApt: apartment });
+    this.setState(prevState => ({
+      viewInfo: !prevState.viewInfo,
+      currentApt: apartment
+    }));
+    if (this.state.viewInfo === false) {
+      this.scrollToEnd();
+    } else {
+      this.scrollToTop();
+    }
+  };
+
+  scrollToEnd = () => {
+    this.scrollView.scrollToEnd();
+  };
+  scrollToTop = () => {
+    this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
+  };
+
   render() {
     const { apartments } = this.props;
     return (
-      <View>
+      <ScrollView
+        ref={scrollView => {
+          this.scrollView = scrollView;
+        }}
+      >
         {this.props.apartments.length !== 0 && (
           <Container>
             <Header />
             <View>
               <DeckSwiper
+                ref={c => (this._deckSwiper = c)}
                 dataSource={apartments}
+                looping={false}
+                onSwipeLeft={() => this.setState({ viewInfo: false })}
+                onSwipeRight={() => this.setState({ viewInfo: false })}
+                renderEmpty={() => (
+                  <View style={{ alignSelf: 'center' }}>
+                    <Text>Over</Text>
+                  </View>
+                )}
                 renderItem={item => (
                   <Card style={{ elevation: 3 }}>
                     <CardItem>
@@ -64,12 +106,15 @@ class ApartmentSwipe extends React.Component {
                           width: 65,
                           height: 65,
                           borderRadius: 65 / 2,
-                          backgroundColor: '#ED4A6A'
+                          backgroundColor: '#ED4A6A',
+                          alignItems: 'center',
+                          justifyContent: 'center'
                         }}
+                        onPress={() => this._deckSwiper._root.swipeLeft()}
                       >
                         <Icon
-                          name="heart"
-                          type="AntDesign"
+                          name="times"
+                          type="FontAwesome"
                           style={{ color: '#FFFFFF', fontSize: 32.5 }}
                         />
                       </Button>
@@ -78,14 +123,13 @@ class ApartmentSwipe extends React.Component {
                           width: 65,
                           height: 65,
                           borderRadius: 65 / 2,
-                          backgroundColor: '#ED4A6A',
-                          alignItems: 'center',
-                          justifyContent: 'center'
+                          backgroundColor: '#ED4A6A'
                         }}
+                        onPress={() => this._deckSwiper._root.swipeRight()}
                       >
                         <Icon
-                          name="times"
-                          type="FontAwesome"
+                          name="heart"
+                          type="AntDesign"
                           style={{ color: '#FFFFFF', fontSize: 32.5 }}
                         />
                       </Button>
@@ -100,6 +144,9 @@ class ApartmentSwipe extends React.Component {
                         style={{
                           backgroundColor: 'none'
                         }}
+                        onPress={() => {
+                          this.getAptInfo(item);
+                        }}
                       >
                         <Icon
                           name="info-circle"
@@ -108,8 +155,16 @@ class ApartmentSwipe extends React.Component {
                         />
                       </Button>
                     </CardItem>
-                    <CardItem>
-                      <Text>{item.description}</Text>
+                    <CardItem style={{ justifyContent: 'center' }}>
+                      {this.state.viewInfo === true && (
+                        <View>
+                          <SmallMapView apartment={this.state.currentApt} />
+                          <ApartmentInfo
+                            apartment={this.state.currentApt}
+                            scrollToEnd={this.scrollToEnd}
+                          />
+                        </View>
+                      )}
                     </CardItem>
                   </Card>
                 )}
@@ -117,7 +172,7 @@ class ApartmentSwipe extends React.Component {
             </View>
           </Container>
         )}
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -136,68 +191,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(ApartmentSwipe);
-
-/* BEFORE ADDING SWIPE COMPONENT */
-// <Button light style={{ width: 65, height: 65, borderRadius: 65 / 2 }} onPress={() => this.props.navigation.navigate("EditProfile")}>
-//                      <Icon type="FontAwesome" name="pencil" />
-//                  </Button>
-// render() {
-//   return (
-//     <View>
-//       <View
-// style={{
-//   justifyContent: 'center',
-//   alignItems: 'center'
-// }}
-//       >
-//         <Image
-//           style={{
-// width: 350,
-// height: 350,
-//             marginTop: 80
-//           }}
-//           source={require('../images/kitten.jpeg')}
-//         />
-//       </View>
-//       <View
-// style={{
-//   flexDirection: 'row',
-//   justifyContent: 'space-around',
-//   alignItems: 'center'
-// }}
-//       >
-//         <Image
-//           style={{
-//             width: 64,
-//             height: 64,
-//             marginTop: 50
-//           }}
-//           source={require('../images/x-icon.png')}
-//         />
-//         <Image
-//           style={{
-//             width: 64,
-//             height: 64,
-//             marginTop: 50
-//           }}
-//           source={require('../images/heart-icon.png')}
-//         />
-//       </View>
-//       <View
-//         style={{
-//           justifyContent: 'center',
-//           alignItems: 'center'
-//         }}
-//       >
-//         <Image
-//           style={{
-//             marginTop: 20,
-//             width: 40,
-//             height: 40
-//           }}
-//           source={require('../images/info-icon.png')}
-//         />
-//       </View>
-//     </View>
-//   );
-// }
