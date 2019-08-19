@@ -3,12 +3,12 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const SET_USER = 'GET_USER'
+const SET_USER = 'SET_USER'
 
 /**
  * ACTION CREATORS
  */
-const setUser = user => ({ type: GET_USER, user })
+const setUser = user => ({ type: SET_USER, user })
 
 
 /**
@@ -16,8 +16,8 @@ const setUser = user => ({ type: GET_USER, user })
  */
 export const setUserThunk = (phone) => async dispatch => {
     try {
-        const { data } = await axios.get(`https://f5eac778.ngrok.io/api/users/${phone}`)
-        dispatch(getUser(data))
+        const { data } = await axios.get(` https://efdaf4f1.ngrok.io/api/users/${phone}`)
+        dispatch(setUser(data))
     } catch (err) {
         console.error(err)
     }

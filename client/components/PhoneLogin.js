@@ -12,15 +12,25 @@ class PhoneLogin extends React.Component {
         super();
         this.state = { phoneNumber: '', text: '' }
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
 
     handleSubmit(event) {
         event.preventDefault();
         this.props.setUser(1234567)
+        // this.props.setUser(this.state.phoneNumber)
+        console.log('----USER-----', this.props.user)
         this.props.navigation.navigate("Home")
     }
+    handleChange(event) {
+        console.log('EVENT', event)
+        console.log('EVENT.TEXT', event.nativeEvent.text)
+        // this.setState({ phoneNumber: event.nativeEvent.text });
+
+    }
+
     render() {
-        console.log('props', this.props)
+
 
         return (
             <View style={{ padding: 10 }}>
@@ -28,7 +38,8 @@ class PhoneLogin extends React.Component {
                     <Text> HI</Text>
                     <Item fixedLabel>
                         <Label>Phone number</Label>
-                        <Input value={this.state.phoneNumber} />
+                        {/* <Input value={this.state.phoneNumber} onChange={this.handleChange} /> */}
+                        <Input />
                     </Item>
                     <Button onPress={this.handleSubmit}>
                         <Text>Submit</Text>
