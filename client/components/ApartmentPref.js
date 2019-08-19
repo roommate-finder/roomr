@@ -3,10 +3,10 @@ import { Button } from 'react-native'
 import { Container, Header, Content, Form, Item, Input, Label, Picker, Icon, Text } from 'native-base';
 import { connect } from 'react-redux';
 
-class EditProfile extends Component {
+class ApartmentPref extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
-            headerTitle: 'Edit Profile',
+            headerTitle: 'Apartment Preferences',
             headerRight: (
                 <Button
                     onPress={() => navigation.navigate("UserProfile")}
@@ -62,4 +62,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps)(EditProfile)
+export default connect(mapStateToProps)(ApartmentPref)

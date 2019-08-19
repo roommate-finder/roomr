@@ -57,6 +57,11 @@ export default class Home extends React.Component {
                         <Icon type="FontAwesome" name="cog" />
                     </Button>
 
+                    <Button style={{ width: 65, height: 65, borderRadius: 65 / 2 }} light onPress={() => this.props.navigation.navigate("ApartmentPref")}>
+                        <Text>Apartment Preferences</Text>
+                    </Button>
+
+
 
                 </View>
 

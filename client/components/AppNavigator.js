@@ -7,7 +7,7 @@ import EditProfile from './EditProfile'
 import PhoneLogin from './PhoneLogin'
 import FullMapView from './FullMapView';
 import ApartmentSwipe from './ApartmentSwipe';
-
+import ApartmentPref from './ApartmentPref';
 
 
 const AppNavigator = createStackNavigator({
@@ -19,7 +19,8 @@ const AppNavigator = createStackNavigator({
   EditProfile: { screen: EditProfile },
 
   FullMapView: { screen: FullMapView },
-  ApartmentSwipe: { screen: ApartmentSwipe }
+  ApartmentSwipe: { screen: ApartmentSwipe },
+  ApartmentPref: { screen: ApartmentPref }
 });
 
 const AppContainer = createAppContainer(AppNavigator);
