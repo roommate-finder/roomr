@@ -49,6 +49,9 @@ export default class Home extends React.Component {
         <Button onPress={() => this.props.navigation.navigate('AllMessages')}>
           <Text>All Messages</Text>
         </Button>
+        <Button onPress={() => this.props.navigation.navigate('SingleMessage')}>
+          <Text>Single Message</Text>
+        </Button>
       </View>
     );
   }

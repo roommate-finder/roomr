@@ -158,14 +158,14 @@ export default class AllMessages extends React.Component {
               marginLeft: 12
             }}
           >
-            <Icon
+            {/* <Icon
               name="user-circle"
               class="far fa-user-circle"
               style={{
                 fontSize: 56
               }}
-            />
-            <Icon
+            /> */}
+            {/* <Icon
               name="user-circle"
               class="far fa-user-circle"
               style={{
@@ -186,7 +186,7 @@ export default class AllMessages extends React.Component {
               style={{
                 fontSize: 56
               }}
-            />
+            /> */}
           </Container>
           <Container
             style={{
@@ -219,7 +219,7 @@ export default class AllMessages extends React.Component {
               </Title>
               <Text>Heyy, what's up!</Text>
             </Header>
-            <Header
+            {/* <Header
               style={{
                 flexDirection: 'column',
                 justifyContent: 'space-around',
@@ -294,7 +294,7 @@ export default class AllMessages extends React.Component {
               </Title>
 
               <Text>So what's your number?</Text>
-            </Header>
+            </Header> */}
           </Container>
           {/* </Container> */}
         </Container>

@@ -1,23 +1,24 @@
-import React from "react";
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { Constants } from "expo";
-import Login from "./Login";
-import * as firebase from "firebase";
-import axios from "axios";
-import AppNavigator from "./AppNavigator";
+import React from 'react';
+import * as Font from 'expo-font';
+import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { Constants, AppLoading } from 'expo';
+import Login from './Login';
+import * as firebase from 'firebase';
+import axios from 'axios';
+import AppNavigator from './AppNavigator';
 //Redux stuff
-import { Provider } from "react-redux";
-import store from "../store";
+import { Provider } from 'react-redux';
+import store from '../store';
 
 var firebaseConfig = {
-  apiKey: "AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI",
-  authDomain: "capstone-roomr.firebaseapp.com",
-  databaseURL: "https://capstone-roomr.firebaseio.com",
-  projectId: "capstone-roomr",
-  storageBucket: "",
-  messagingSenderId: "759179201870",
-  appId: "1:759179201870:web:c501209350a62fde"
+  apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
+  authDomain: 'capstone-roomr.firebaseapp.com',
+  databaseURL: 'https://capstone-roomr.firebaseio.com',
+  projectId: 'capstone-roomr',
+  storageBucket: '',
+  messagingSenderId: '759179201870',
+  appId: '1:759179201870:web:c501209350a62fde'
 };
 // Initialize Firebase
 // firebase.initializeApp(firebaseConfig);
@@ -26,9 +27,27 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      possibleFriends: ["Allie", "Gator", "Lizzie"],
-      currentFriends: []
+      possibleFriends: ['Allie', 'Gator', 'Lizzie'],
+      currentFriends: [],
+      fontsAreLoaded: false
     };
+  }
+  async componentDidMount() {
+    await Font.loadAsync({
+      'Rubik-Black': require('../../node_modules/@shoutem/ui/fonts/Rubik-Black.ttf'),
+      'Rubik-BlackItalic': require('../../node_modules/@shoutem/ui/fonts/Rubik-BlackItalic.ttf'),
+      'Rubik-Bold': require('../../node_modules/@shoutem/ui/fonts/Rubik-Bold.ttf'),
+      'Rubik-BoldItalic': require('../../node_modules/@shoutem/ui/fonts/Rubik-BoldItalic.ttf'),
+      'Rubik-Italic': require('../../node_modules/@shoutem/ui/fonts/Rubik-Italic.ttf'),
+      'Rubik-Light': require('../../node_modules/@shoutem/ui/fonts/Rubik-Light.ttf'),
+      'Rubik-LightItalic': require('../../node_modules/@shoutem/ui/fonts/Rubik-LightItalic.ttf'),
+      'Rubik-Medium': require('../../node_modules/@shoutem/ui/fonts/Rubik-Medium.ttf'),
+      'Rubik-MediumItalic': require('../../node_modules/@shoutem/ui/fonts/Rubik-MediumItalic.ttf'),
+      'Rubik-Regular': require('../../node_modules/@shoutem/ui/fonts/Rubik-Regular.ttf'),
+      'rubicon-icon-font': require('../../node_modules/@shoutem/ui/fonts/rubicon-icon-font.ttf')
+    });
+
+    this.setState({ fontsAreLoaded: true });
   }
   addFriend = index => {
     const { currentFriends, possibleFriends } = this.state;
@@ -108,6 +127,9 @@ export default class App extends React.Component {
   //   newMessage.set(this.state.message, () => this.setState({ message: '' }));
   // }
   render() {
+    if (!this.state.fontsAreLoaded) {
+      return <AppLoading />;
+    }
     return (
       <Provider store={store}>
         <AppNavigator

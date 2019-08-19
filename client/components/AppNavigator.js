@@ -8,7 +8,7 @@ import EditProfile from './EditProfile';
 import PhoneLogin from './PhoneLogin';
 import FullMapView from './FullMapView';
 import ApartmentSwipe from './ApartmentSwipe';
-
+import SingleMessage from './SingleMessage';
 const AppNavigator = createStackNavigator({
   PhoneLogin: { screen: PhoneLogin },
   Home: { screen: Home },
@@ -18,7 +18,8 @@ const AppNavigator = createStackNavigator({
   UserProfile: { screen: UserProfile },
   EditProfile: { screen: EditProfile },
   FullMapView: { screen: FullMapView },
-  ApartmentSwipe: { screen: ApartmentSwipe }
+  ApartmentSwipe: { screen: ApartmentSwipe },
+  SingleMessage: { screen: SingleMessage }
 });
 
 const AppContainer = createAppContainer(AppNavigator);

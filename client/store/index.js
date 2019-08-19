@@ -4,8 +4,8 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import apartments from './apartments';
-
-const reducer = combineReducers({ user, apartments });
+import chatroom from './chatroom';
+const reducer = combineReducers({ user, apartments, chatroom });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
