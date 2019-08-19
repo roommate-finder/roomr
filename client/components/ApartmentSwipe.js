@@ -18,6 +18,7 @@ import ApartmentInfo from './ApartmentInfo';
 import SmallMapView from './SmallMapView';
 import { connect } from 'react-redux';
 import { getApartmentsThunk } from '../store/apartments';
+import { createUserApartmentThunk } from '../store/user-apartments';
 
 //because database does not currently have images
 const tempImage = require('../images/kitten.jpeg');
@@ -179,12 +180,14 @@ class ApartmentSwipe extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    user: state.user,
     apartments: state.apartments
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  getApartments: () => dispatch(getApartmentsThunk())
+  getApartments: () => dispatch(getApartmentsThunk()),
+  createUserApartment: () => dispatch(createUserApartmentThunk)
 });
 
 export default connect(

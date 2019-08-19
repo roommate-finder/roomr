@@ -21,19 +21,18 @@ import {
   Label,
   Input
 } from 'native-base';
-// import * as Font from 'expo-font';
 import { connect } from 'react-redux';
-import { setUserThunk } from '../store/user';
+import { createUserThunk } from '../store/user';
 
 class PhoneLogin extends React.Component {
   constructor() {
     super();
-    this.state = { phone: '', password: '' };
+    this.state = { phone: '', password: '', firstName: '', lastName: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
-    this.props.setUser(this.state);
+    this.props.createUser(this.state);
     this.props.navigation.navigate('Home');
   }
   render() {
@@ -81,7 +80,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  setUser: user => dispatch(setUserThunk(user))
+  createUser: user => dispatch(createUserThunk(user))
 });
 
 export default connect(
