@@ -3,12 +3,12 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const SET_USER = 'GET_USER'
+const SET_USER = 'SET_USER'
 
 /**
  * ACTION CREATORS
  */
-const setUser = user => ({ type: GET_USER, user })
+const setUser = user => ({ type: SET_USER, user })
 
 
 /**
