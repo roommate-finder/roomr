@@ -11,4 +11,13 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:apartmentId', async (req, res, next) => {
+  try {
+    const apartment = await Apartment.findByPk(req.params.apartmentId);
+    res.json(apartment);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
