@@ -19,7 +19,7 @@ const createUser = user => ({ type: CREATE_USER, user });
 export const setUserThunk = formData => async dispatch => {
   try {
     const { data } = await axios.put(
-      `https://8e6d7c94.ngrok.io/api/users/login`,
+      `https://fd45d917.ngrok.io/api/users/login`,
       formData
     );
 
@@ -32,7 +32,7 @@ export const setUserThunk = formData => async dispatch => {
 export const createUserThunk = formData => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://8e6d7c94.ngrok.io/api/users/signup`,
+      `https://fd45d917.ngrok.io/api/users/signup`,
       formData
     );
     dispatch(createUser(data));
