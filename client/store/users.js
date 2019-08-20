@@ -8,7 +8,7 @@ const SET_USER = 'GET_USER';
 /**
  * ACTION CREATORS
  */
-const setUser = user => ({ type: GET_USER, user });
+const setUser = user => ({ type: SET_USER, user });
 
 /**
  * THUNK CREATORS
@@ -18,7 +18,7 @@ export const setUserThunk = user => async dispatch => {
     const { data } = await axios.get(
       ` ${ngrok}/api/user/${user.id}`
     );
-    dispatch(getUser(data));
+    dispatch(setUser(data));
   } catch (err) {
     console.error(err);
   }

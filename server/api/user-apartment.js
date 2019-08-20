@@ -1,12 +1,23 @@
 const router = require('express').Router();
 const { UserApartment } = require('../db/models');
 
+router.get('/', async (req, res, next) => {
+  try {
+    const userApartments = await UserApartment.findAll();
+    res.json(userApartments);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/create', async (req, res, next) => {
   try {
     const userApartment = await UserApartment.create({
+      apartmentId: req.body.apartmentId,
       userId: req.body.userId,
-      apartmentId: req.body.apartmentId
+      liked: req.body.liked
     });
+    console.log('TCL: userApartment', userApartment);
     if (userApartment) {
       res.json(userApartment);
     } else {
@@ -18,6 +29,5 @@ router.post('/create', async (req, res, next) => {
     next(err);
   }
 });
-
 
 module.exports = router;
