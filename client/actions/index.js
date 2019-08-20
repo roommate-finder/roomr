@@ -15,8 +15,8 @@ export const sendMessage = (text, user) => {
       text: text,
       time: Date.now(),
       author: {
-        name: user.name,
-        avatar: user.avatar
+        firstName: user.firstName,
+        photo: user.photo
       }
     };
     const newMsgRef = firebase

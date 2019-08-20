@@ -12,13 +12,13 @@ import {
 } from '@shoutem/ui';
 
 import moment from 'moment';
-
+// require('../../assets/images/08.jpg');
 // source={{ uri: msg.author.avatar }} />
 const Message = ({ msg }) => (
   <Row>
     <Image
       styleName="small-avator top"
-      source={require('../../assets/images/08.jpg')}
+      source={require("../../assets/images/cody'.png")}
       style={{
         width: 30,
         height: 30
@@ -26,7 +26,7 @@ const Message = ({ msg }) => (
     />
     <View styleName="vertical">
       <View styleName="horizontal space-between">
-        <Subtitle>{msg.author.name}</Subtitle>
+        <Subtitle>{msg.author.firstName}</Subtitle>
         <Caption>{moment(msg.time).from(Date.now())}</Caption>
       </View>
       <Text styleName="multiline">{msg.text}</Text>

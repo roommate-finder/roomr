@@ -18,7 +18,7 @@ const createUserApartment = ids => ({ type: CREATE_USER_APARTMENT, ids });
 export const createUserApartmentThunk = ids => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://8e6d7c94.ngrok.io/api/user-apartments/create`,
+      `https://7ab41a34.ngrok.io/api/user-apartments/create`,
       ids
     );
     dispatch(createUserApartment(data));

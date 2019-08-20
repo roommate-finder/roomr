@@ -14,15 +14,17 @@ const loggerMiddleware = createLogger();
 
 import { Examples } from '@shoutem/ui';
 
-const LoginOrChat = connect(state => ({
-  authorized: state.user.authorized
-}))(({ authorized }) => {
-  if (authorized) {
-    return <ChatUI />;
-  } else {
-    return null;
-  }
-});
+const LoginOrChat = () => {
+  //   authorized: state.user.authorized
+  // }))(({ authorized }) => {
+  //   if (authorized) {
+  //     return <ChatUI />;
+  //   } else {
+  //     return null;
+
+  //   }
+  return <ChatUI />;
+};
 
 class SingleMessage extends Component {
   render() {

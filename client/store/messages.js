@@ -12,8 +12,8 @@ const message = (state, action) => {
         text: action.text,
         time: Date.now(),
         author: {
-          name: action.user.name,
-          avatar: action.user.avatar
+          name: action.user.firstName,
+          photo: action.user.photo
         }
       };
       const newMsgRef = firebase
