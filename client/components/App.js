@@ -9,19 +9,10 @@ import AppNavigator from './AppNavigator';
 //Redux stuff
 import { Provider } from 'react-redux';
 import store from '../store';
+import { FirebaseWrapper } from '../../firebase/firebase';
+import { firebaseConfig } from '../../firebase/config';
 
-
-var firebaseConfig = {
-  apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
-  authDomain: 'capstone-roomr.firebaseapp.com',
-  databaseURL: 'https://capstone-roomr.firebaseio.com',
-  projectId: 'capstone-roomr',
-  storageBucket: '',
-  messagingSenderId: '759179201870',
-  appId: '1:759179201870:web:c501209350a62fde'
-};
-// Initialize Firebase
-// firebase.initializeApp(firebaseConfig);
+FirebaseWrapper.GetInstance().Initialize(firebaseConfig);
 
 export default class App extends React.Component {
   constructor(props) {
@@ -113,7 +104,6 @@ export default class App extends React.Component {
             addFriend: this.addFriend
           }}
         />
-
       </Provider>
 
       // <View style={styles.container}>

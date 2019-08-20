@@ -23,7 +23,7 @@ export const getApartmentsThunk = () => {
   return async dispatch => {
     try {
       const { data } = await axios.get(
-        'https://fd45d917.ngrok.io/api/apartments'
+        'https://09e865df.ngrok.io/api/apartments'
       );
       await dispatch(getApartments(data));
     } catch (err) {

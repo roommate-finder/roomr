@@ -22,7 +22,7 @@ export const createUserApartmentThunk = (
 ) => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://fd45d917.ngrok.io/api/user-apartment/create`,
+      `https://09e865df.ngrok.io/api/user-apartment/create`,
       { apartmentId: apartmentId, userId: userId, liked: likedBoolean }
     );
     dispatch(createUserApartment(data));

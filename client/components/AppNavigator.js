@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator({
   PhoneLogin: { screen: PhoneLogin },
   Home: { screen: Home },
   Friends: { screen: Friends },
-  Login: { screen: Login },
+  // Login: { screen: Login },
   UserProfile: { screen: UserProfile },
   EditProfile: { screen: EditProfile },
 
