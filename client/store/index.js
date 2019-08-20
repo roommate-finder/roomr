@@ -5,9 +5,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import apartments from './apartments';
 import feed from './feed';
-import userApartments from './user-apartments';
+import users from './users'
 
-const reducer = combineReducers({ user, apartments, feed, userApartments });
+const reducer = combineReducers({ user, apartments, feed, users });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
