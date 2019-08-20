@@ -26,6 +26,12 @@ const user = (state = initialState, action) => {
         authorizing: false,
         authorized: true
       });
+    case 'USER_NO_EXIST':
+      return Object.assign({}, state, {
+        authorizing: false,
+        authorized: false
+      });
+
     default:
       return state;
   }

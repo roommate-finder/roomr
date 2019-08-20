@@ -1,6 +1,8 @@
 import React from 'react';
+import { ImageBackground, Dimensions } from 'react-native';
 import {
   ListView,
+  View,
   Text,
   Row,
   Image,
@@ -11,9 +13,17 @@ import {
 
 import moment from 'moment';
 
+// source={{ uri: msg.author.avatar }} />
 const Message = ({ msg }) => (
   <Row>
-    <Image styleName="small-avator top" source={{ uri: msg.author.avatar }} />
+    <Image
+      styleName="small-avator top"
+      source={require('../../assets/images/08.jpg')}
+      style={{
+        width: 30,
+        height: 30
+      }}
+    />
     <View styleName="vertical">
       <View styleName="horizontal space-between">
         <Subtitle>{msg.author.name}</Subtitle>
