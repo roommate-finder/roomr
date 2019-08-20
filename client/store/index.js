@@ -10,6 +10,7 @@ const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 const store = createStore(reducer, middleware);
+export const ngrok = 'https://a87261d7.ngrok.io'
 
 export default store;
 // export * from './user'

@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { ngrok } from './'
 /**
  * ACTION TYPES
  */
@@ -22,8 +22,9 @@ export const getApartments = apartments => ({
 export const getApartmentsThunk = () => {
   return async dispatch => {
     try {
+
       const { data } = await axios.get(
-        'https://8e6d7c94.ngrok.io/api/apartments'
+        `${ngrok}/api/apartments`
       );
       await dispatch(getApartments(data));
     } catch (err) {

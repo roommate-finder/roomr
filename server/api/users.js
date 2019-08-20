@@ -48,6 +48,18 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
+router.put('/:userId', async (req, res, next) => {
+  try {
+    console.log('INSIDE PUT REQ')
+    const userToEdit = await User.findByPk(Number(req.params.userId))
+    const user = await userToEdit.update(req.body)
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+
+})
+
 router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);

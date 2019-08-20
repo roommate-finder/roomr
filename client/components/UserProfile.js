@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text, Thumbnail, Grid, Col } from 'native-base';
 // import * as Font from 'expo-font';
+import { connect } from 'react-redux'
 
-export default class Home extends React.Component {
+class UserProfile extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: <Icon type="FontAwesome" name="user" style={{ color: 'grey' }} />,
@@ -32,11 +33,14 @@ export default class Home extends React.Component {
                 >
                     <Thumbnail style={{ width: 150, height: 150, borderRadius: 150 / 2 }} source={{ uri: uri }} />
                     <Text>
-                        Cody C.
-               </Text>
+                        {this.props.user.firstName}
+                    </Text>
                     <Text>
-                        Fullstack Developer, 25
-                </Text>
+                        {this.props.user.email}
+                    </Text>
+                    <Text>
+                        {this.props.user.job}
+                    </Text>
 
 
                 </View>
@@ -101,3 +105,14 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     }
 });
+
+
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+
+export default connect(mapStateToProps)(UserProfile)
