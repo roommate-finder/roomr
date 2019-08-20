@@ -16,7 +16,7 @@ const setUser = user => ({ type: GET_USER, user });
 export const setUserThunk = user => async dispatch => {
   try {
     const { data } = await axios.get(
-      `https://d4ca50f0.ngrok.io/api/user/${user.id}`
+      ` https://8e6d7c94.ngrok.io/api/user/${user.id}`
     );
     dispatch(getUser(data));
   } catch (err) {

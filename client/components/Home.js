@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'native-base';
-
+import { connect } from 'react-redux';
 // import * as Font from 'expo-font';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Home',
@@ -20,6 +20,9 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text>
+          Hello, {this.props.user.firstName} {this.props.user.lastName}!
+        </Text>
         <Button onPress={() => this.props.navigation.navigate('Friends')}>
           <Text>Add some friends</Text>
         </Button>
@@ -56,6 +59,11 @@ export default class Home extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -65,3 +73,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
+
+export default connect(mapStateToProps)(Home);
