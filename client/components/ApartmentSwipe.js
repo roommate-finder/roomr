@@ -128,7 +128,15 @@ class ApartmentSwipe extends React.Component {
                           alignItems: 'center',
                           justifyContent: 'center'
                         }}
-                        onPress={() => this._deckSwiper._root.swipeLeft()}
+                        onPress={() => {
+                          this._deckSwiper._root.swipeLeft()
+                          this.setState({ viewInfo: false });
+                          this.props.createUserApartment(
+                            this._deckSwiper._root.state.selectedItem.id,
+                            this.props.user.id,
+                            false
+                          );
+                        }}
                       >
                         <Icon
                           name="times"
@@ -143,7 +151,15 @@ class ApartmentSwipe extends React.Component {
                           borderRadius: 65 / 2,
                           backgroundColor: '#ED4A6A'
                         }}
-                        onPress={() => this._deckSwiper._root.swipeRight()}
+                        onPress={() => {
+                          this._deckSwiper._root.swipeRight()
+                          this.setState({ viewInfo: false });
+                          this.props.createUserApartment(
+                            this._deckSwiper._root.state.selectedItem.id,
+                            this.props.user.id,
+                            true
+                          );
+                        }}
                       >
                         <Icon
                           name="heart"

@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { ngrok } from './'
 /**
  * ACTION TYPES
  */
@@ -19,7 +19,7 @@ const createUser = user => ({ type: CREATE_USER, user });
 export const setUserThunk = formData => async dispatch => {
   try {
     const { data } = await axios.put(
-      `https://fd45d917.ngrok.io/api/users/login`,
+      `${ngrok}/api/users/login`,
       formData
     );
 
@@ -32,7 +32,7 @@ export const setUserThunk = formData => async dispatch => {
 export const createUserThunk = formData => async dispatch => {
   try {
     const { data } = await axios.post(
-      `https://fd45d917.ngrok.io/api/users/signup`,
+      `${ngrok}/api/users/signup`,
       formData
     );
     dispatch(createUser(data));
@@ -44,7 +44,7 @@ export const createUserThunk = formData => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = {}, action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case SET_USER:
       return action.user;
