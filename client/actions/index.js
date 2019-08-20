@@ -1,5 +1,5 @@
-import * as firebase from 'firebase';
-
+// import { FirebaseWrapper } from '../../firebase/firebase';
+import { firebaseConfig } from '../../firebase/config';
 export const setUserName = name => ({
   type: 'SET_USER_NAME',
   name
@@ -71,3 +71,5 @@ export const login = () => {
       });
   };
 };
+
+// FirebaseWrapper.GetInstance().Initialize(firebaseConfig);

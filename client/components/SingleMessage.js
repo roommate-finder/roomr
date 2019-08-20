@@ -7,30 +7,30 @@ import store from '../store/index';
 import ChatUI from './ChatUI';
 import LoginUI from './LoginUI';
 import { fetchMessages, checkUserExists } from '../actions';
-
+import { FirebaseWrapper } from '../../firebase/firebase';
 const loggerMiddleware = createLogger();
 
 // const stuff = createStore(store, applyMiddleware(thunkMiddleware));
 
 import { Examples } from '@shoutem/ui';
 
-const LoginOrChat = () => {
-  //   authorized: state.user.authorized
-  // }))(({ authorized }) => {
-  //   if (authorized) {
-  //     return <ChatUI />;
-  //   } else {
-  //     return null;
-
-  //   }
-  return <ChatUI />;
-};
-
 class SingleMessage extends Component {
+  //   constructor() {
+  //     super();
+  //     this.state = {
+  //       posts: []
+  //     };
+  //   }
+  //   async componentDidMount() {
+  //     await FirebaseWrapper.GetInstance().SetupCollectionListener(
+  //       'posts',
+  //       posts => this.setState({ posts })
+  //     );
+  //   }
   render() {
     return (
       <Provider store={store}>
-        <LoginOrChat />
+        <ChatUI />
       </Provider>
     );
   }

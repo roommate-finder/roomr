@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Constants } from 'expo';
 import * as firebase from 'firebase';
+import 'firebase/firestore';
 import axios from 'axios';
 import AllMessages from './components/AllMessages';
 import AppNavigator from './AppNavigator';

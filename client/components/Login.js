@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
 import * as Facebook from 'expo-facebook';
-import * as firebase from 'firebase';
-const firebaseConfig = {
-  // ADD YOUR FIREBASE CREDENTIALS
-  apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
-  authDomain: 'capstone-roomr.firebaseapp.com',
-  databaseURL: 'https://capstone-roomr.firebaseio.com',
-  projectId: 'capstone-roomr',
-  storageBucket: ''
-};
+// import { FirebaseWrapper } from '../../firebase/firebase';
+import { firebaseConfig } from '../../firebase/config';
+// import * as firebase from 'firebase';
+// import 'firebase/firestore';
+// const firebaseConfig = {
+//   // ADD YOUR FIREBASE CREDENTIALS
+//   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
+//   authDomain: 'capstone-roomr.firebaseapp.com',
+//   databaseURL: 'https://capstone-roomr.firebaseio.com',
+//   projectId: 'capstone-roomr',
+//   storageBucket: ''
+// };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,6 +25,7 @@ export default class Login extends Component {
       password: ''
     };
   }
+
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       if (user !== null) {
@@ -71,3 +75,5 @@ export default class Login extends Component {
     );
   }
 }
+
+// FirebaseWrapper.GetInstance().Initialize(firebaseConfig);

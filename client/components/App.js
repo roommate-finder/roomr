@@ -3,23 +3,24 @@ import * as Font from 'expo-font';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Constants, AppLoading } from 'expo';
-import Login from './Login';
-import * as firebase from 'firebase';
+// import Login from './Login';
+// import * as firebase from 'firebase';
+// import 'firebase/firestore';
 import axios from 'axios';
 import AppNavigator from './AppNavigator';
 //Redux stuff
 import { Provider } from 'react-redux';
 import store from '../store';
 
-var firebaseConfig = {
-  apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
-  authDomain: 'capstone-roomr.firebaseapp.com',
-  databaseURL: 'https://capstone-roomr.firebaseio.com',
-  projectId: 'capstone-roomr',
-  storageBucket: '',
-  messagingSenderId: '759179201870',
-  appId: '1:759179201870:web:c501209350a62fde'
-};
+// var firebaseConfig = {
+//   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
+//   authDomain: 'capstone-roomr.firebaseapp.com',
+//   databaseURL: 'https://capstone-roomr.firebaseio.com',
+//   projectId: 'capstone-roomr',
+//   storageBucket: '',
+//   messagingSenderId: '759179201870',
+//   appId: '1:759179201870:web:c501209350a62fde'
+// };
 // Initialize Firebase
 // firebase.initializeApp(firebaseConfig);
 
