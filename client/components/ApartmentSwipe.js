@@ -79,7 +79,7 @@ class ApartmentSwipe extends React.Component {
                   );
                 }}
                 onSwipeRight={() => {
-                  // console.dir('currentApt', this.state);
+                  console.dir('currentApt', this.state);
                   // console.log('userId:', this.props.user.id);
                   // console.log('here', this._deckSwiper._root.state);
                   this.setState({ viewInfo: false });
