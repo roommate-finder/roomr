@@ -9,6 +9,9 @@ import FullMapView from './FullMapView';
 import ApartmentSwipe from './ApartmentSwipe';
 import HomeScreen from './HomeScreen';
 import Signup from './Signup';
+import Feed from './Feed';
+import MatchesFromApartment from './MatchesFromApartment';
+import ApartmentInfoFeed from './ApartmentInfoFeed';
 
 const AppNavigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
@@ -19,9 +22,11 @@ const AppNavigator = createStackNavigator({
   Login: { screen: Login },
   UserProfile: { screen: UserProfile },
   EditProfile: { screen: EditProfile },
-
   FullMapView: { screen: FullMapView },
-  ApartmentSwipe: { screen: ApartmentSwipe }
+  ApartmentSwipe: { screen: ApartmentSwipe },
+  Feed: { screen: Feed },
+  MatchesFromApartment: { screen: MatchesFromApartment },
+  ApartmentInfoFeed: { screen: ApartmentInfoFeed }
 });
 
 const AppContainer = createAppContainer(AppNavigator);
