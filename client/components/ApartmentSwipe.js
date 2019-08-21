@@ -48,7 +48,8 @@ class ApartmentSwipe extends React.Component {
   };
 
   scrollToEnd = () => {
-    this.scrollView.scrollToEnd();
+    // this.scrollView.scrollToEnd();
+    this.scrollView.scrollTo({ x: 0, y: 1000, animated: true });
   };
   scrollToTop = () => {
     this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
@@ -129,7 +130,7 @@ class ApartmentSwipe extends React.Component {
                           justifyContent: 'center'
                         }}
                         onPress={() => {
-                          this._deckSwiper._root.swipeLeft()
+                          this._deckSwiper._root.swipeLeft();
                           this.setState({ viewInfo: false });
                           this.props.createUserApartment(
                             this._deckSwiper._root.state.selectedItem.id,
@@ -152,7 +153,7 @@ class ApartmentSwipe extends React.Component {
                           backgroundColor: '#ED4A6A'
                         }}
                         onPress={() => {
-                          this._deckSwiper._root.swipeRight()
+                          this._deckSwiper._root.swipeRight();
                           this.setState({ viewInfo: false });
                           this.props.createUserApartment(
                             this._deckSwiper._root.state.selectedItem.id,
