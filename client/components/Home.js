@@ -55,6 +55,9 @@ class Home extends React.Component {
         <Button onPress={() => this.props.navigation.navigate('SingleMessage')}>
           <Text>Single Message</Text>
         </Button>
+        <Button onPress={() => this.props.navigation.navigate('StartChat')}>
+          <Text>StartChat</Text>
+        </Button>
       </View>
     );
   }

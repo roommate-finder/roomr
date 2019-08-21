@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
+import { connect } from 'react-redux';
 import {
   Container,
   Text,
@@ -11,10 +12,34 @@ import {
   InputGroup
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-export default class AllMessages extends React.Component {
-  constructor(props) {
-    super(props);
+import * as firebase from 'firebase';
+
+class AllMessages extends React.Component {
+  componentDidMount() {
+    this.getChatsForUser();
   }
+
+  getChatsForUser = () => {
+    const chatsRef = firebase.database().ref('bryanChatRooms');
+    console.log('here', this.props.user.id);
+    console.log('TCL: ChatUI -> getChatIds -> chatsRef', chatsRef);
+    firebase
+      .database()
+      .ref()
+      .child('bryanChatRooms')
+      .once('value', snapshot => {
+        const data = snapshot.val();
+        if (snapshot.val()) {
+          const allChats = [];
+          Object.keys(data).forEach(chatroom => {
+            if (chatroom.user1 === this.props.user.id) {
+              allChats.push(data[chatroom]);
+            }
+          });
+          console.log('allChats', allChats);
+        }
+      });
+  };
 
   render() {
     return (
@@ -302,3 +327,9 @@ export default class AllMessages extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(AllMessages);

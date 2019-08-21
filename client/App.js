@@ -19,7 +19,7 @@ var firebaseConfig = {
   appId: '1:759179201870:web:c501209350a62fde'
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
   constructor(props) {

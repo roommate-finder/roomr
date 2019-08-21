@@ -28,6 +28,7 @@ class ChatUI extends Component {
 
   componentDidMount() {
     try {
+      this.getChatsForUser();
       firebase
         .database()
         .ref()
@@ -56,17 +57,68 @@ class ChatUI extends Component {
     //   .database()
     //   .ref()
     //   .child('messages')
-    //   .on('child_added', snapshot => {
-    //     const data = snapshot.val();
-    //     if (data) {
-    //       this.setState(prevState => ({
-    //         messages: [data, ...prevState.messages]
-    //       }));
-    //     }
-    //   });
+    // .on('child_added', snapshot => {
+    //   const data = snapshot.val();
+    //   if (data) {
+    //     this.setState(prevState => ({
+    //       messages: [data, ...prevState.messages]
+    //     }));
+    //   }
+    // });
     console.log('MESSAGES', this.state.messages);
     this.scrollToBottom(false);
   }
+
+  getChatsForUser = () => {
+    const chatsRef = firebase.database().ref('bryanChatRooms');
+    console.log('TCL: ChatUI -> getChatIds -> chatsRef', chatsRef);
+    firebase
+      .database()
+      .ref()
+      .child('bryanChatRooms')
+      .once('value', snapshot => {
+        const data = snapshot.val();
+        if (snapshot.val()) {
+          const allChats = [];
+          Object.keys(data).forEach(chatroom => {
+            if (chatroom.user1 === this.props.user.id) {
+              allChats.push(data[chatroom]);
+            }
+          });
+          // console.log('allChats', allChats);
+        }
+      });
+  };
+  /*
+allChats Array [
+  Object {
+    "user1": 1,
+    "user2": 2,
+  },
+  Object {
+    "user1": 1,
+    "user2": 4,
+  },
+  Object {
+    "user1": 1,
+    "user2": 4,
+  },
+]
+  */
+  /*
+  .once('value', snapshot => {
+        const data = snapshot.val();
+        if (snapshot.val()) {
+          const chatsForThisUser = Object.keys(data).filter(chatroom => {
+            return chatroom[this.props.user.id];
+          });
+          console.log(
+            'TCL: ChatUI -> getChatIds -> chatsForThisUser ',
+            chatsForThisUser
+          );
+        }
+      });
+  */
   componentDidUpdate() {
     this.scrollToBottom();
   }

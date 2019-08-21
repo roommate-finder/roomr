@@ -11,6 +11,7 @@ import ApartmentSwipe from './ApartmentSwipe';
 import SingleMessage from './SingleMessage';
 import HomeScreen from './HomeScreen';
 import Signup from './Signup';
+import StartChat from './StartChat';
 
 const AppNavigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
@@ -24,7 +25,8 @@ const AppNavigator = createStackNavigator({
   EditProfile: { screen: EditProfile },
   FullMapView: { screen: FullMapView },
   ApartmentSwipe: { screen: ApartmentSwipe },
-  SingleMessage: { screen: SingleMessage }
+  SingleMessage: { screen: SingleMessage },
+  StartChat: { screen: StartChat }
 });
 
 const AppContainer = createAppContainer(AppNavigator);
