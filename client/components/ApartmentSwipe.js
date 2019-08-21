@@ -129,7 +129,7 @@ class ApartmentSwipe extends React.Component {
                           justifyContent: 'center'
                         }}
                         onPress={() => {
-                          this._deckSwiper._root.swipeLeft()
+                          this._deckSwiper._root.swipeLeft();
                           this.setState({ viewInfo: false });
                           this.props.createUserApartment(
                             this._deckSwiper._root.state.selectedItem.id,
@@ -152,7 +152,7 @@ class ApartmentSwipe extends React.Component {
                           backgroundColor: '#ED4A6A'
                         }}
                         onPress={() => {
-                          this._deckSwiper._root.swipeRight()
+                          this._deckSwiper._root.swipeRight();
                           this.setState({ viewInfo: false });
                           this.props.createUserApartment(
                             this._deckSwiper._root.state.selectedItem.id,
@@ -189,7 +189,7 @@ class ApartmentSwipe extends React.Component {
                         />
                       </Button>
                     </CardItem>
-                    <CardItem style={{ justifyContent: 'center' }}>
+                    {/* <CardItem style={{ justifyContent: 'center' }}>
                       {this.state.viewInfo === true && (
                         <View>
                           <SmallMapView apartment={this.state.currentApt} />
@@ -199,12 +199,21 @@ class ApartmentSwipe extends React.Component {
                           />
                         </View>
                       )}
-                    </CardItem>
+                    </CardItem> */}
                   </Card>
                 )}
               />
             </View>
           </Container>
+        )}
+        {this.state.viewInfo === true && (
+          <View>
+            <SmallMapView apartment={this.state.currentApt} />
+            <ApartmentInfo
+              apartment={this.state.currentApt}
+              scrollToEnd={this.scrollToEnd}
+            />
+          </View>
         )}
       </ScrollView>
     );

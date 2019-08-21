@@ -8,6 +8,13 @@ class ApartmentInfo extends React.Component {
     this.state = {};
   }
 
+  // componentDidMount() {
+  //   this.scrollToEnd();
+  // }
+  // scrollToEnd = () => {
+  //   this.scrollView.scrollToEnd();
+  // };
+
   render() {
     const { apartment } = this.props;
     return (
