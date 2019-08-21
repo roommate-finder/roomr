@@ -12,7 +12,7 @@ import Signup from './Signup';
 import Feed from './Feed';
 import MatchesFromApartment from './MatchesFromApartment';
 import ApartmentInfoFeed from './ApartmentInfoFeed';
-
+import Chat from './Chat';
 const AppNavigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
   Signup: { screen: Signup },
@@ -26,7 +26,8 @@ const AppNavigator = createStackNavigator({
   ApartmentSwipe: { screen: ApartmentSwipe },
   Feed: { screen: Feed },
   MatchesFromApartment: { screen: MatchesFromApartment },
-  ApartmentInfoFeed: { screen: ApartmentInfoFeed }
+  ApartmentInfoFeed: { screen: ApartmentInfoFeed },
+  Chat: { screen: Chat }
 });
 
 const AppContainer = createAppContainer(AppNavigator);

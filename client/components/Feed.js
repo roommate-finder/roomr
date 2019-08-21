@@ -1,191 +1,211 @@
 import React from 'react';
-import { StyleSheet, View, Image, ScrollView, Modal, TouchableHighlight, Alert } from 'react-native';
-import { Container, Header, Button, Text, Content, Thumbnail, Card, CardItem, Body, Left, Icon, Right, Accordion } from 'native-base';
-import { getFeedDataThunk } from '../store/feed'
-import { getApartmentsThunk } from '../store/apartments'
-import { getUsersThunk } from '../store/users'
-import { connect } from 'react-redux'
+import {
+  StyleSheet,
+  View,
+  Image,
+  ScrollView,
+  Modal,
+  TouchableHighlight,
+  Alert
+} from 'react-native';
+import {
+  Container,
+  Header,
+  Button,
+  Text,
+  Content,
+  Thumbnail,
+  Card,
+  CardItem,
+  Body,
+  Left,
+  Icon,
+  Right,
+  Accordion
+} from 'native-base';
+import { getFeedDataThunk } from '../store/feed';
+import { getApartmentsThunk } from '../store/apartments';
+import { getUsersThunk } from '../store/users';
+import { connect } from 'react-redux';
 import * as Font from 'expo-font';
 import Slideshow from 'react-native-image-slider-show';
-
+import Chat from './Chat';
 //modal stuff
 // import Modal from 'react-native-modal'
 
-
 const dataArray = [
-    { title: "First Element", content: "Lorem ipsum dolor sit amet" },
-    { title: "Second Element", content: "Lorem ipsum dolor sit amet" },
-    { title: "Third Element", content: "Lorem ipsum dolor sit amet" }
+  { title: 'First Element', content: 'Lorem ipsum dolor sit amet' },
+  { title: 'Second Element', content: 'Lorem ipsum dolor sit amet' },
+  { title: 'Third Element', content: 'Lorem ipsum dolor sit amet' }
 ];
 
 class Feed extends React.Component {
+  constructor() {
+    super();
+    this.state = { modalVisible: false };
+    this.findApartmentInStore = this.findApartmentInStore.bind(this);
+    this.findUserInStore = this.findUserInStore.bind(this);
+  }
 
-    constructor() {
-        super();
-        this.state = { modalVisible: false }
-        this.findApartmentInStore = this.findApartmentInStore.bind(this)
-        this.findUserInStore = this.findUserInStore.bind(this)
+  componentDidMount() {
+    this.props.getFeedData(this.props.user);
+    this.props.getApartments();
+    this.props.getUsers();
+  }
 
+  findApartmentInStore(apartment) {
+    const apartmentInStore = this.props.apartments.filter(
+      apt => apt.id === apartment.apartmentId
+    );
+    // console.log('APARTMENT IN STORE THAT IS RETURNED', apartmentInStore)
+    return apartmentInStore;
+  }
 
-    }
+  findUserInStore(match) {
+    const userInStore = this.props.users.filter(user => user.id === match);
+    // console.log('---------------- USER IN STORE', userInStore)
+    return userInStore;
+  }
 
-
-    componentDidMount() {
-        this.props.getFeedData(this.props.user);
-        this.props.getApartments();
-        this.props.getUsers();
-    }
-
-
-    findApartmentInStore(apartment) {
-        const apartmentInStore = this.props.apartments.filter(apt => apt.id === apartment.apartmentId)
-        // console.log('APARTMENT IN STORE THAT IS RETURNED', apartmentInStore)
-        return apartmentInStore;
-    }
-
-    findUserInStore(match) {
-        const userInStore = this.props.users.filter(user => user.id === match)
-        // console.log('---------------- USER IN STORE', userInStore)
-        return userInStore
-    }
-
-
-    render() {
-        //console.log('PROPS', this.props)
-        // console.log('________APARTMENTS', this.props.apartments)
-        // console.log('*****************this.props.feed', this.props.feed[0])
-        // console.log('*******^^^^^^^^^^^^ USERS', this.props.users)
-        return (
-
-            <View >
-
-
-                <ScrollView>
-                    {this.props.feed[0] && this.props.apartments.length > 0 && this.props.users.length > 0 && this.props.feed[0].map(apt =>
-                        <Card>
-                            <CardItem>
-                                <Left>
-
-                                    <Body>
-                                        <Text>{this.findApartmentInStore(apt)[0].name}</Text>
-                                        <Text note>{this.findApartmentInStore(apt)[0].address}</Text>
-                                    </Body>
-                                </Left>
-                            </CardItem>
-                            <CardItem cardBody>
-                                {/* <Image source={{ uri: this.findApartmentInStore(apt)[0].image }} style={{ height: 200, width: null, flex: 1 }} /> */}
-                                <Slideshow
-                                    dataSource={[
-                                        { url: 'http://placeimg.com/640/480/any' },
-                                        { url: 'http://placeimg.com/640/480/any' },
-                                        { url: 'http://placeimg.com/640/480/any' }
-                                    ]} />
-                            </CardItem>
-                            <CardItem>
-                                {/* <Text>
+  render() {
+    //console.log('PROPS', this.props)
+    // console.log('________APARTMENTS', this.props.apartments)
+    // console.log('*****************this.props.feed', this.props.feed[0])
+    // console.log('*******^^^^^^^^^^^^ USERS', this.props.users)
+    return (
+      <View>
+        <ScrollView>
+          {this.props.feed[0] &&
+            this.props.apartments.length > 0 &&
+            this.props.users.length > 0 &&
+            this.props.feed[0].map(apt => (
+              <Card>
+                <CardItem>
+                  <Left>
+                    <Body>
+                      <Text>{this.findApartmentInStore(apt)[0].name}</Text>
+                      <Text note>
+                        {this.findApartmentInStore(apt)[0].address}
+                      </Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+                <CardItem cardBody>
+                  {/* <Image source={{ uri: this.findApartmentInStore(apt)[0].image }} style={{ height: 200, width: null, flex: 1 }} /> */}
+                  <Slideshow
+                    dataSource={[
+                      { url: 'http://placeimg.com/640/480/any' },
+                      { url: 'http://placeimg.com/640/480/any' },
+                      { url: 'http://placeimg.com/640/480/any' }
+                    ]}
+                  />
+                </CardItem>
+                <CardItem>
+                  {/* <Text>
                                     <Text>
                                         {apt.matches_array !== null ? apt.matches_array.split(', ').length : 0} matches
                                     </Text>
                                     {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName} {this.findUserInStore(Number(match))[0].lastName}</Text>) : ''}
 
                                 </Text> */}
-                                <Left>
-                                    <Button transparent onPress={() => this.props.navigation.navigate('MatchesFromApartment', { apartment: this.findApartmentInStore(apt)[0], matchIds: apt.matches_array.split(', ') })} >
-                                        <Text>{apt.matches_array !== null ? apt.matches_array.split(', ').length : 0} matches</Text>
-                                    </Button>
+                  <Left>
+                    <Button
+                      transparent
+                      onPress={() =>
+                        this.props.navigation.navigate('MatchesFromApartment', {
+                          apartment: this.findApartmentInStore(apt)[0],
+                          matchIds: apt.matches_array.split(', ')
+                        })
+                      }
+                    >
+                      <Text>
+                        {apt.matches_array !== null
+                          ? apt.matches_array.split(', ').length
+                          : 0}{' '}
+                        matches
+                      </Text>
+                    </Button>
+                  </Left>
+                  <Right>
+                    <Button
+                      transparent
+                      onPress={() =>
+                        this.props.navigation.navigate('ApartmentInfoFeed', {
+                          apartment: this.findApartmentInStore(apt)[0]
+                        })
+                      }
+                    >
+                      <Icon type="FontAwesome" name="info-circle" />
+                    </Button>
+                  </Right>
+                </CardItem>
+              </Card>
+            ))}
+        </ScrollView>
+      </View>
 
-                                </Left>
-                                <Right>
-                                    <Button transparent onPress={() => this.props.navigation.navigate('ApartmentInfoFeed', { apartment: this.findApartmentInStore(apt)[0] })}>
-                                        <Icon type="FontAwesome" name="info-circle" />
-                                    </Button>
+      // <Container>
+      //     <Card>
+      //         <CardItem>
+      //             <Left>
+      //                 <Thumbnail source={{ uri: 'Image URL' }} />
+      //                 <Body>
+      //                     <Text>NativeBase</Text>
+      //                     <Text note>GeekyAnts</Text>
+      //                 </Body>
+      //             </Left>
+      //         </CardItem>
+      //         <CardItem cardBody>
+      //             <Image source={{ uri: 'https://placekitten.com/300/300' }} style={{ height: 200, width: null, flex: 1 }} />
+      //         </CardItem>
+      //     </Card>
+      //     <Content style={styles.container}>
+      //         <Text>hi</Text>
+      //         {/* <Text>THIS IS THE FEED</Text> */}
+      //         {/* {this.props.feed[0] && this.props.feed[0].map(apt => <Text>{apt.apartmentId}</Text>)} */}
 
-                                </Right>
+      //         {/* {this.props.feed[0] && this.props.apartments.length > 0 && this.props.users.length > 0 && this.props.feed[0].map(apt =>
 
+      //         <Text>
 
-                            </CardItem>
+      //             <Text>{this.findApartmentInStore(apt)[0].name}</Text>
 
+      //             <Thumbnail large source={{ uri: this.findApartmentInStore(apt)[0].image }} />
+      //             {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName}</Text>) : ''}
+      //         </Text>
 
-                        </Card>
+      //     )} */}
 
-                    )}
-
-
-
-                </ScrollView>
-
-
-            </View>
-
-            // <Container>
-            //     <Card>
-            //         <CardItem>
-            //             <Left>
-            //                 <Thumbnail source={{ uri: 'Image URL' }} />
-            //                 <Body>
-            //                     <Text>NativeBase</Text>
-            //                     <Text note>GeekyAnts</Text>
-            //                 </Body>
-            //             </Left>
-            //         </CardItem>
-            //         <CardItem cardBody>
-            //             <Image source={{ uri: 'https://placekitten.com/300/300' }} style={{ height: 200, width: null, flex: 1 }} />
-            //         </CardItem>
-            //     </Card>
-            //     <Content style={styles.container}>
-            //         <Text>hi</Text>
-            //         {/* <Text>THIS IS THE FEED</Text> */}
-            //         {/* {this.props.feed[0] && this.props.feed[0].map(apt => <Text>{apt.apartmentId}</Text>)} */}
-
-
-
-            //         {/* {this.props.feed[0] && this.props.apartments.length > 0 && this.props.users.length > 0 && this.props.feed[0].map(apt =>
-
-            //         <Text>
-
-            //             <Text>{this.findApartmentInStore(apt)[0].name}</Text>
-
-            //             <Thumbnail large source={{ uri: this.findApartmentInStore(apt)[0].image }} />
-            //             {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName}</Text>) : ''}
-            //         </Text>
-
-
-            //     )} */}
-
-
-
-            //     </Content >
-            // </Container>
-
-
-        );
-    }
+      //     </Content >
+      // </Container>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });
 const mapStateToProps = state => {
-    return {
-        user: state.user,
-        feed: state.feed,
-        apartments: state.apartments,
-        users: state.users
-    };
+  return {
+    user: state.user,
+    feed: state.feed,
+    apartments: state.apartments,
+    users: state.users
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
-    getFeedData: user => dispatch(getFeedDataThunk(user)),
-    getApartments: () => dispatch(getApartmentsThunk()),
-    getUsers: () => dispatch(getUsersThunk())
+  getFeedData: user => dispatch(getFeedDataThunk(user)),
+  getApartments: () => dispatch(getApartmentsThunk()),
+  getUsers: () => dispatch(getUsersThunk())
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Feed);
