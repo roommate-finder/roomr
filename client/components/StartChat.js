@@ -5,11 +5,6 @@ import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 
 class StartChat extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {  }
-  // }
-
   render() {
     const userTwo = {
       id: 4

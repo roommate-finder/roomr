@@ -5,11 +5,16 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import apartments from './apartments';
 import chatroom from './chatroom';
-const reducer = combineReducers({ user, apartments, chatroom });
+import feed from './feed';
+import users from './users';
+
+const reducer = combineReducers({ user, apartments, feed, users, chatroom });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 const store = createStore(reducer, middleware);
+
+export const ngrok = 'https://82feaea1.ngrok.io';
 
 export default store;
 // export * from './user'

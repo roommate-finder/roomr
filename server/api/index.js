@@ -1,5 +1,8 @@
+const pg = require('pg')
+const client = new pg.Client('postgres://localhost/roomr');
+client.connect()
 const router = require('express').Router();
-module.exports = router;
+module.exports = router, client;
 
 router.use('/users', require('./users'));
 router.use('/apartments', require('./apartments'));

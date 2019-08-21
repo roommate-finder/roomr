@@ -36,6 +36,7 @@ import axios from 'axios';
 //       return state;
 //   }
 // };
+import { ngrok } from './';
 /**
  * ACTION TYPES
  */
@@ -56,6 +57,7 @@ export const setUserThunk = formData => async dispatch => {
   try {
     const { data } = await axios.put(
       `https://7ab41a34.ngrok.io/api/users/login`,
+      `${ngrok}/api/users/login`,
       formData
     );
 
@@ -69,6 +71,7 @@ export const createUserThunk = formData => async dispatch => {
   try {
     const { data } = await axios.post(
       `https://7ab41a34.ngrok.io/api/users/signup`,
+      `${ngrok}/api/users/signup`,
       formData
     );
     dispatch(createUser(data));
