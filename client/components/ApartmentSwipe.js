@@ -70,8 +70,25 @@ class ApartmentSwipe extends React.Component {
                 ref={c => (this._deckSwiper = c)}
                 dataSource={apartments}
                 looping={false}
-                onSwipeLeft={() => this.setState({ viewInfo: false })}
-                onSwipeRight={() => this.setState({ viewInfo: false })}
+                onSwipeLeft={() => {
+                  this.setState({ viewInfo: false });
+                  this.props.createUserApartment(
+                    this._deckSwiper._root.state.selectedItem.id,
+                    this.props.user.id,
+                    false
+                  );
+                }}
+                onSwipeRight={() => {
+                  // console.dir('currentApt', this.state);
+                  // console.log('userId:', this.props.user.id);
+                  // console.log('here', this._deckSwiper._root.state);
+                  this.setState({ viewInfo: false });
+                  this.props.createUserApartment(
+                    this._deckSwiper._root.state.selectedItem.id,
+                    this.props.user.id,
+                    true
+                  );
+                }}
                 renderEmpty={() => (
                   <View style={{ alignSelf: 'center' }}>
                     <Text>Over</Text>
@@ -111,7 +128,15 @@ class ApartmentSwipe extends React.Component {
                           alignItems: 'center',
                           justifyContent: 'center'
                         }}
-                        onPress={() => this._deckSwiper._root.swipeLeft()}
+                        onPress={() => {
+                          this._deckSwiper._root.swipeLeft()
+                          this.setState({ viewInfo: false });
+                          this.props.createUserApartment(
+                            this._deckSwiper._root.state.selectedItem.id,
+                            this.props.user.id,
+                            false
+                          );
+                        }}
                       >
                         <Icon
                           name="times"
@@ -126,7 +151,15 @@ class ApartmentSwipe extends React.Component {
                           borderRadius: 65 / 2,
                           backgroundColor: '#ED4A6A'
                         }}
-                        onPress={() => this._deckSwiper._root.swipeRight()}
+                        onPress={() => {
+                          this._deckSwiper._root.swipeRight()
+                          this.setState({ viewInfo: false });
+                          this.props.createUserApartment(
+                            this._deckSwiper._root.state.selectedItem.id,
+                            this.props.user.id,
+                            true
+                          );
+                        }}
                       >
                         <Icon
                           name="heart"
@@ -187,7 +220,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   getApartments: () => dispatch(getApartmentsThunk()),
-  createUserApartment: () => dispatch(createUserApartmentThunk)
+  createUserApartment: (apartmentId, userId, likedBoolean) =>
+    dispatch(createUserApartmentThunk(apartmentId, userId, likedBoolean))
 });
 
 export default connect(
