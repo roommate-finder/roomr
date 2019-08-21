@@ -15,10 +15,11 @@ const Apartment = db.define('apartment', {
   monthlyRent: { type: Sequelize.INTEGER },
   latitude: { type: Sequelize.FLOAT },
   longitude: { type: Sequelize.FLOAT },
-  image: { type: Sequelize.STRING }
+  image: { type: Sequelize.STRING },
+  neighborhood: { type: Sequelize.STRING }
   // petFriendly: { type: Sequelize.BOOLEAN },
 
-  // neighborhood: { type: Sequelize.STRING },
+
   // airConditioning: { type: Sequelize.BOOLEAN },
   // internet: { type: Sequelize.BOOLEAN },
   // laundry: { type: Sequelize.BOOLEAN },

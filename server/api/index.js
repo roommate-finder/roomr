@@ -7,6 +7,7 @@ module.exports = router, client;
 router.use('/users', require('./users'));
 router.use('/apartments', require('./apartments'));
 router.use('/user-apartment', require('./user-apartment'));
+router.use('/photos', require('./photos'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
