@@ -24,16 +24,23 @@ import {
 import { connect } from 'react-redux';
 import { createUserThunk } from '../store/user';
 
+import * as firebase from 'firebase';
+import 'firebase/auth';
 class PhoneLogin extends React.Component {
   constructor() {
     super();
-    this.state = { phone: '', password: '', firstName: '', lastName: '' };
+    this.state = { email: '', password: '', firstName: '', lastName: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
     this.props.createUser(this.state);
-    this.props.navigation.navigate('Home');
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate('Home'))
+      .catch(error => this.setState({ errorMessage: error.message }));
   }
   render() {
     return (

@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
 import * as Facebook from 'expo-facebook';
+// import 'firebase/firestore';
 // import { FirebaseWrapper } from '../../firebase/firebase';
 import { firebaseConfig } from '../../firebase/config';
 // import * as firebase from 'firebase';
+// const auth = firebase.auth();
+// const db = firebase.firestore();
+//update firestore settings
+
+// db.settings({ timestampsInSnapshots: true });
+
 // import 'firebase/firestore';
 // const firebaseConfig = {
 //   // ADD YOUR FIREBASE CREDENTIALS

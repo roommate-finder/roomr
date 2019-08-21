@@ -3,8 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 // import * as Font from 'expo-font';
-
+import * as firebase from 'firebase';
 class Home extends React.Component {
+  state = { currentUser: null };
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Home',
@@ -17,6 +18,10 @@ class Home extends React.Component {
       )
     };
   };
+  componentDidMount() {
+    const { currentUser } = firebase.auth();
+    this.setState({ currentUser });
+  }
   render() {
     return (
       <View style={styles.container}>

@@ -11,7 +11,6 @@ import ApartmentSwipe from './ApartmentSwipe';
 import SingleMessage from './SingleMessage';
 import HomeScreen from './HomeScreen';
 import Signup from './Signup';
-
 const AppNavigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
   Signup: { screen: Signup },

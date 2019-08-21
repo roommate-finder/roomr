@@ -10,30 +10,60 @@ import { fetchMessages, checkUserExists } from '../actions';
 import { FirebaseWrapper } from '../../firebase/firebase';
 const loggerMiddleware = createLogger();
 
-// const stuff = createStore(store, applyMiddleware(thunkMiddleware));
+import * as firebase from 'firebase';
 
-import { Examples } from '@shoutem/ui';
-
-class SingleMessage extends Component {
-  //   constructor() {
-  //     super();
-  //     this.state = {
-  //       posts: []
-  //     };
-  //   }
-  //   async componentDidMount() {
-  //     await FirebaseWrapper.GetInstance().SetupCollectionListener(
-  //       'posts',
-  //       posts => this.setState({ posts })
-  //     );
-  //   }
+class SingleMessages extends React.Component {
   render() {
+    const userTwo = {
+      id: 4
+    };
     return (
-      <Provider store={store}>
-        <ChatUI />
-      </Provider>
+      <Button
+        onPress={() => {
+          const user1 = this.props.user.id;
+          const user2 = userTwo.id;
+          const newMsgRef = firebase
+            .database()
+            .ref('posts')
+            .push();
+          newMsgRef.set({ user1: user1.id, user2: user2 });
+        }}
+      >
+        <Text>Match</Text>
+      </Button>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+export default connect(mapStateToProps)(SingleMessages);
+// const stuff = createStore(store, applyMiddleware(thunkMiddleware));
 
-export default SingleMessage;
+// import { Examples } from '@shoutem/ui';
+
+// class SingleMessage extends Component {
+//   //   constructor() {
+//   //     super();
+//   //     this.state = {
+//   //       posts: []
+//   //     };
+//   //   }
+//   //   async componentDidMount() {
+//   //     await FirebaseWrapper.GetInstance().SetupCollectionListener(
+//   //       'posts',
+//   //       posts => this.setState({ posts })
+//   //     );
+//   //   }
+//   render() {
+//     return (
+//       <Provider store={store}>
+//         <ChatUI />
+//       </Provider>
+//     );
+//   }
+// }
+
+// export default SingleMessage;

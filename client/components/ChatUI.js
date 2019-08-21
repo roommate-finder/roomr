@@ -9,7 +9,7 @@ import { sendMessage } from '../actions';
 // import { FirebaseWrapper } from '../../firebase/firebase';
 import { firebaseConfig } from '../../firebase/config';
 import * as firebase from 'firebase';
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 const mapStateToProps = state => ({
   chatHeight: state.chatroom.meta.height,
   user: state.user
@@ -31,7 +31,7 @@ class ChatUI extends Component {
       firebase
         .database()
         .ref()
-        .child('messages')
+        .child('posts')
         .once('value', snapshot => {
           const data = snapshot.val();
           if (snapshot.val()) {
@@ -104,11 +104,11 @@ class ChatUI extends Component {
       console.log('HEY THERE', text);
       const newMsgRef = firebase
         .database()
-        .ref('messages')
+        .ref('posts')
         .push();
       //   msg.id = newMsgRef.key;
       newMsgRef.set(text);
-      //   await FirebaseWrapper.GetInstance().CreateNewDocument('messages', {
+      //   await FirebaseWrapper.GetInstance().CreateNewDocument('posts', {
       //     text: text
       //   });
 
