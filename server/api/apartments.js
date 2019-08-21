@@ -3,7 +3,7 @@ const { Apartment } = require('../db/models/');
 
 router.get('/', async (req, res, next) => {
   try {
-    const apartments = await Apartment.findAll();
+    const apartments = await Apartment.findAll({ include: [{ all: true }] });
     res.json(apartments);
   } catch (err) {
     next(err);

@@ -18,6 +18,7 @@ router.get('/:userId', async (req, res, next) => {
     SELECT "user-apartments"."userId", "user-apartments"."apartmentId", "user-apartments"."liked" FROM "user-apartments" INNER JOIN 
     (SELECT "apartmentId" FROM "user-apartments" where "userId" = 1 and "liked" = TRUE) AS "liked-apartments"  ON  "user-apartments"."apartmentId" = "liked-apartments"."apartmentId") AS "liked-including-me" WHERE "liked-including-me"."liked" = TRUE AND "liked-including-me"."userId" <> ${req.params.userId}) AS "matches" GROUP BY 1
     ) AS "others-liked-same" ON "user-liked"."apartmentId" = "others-liked-same"."apartmentId"`)
+    console.log('MATCHES', matches)
     res.json(matches);
   } catch (err) {
     next(err)

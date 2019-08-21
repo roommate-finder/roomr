@@ -12,11 +12,11 @@ import Slideshow from 'react-native-image-slider-show';
 // import Modal from 'react-native-modal'
 
 
-const dataArray = [
-    { title: "First Element", content: "Lorem ipsum dolor sit amet" },
-    { title: "Second Element", content: "Lorem ipsum dolor sit amet" },
-    { title: "Third Element", content: "Lorem ipsum dolor sit amet" }
-];
+// const dataArray = [
+//     { title: "First Element", content: "Lorem ipsum dolor sit amet" },
+//     { title: "Second Element", content: "Lorem ipsum dolor sit amet" },
+//     { title: "Third Element", content: "Lorem ipsum dolor sit amet" }
+// ];
 
 class Feed extends React.Component {
 
@@ -73,13 +73,9 @@ class Feed extends React.Component {
                                 </Left>
                             </CardItem>
                             <CardItem cardBody>
-                                {/* <Image source={{ uri: this.findApartmentInStore(apt)[0].image }} style={{ height: 200, width: null, flex: 1 }} /> */}
                                 <Slideshow
-                                    dataSource={[
-                                        { url: 'http://placeimg.com/640/480/any' },
-                                        { url: 'http://placeimg.com/640/480/any' },
-                                        { url: 'http://placeimg.com/640/480/any' }
-                                    ]} />
+                                    dataSource={this.findApartmentInStore(apt)[0].photos} />
+
                             </CardItem>
                             <CardItem>
                                 {/* <Text>
