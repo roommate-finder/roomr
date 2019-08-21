@@ -1,25 +1,40 @@
 import React from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
-import { Container, Header, Content } from 'native-base';
+import { StyleSheet, View, Image, ScrollView, Modal, TouchableHighlight, Alert } from 'react-native';
+import { Container, Header, Button, Text, Content, Thumbnail, Card, CardItem, Body, Left, Icon, Right, Accordion } from 'native-base';
 import { getFeedDataThunk } from '../store/feed'
 import { getApartmentsThunk } from '../store/apartments'
 import { getUsersThunk } from '../store/users'
 import { connect } from 'react-redux'
 import * as Font from 'expo-font';
 
+//modal stuff
+// import Modal from 'react-native-modal'
 
+
+const dataArray = [
+    { title: "First Element", content: "Lorem ipsum dolor sit amet" },
+    { title: "Second Element", content: "Lorem ipsum dolor sit amet" },
+    { title: "Third Element", content: "Lorem ipsum dolor sit amet" }
+];
 
 class Feed extends React.Component {
+
     constructor() {
         super();
+        this.state = { modalVisible: false }
         this.findApartmentInStore = this.findApartmentInStore.bind(this)
         this.findUserInStore = this.findUserInStore.bind(this)
+
+
     }
+
+
     componentDidMount() {
         this.props.getFeedData(this.props.user);
         this.props.getApartments();
         this.props.getUsers();
     }
+
 
     findApartmentInStore(apartment) {
         const apartmentInStore = this.props.apartments.filter(apt => apt.id === apartment.apartmentId)
@@ -29,7 +44,7 @@ class Feed extends React.Component {
 
     findUserInStore(match) {
         const userInStore = this.props.users.filter(user => user.id === match)
-        console.log('---------------- USER IN STORE', userInStore)
+        // console.log('---------------- USER IN STORE', userInStore)
         return userInStore
     }
 
@@ -38,21 +53,105 @@ class Feed extends React.Component {
         //console.log('PROPS', this.props)
         // console.log('________APARTMENTS', this.props.apartments)
         // console.log('*****************this.props.feed', this.props.feed[0])
-        console.log('*******^^^^^^^^^^^^ USERS', this.props.users)
+        // console.log('*******^^^^^^^^^^^^ USERS', this.props.users)
         return (
-            <View style={styles.container}>
-                <Text>THIS IS THE FEED</Text>
-                {/* {this.props.feed[0] && this.props.feed[0].map(apt => <Text>{apt.apartmentId}</Text>)} */}
-                {this.props.feed[0] && this.props.apartments.length > 0 && this.props.users.length > 0 && this.props.feed[0].map(apt =>
-                    <Text>
-                        <Text>{this.findApartmentInStore(apt)[0].name}</Text>
-                        {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName}</Text>) : ''}
-                    </Text>
+
+            <View >
 
 
-                )}
+                <ScrollView>
+                    {this.props.feed[0] && this.props.apartments.length > 0 && this.props.users.length > 0 && this.props.feed[0].map(apt =>
+                        <Card>
+                            <CardItem>
+                                <Left>
+
+                                    <Body>
+                                        <Text>{this.findApartmentInStore(apt)[0].name}</Text>
+                                        <Text note>{this.findApartmentInStore(apt)[0].address}</Text>
+                                    </Body>
+                                </Left>
+                            </CardItem>
+                            <CardItem cardBody>
+                                <Image source={{ uri: this.findApartmentInStore(apt)[0].image }} style={{ height: 200, width: null, flex: 1 }} />
+
+                            </CardItem>
+                            <CardItem>
+                                {/* <Text>
+                                    <Text>
+                                        {apt.matches_array !== null ? apt.matches_array.split(', ').length : 0} matches
+                                    </Text>
+                                    {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName} {this.findUserInStore(Number(match))[0].lastName}</Text>) : ''}
+
+                                </Text> */}
+                                <Left>
+                                    <Button transparent onPress={() => this.props.navigation.navigate('MatchesFromApartment', { apartment: this.findApartmentInStore(apt)[0], matchIds: apt.matches_array.split(', ') })} >
+                                        <Text>{apt.matches_array !== null ? apt.matches_array.split(', ').length : 0} matches</Text>
+                                    </Button>
+
+                                </Left>
+                                <Right>
+                                    <Button transparent onPress={() => this.props.navigation.navigate('ApartmentInfoFeed', { apartment: this.findApartmentInStore(apt)[0] })}>
+                                        <Icon type="FontAwesome" name="info-circle" />
+                                    </Button>
+
+                                </Right>
+
+
+                            </CardItem>
+
+
+                        </Card>
+
+                    )}
+
+
+
+                </ScrollView>
+
 
             </View>
+
+            // <Container>
+            //     <Card>
+            //         <CardItem>
+            //             <Left>
+            //                 <Thumbnail source={{ uri: 'Image URL' }} />
+            //                 <Body>
+            //                     <Text>NativeBase</Text>
+            //                     <Text note>GeekyAnts</Text>
+            //                 </Body>
+            //             </Left>
+            //         </CardItem>
+            //         <CardItem cardBody>
+            //             <Image source={{ uri: 'https://placekitten.com/300/300' }} style={{ height: 200, width: null, flex: 1 }} />
+            //         </CardItem>
+            //     </Card>
+            //     <Content style={styles.container}>
+            //         <Text>hi</Text>
+            //         {/* <Text>THIS IS THE FEED</Text> */}
+            //         {/* {this.props.feed[0] && this.props.feed[0].map(apt => <Text>{apt.apartmentId}</Text>)} */}
+
+
+
+            //         {/* {this.props.feed[0] && this.props.apartments.length > 0 && this.props.users.length > 0 && this.props.feed[0].map(apt =>
+
+            //         <Text>
+
+            //             <Text>{this.findApartmentInStore(apt)[0].name}</Text>
+
+            //             <Thumbnail large source={{ uri: this.findApartmentInStore(apt)[0].image }} />
+            //             {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName}</Text>) : ''}
+            //         </Text>
+
+
+            //     )} */}
+
+
+
+            //     </Content >
+            // </Container>
+
+
         );
     }
 }
