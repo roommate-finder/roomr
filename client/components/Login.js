@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
 import * as Facebook from 'expo-facebook';
-// import { FirebaseWrapper } from '../../firebase/firebase';
 import { firebaseConfig } from '../../firebase/config';
 // import * as firebase from 'firebase';
 // import 'firebase/firestore';

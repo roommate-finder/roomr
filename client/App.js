@@ -3,23 +3,9 @@ import { Font, AppLoading } from 'expo';
 import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Constants } from 'expo';
-import * as firebase from 'firebase';
-import 'firebase/firestore';
 import axios from 'axios';
 import AllMessages from './components/AllMessages';
 import AppNavigator from './AppNavigator';
-
-var firebaseConfig = {
-  apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
-  authDomain: 'capstone-roomr.firebaseapp.com',
-  databaseURL: 'https://capstone-roomr.firebaseio.com',
-  projectId: 'capstone-roomr',
-  storageBucket: '',
-  messagingSenderId: '759179201870',
-  appId: '1:759179201870:web:c501209350a62fde'
-};
-// Initialize Firebase
-// firebase.initializeApp(firebaseConfig);
 
 export default class App extends React.Component {
   constructor(props) {
