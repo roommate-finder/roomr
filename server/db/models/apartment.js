@@ -14,7 +14,8 @@ const Apartment = db.define('apartment', {
   squareFeet: { type: Sequelize.INTEGER },
   monthlyRent: { type: Sequelize.INTEGER },
   latitude: { type: Sequelize.FLOAT },
-  longitude: { type: Sequelize.FLOAT }
+  longitude: { type: Sequelize.FLOAT },
+  image: { type: Sequelize.STRING }
   // petFriendly: { type: Sequelize.BOOLEAN },
 
   // neighborhood: { type: Sequelize.STRING },

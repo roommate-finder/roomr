@@ -25,6 +25,10 @@ class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Button onPress={() => this.props.navigation.navigate('Feed')}>
+          <Text>FEED</Text>
+
+        </Button>
         <Text>
           Hello, {this.props.user.firstName} {this.props.user.lastName}!
         </Text>

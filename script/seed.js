@@ -84,7 +84,8 @@ async function seed() {
       numBedrooms: 1,
       numBathrooms: 1,
       squareFeet: 500,
-      monthlyRent: 950
+      monthlyRent: 950,
+      image: 'https://images1.apartments.com/i2/jYTnEHm0266ZQnXPtfrzf6cgcprnpb2ptt2h7JgpVFs/116/the-maynard-at-2545-w-fitch-chicago-il-primary-photo.jpg'
     }),
     Apartment.create({
       name: '415 Premier',
@@ -100,7 +101,8 @@ async function seed() {
       numBedrooms: 2,
       numBathrooms: 2,
       squareFeet: 1149,
-      monthlyRent: 1848
+      monthlyRent: 1848,
+      image: 'https://images1.apartments.com/i2/TZ_IfIVeeXHLH2SRJMh_imTM_DXFq6t3mJQ22XoRglk/116/415-premier-evanston-il-building-photo.jpg'
     }),
     Apartment.create({
       name: 'MILA',
@@ -116,7 +118,9 @@ async function seed() {
       numBedrooms: 2,
       numBathrooms: 2,
       squareFeet: 1107,
-      monthlyRent: 3284
+      monthlyRent: 3284,
+      image: 'https://images1.apartments.com/i2/Feqx7UDZjFJjNrncTHZT1Qnh02GDaZEPCcaEmc_oOFc/116/mila-chicago-il-building-photo.jpg'
+
     }),
     Apartment.create({
       name: '1000 South Clark',
