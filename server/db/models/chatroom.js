@@ -1,10 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
-const Chatroom = db.define('chatroom', {
-  chatId: Sequelize.INTEGER,
-  user1Id: Sequelize.INTEGER,
-  user2Id: Sequelize.INTEGER
-});
+const Chatroom = db.define('chatroom', {});
 
 Chatroom.findOrCreate = async function(user1Id, user2Id) {
   try {

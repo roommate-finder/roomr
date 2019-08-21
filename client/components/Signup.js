@@ -24,8 +24,6 @@ import {
 import { connect } from 'react-redux';
 import { createUserThunk } from '../store/user';
 
-import * as firebase from 'firebase';
-import 'firebase/auth';
 class PhoneLogin extends React.Component {
   constructor() {
     super();
