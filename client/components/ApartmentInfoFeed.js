@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { Image } from 'react-native'
 import { View, Text } from 'native-base';
+// import console = require('console');
 
 class ApartmentInfoFeed extends React.Component {
     constructor() {
@@ -10,13 +11,17 @@ class ApartmentInfoFeed extends React.Component {
 
     render() {
         const apartment = this.props.navigation.state.params.apartment;
+        console.log('APARTMENT', apartment)
         return (
             <View>
                 <View>
-                    <Text>Building: {apartment.name}</Text>
+                    <Text>Building!!!!!!!: {apartment.name}</Text>
                     <Text>
                         Address: {apartment.address}, Unit#{apartment.unit}
                     </Text>
+                    <Image source={{ uri: 'https://placekitten.com/500/500' }} style={{ height: 200, width: null, flex: 1 }} />
+
+
                     <Text>
                         {apartment.city} {apartment.state}, {apartment.zip}
                     </Text>

@@ -6,6 +6,7 @@ import { getApartmentsThunk } from '../store/apartments'
 import { getUsersThunk } from '../store/users'
 import { connect } from 'react-redux'
 import * as Font from 'expo-font';
+import Slideshow from 'react-native-image-slider-show';
 
 //modal stuff
 // import Modal from 'react-native-modal'
@@ -72,8 +73,13 @@ class Feed extends React.Component {
                                 </Left>
                             </CardItem>
                             <CardItem cardBody>
-                                <Image source={{ uri: this.findApartmentInStore(apt)[0].image }} style={{ height: 200, width: null, flex: 1 }} />
-
+                                {/* <Image source={{ uri: this.findApartmentInStore(apt)[0].image }} style={{ height: 200, width: null, flex: 1 }} /> */}
+                                <Slideshow
+                                    dataSource={[
+                                        { url: 'http://placeimg.com/640/480/any' },
+                                        { url: 'http://placeimg.com/640/480/any' },
+                                        { url: 'http://placeimg.com/640/480/any' }
+                                    ]} />
                             </CardItem>
                             <CardItem>
                                 {/* <Text>
