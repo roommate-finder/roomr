@@ -27,7 +27,7 @@ import { createUserThunk } from '../store/user';
 class PhoneLogin extends React.Component {
   constructor() {
     super();
-    this.state = { email: '', password: '', firstName: '', lastName: '' };
+    this.state = { phone: '', password: '', firstName: '', lastName: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -36,7 +36,7 @@ class PhoneLogin extends React.Component {
 
     firebase
       .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .createUserWithEmailAndPassword(this.state.phone, this.state.password)
       .then(() => this.props.navigation.navigate('Home'))
       .catch(error => this.setState({ errorMessage: error.message }));
   }

@@ -6,8 +6,16 @@ const Chatroom = require('./chatroom');
 
 User.belongsToMany(Apartment, { through: UserApartment });
 Apartment.belongsToMany(User, { through: UserApartment });
-User.belongsToMany(User, { through: Chatroom, as: 'user1' });
-User.belongsToMany(User, { through: Chatroom, as: 'user2' });
+User.belongsToMany(User, {
+  through: 'chatroom',
+  as: 'user1',
+  foreignKey: 'user1'
+});
+User.belongsToMany(User, {
+  through: 'chatroom',
+  as: 'user2',
+  foreignKey: 'user2'
+});
 module.exports = {
   db,
   User,
