@@ -42,7 +42,8 @@ class ApartmentSwipe extends React.Component {
     }));
     if (this.state.viewInfo === false) {
       this.scrollToEnd();
-    } else {
+    }
+    else {
       this.scrollToTop();
     }
   };
@@ -65,147 +66,153 @@ class ApartmentSwipe extends React.Component {
         {this.props.apartments.length !== 0 && (
           <Container>
             <Header />
-            <View>
-              <DeckSwiper
-                ref={c => (this._deckSwiper = c)}
-                dataSource={apartments}
-                looping={false}
-                onSwipeLeft={() => {
-                  this.setState({ viewInfo: false });
-                  this.props.createUserApartment(
-                    this._deckSwiper._root.state.selectedItem.id,
-                    this.props.user.id,
-                    false
-                  );
-                }}
-                onSwipeRight={() => {
-                  // console.dir('currentApt', this.state);
-                  // console.log('userId:', this.props.user.id);
-                  // console.log('here', this._deckSwiper._root.state);
-                  this.setState({ viewInfo: false });
-                  this.props.createUserApartment(
-                    this._deckSwiper._root.state.selectedItem.id,
-                    this.props.user.id,
-                    true
-                  );
-                }}
-                renderEmpty={() => (
-                  <View style={{ alignSelf: 'center' }}>
-                    <Text>Over</Text>
-                  </View>
-                )}
-                renderItem={item => (
-                  <Card style={{ elevation: 3 }}>
-                    <CardItem>
-                      <Left>
-                        <Thumbnail source={tempImage} />
-                        <Body>
-                          <Text>{item.name}</Text>
-                          <Text note>{item.address}</Text>
-                        </Body>
-                      </Left>
-                    </CardItem>
-                    <CardItem cardBody>
-                      <Image
-                        style={{ height: 300, flex: 1 }}
-                        source={tempImage}
-                      />
-                    </CardItem>
-                    <CardItem
+
+            <DeckSwiper
+              ref={c => (this._deckSwiper = c)}
+              dataSource={apartments}
+              looping={false}
+              onSwipeLeft={() => {
+                this.setState({ viewInfo: false });
+                this.props.createUserApartment(
+                  this._deckSwiper._root.state.selectedItem.id,
+                  this.props.user.id,
+                  false
+                );
+              }}
+              onSwipeRight={() => {
+                // console.dir('currentApt', this.state);
+                // console.log('userId:', this.props.user.id);
+                // console.log('here', this._deckSwiper._root.state);
+                this.setState({ viewInfo: false });
+                this.props.createUserApartment(
+                  this._deckSwiper._root.state.selectedItem.id,
+                  this.props.user.id,
+                  true
+                );
+              }}
+              renderEmpty={() => (
+                <View style={{ alignSelf: 'center' }}>
+                  <Text>Over</Text>
+                </View>
+              )}
+              renderItem={item => (
+                <Card style={{ elevation: 3 }}>
+                  <CardItem>
+                    <Left>
+                      <Thumbnail source={tempImage} />
+                      <Body>
+                        <Text>{item.name}</Text>
+                        <Text note>{item.address}</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                  <CardItem cardBody>
+                    <Image
+                      style={{ height: 300, flex: 1 }}
+                      source={tempImage}
+                    />
+                  </CardItem>
+                  <CardItem
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      marginTop: 20
+                    }}
+                  >
+                    <Button
                       style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
+                        width: 65,
+                        height: 65,
+                        borderRadius: 65 / 2,
+                        backgroundColor: '#ED4A6A',
                         alignItems: 'center',
-                        marginTop: 20
+                        justifyContent: 'center'
+                      }}
+                      onPress={() => {
+                        this._deckSwiper._root.swipeLeft()
+                        this.setState({ viewInfo: false });
+                        this.props.createUserApartment(
+                          this._deckSwiper._root.state.selectedItem.id,
+                          this.props.user.id,
+                          false
+                        );
                       }}
                     >
-                      <Button
-                        style={{
-                          width: 65,
-                          height: 65,
-                          borderRadius: 65 / 2,
-                          backgroundColor: '#ED4A6A',
-                          alignItems: 'center',
-                          justifyContent: 'center'
-                        }}
-                        onPress={() => {
-                          this._deckSwiper._root.swipeLeft()
-                          this.setState({ viewInfo: false });
-                          this.props.createUserApartment(
-                            this._deckSwiper._root.state.selectedItem.id,
-                            this.props.user.id,
-                            false
-                          );
-                        }}
-                      >
-                        <Icon
-                          name="times"
-                          type="FontAwesome"
-                          style={{ color: '#FFFFFF', fontSize: 32.5 }}
-                        />
-                      </Button>
-                      <Button
-                        style={{
-                          width: 65,
-                          height: 65,
-                          borderRadius: 65 / 2,
-                          backgroundColor: '#ED4A6A'
-                        }}
-                        onPress={() => {
-                          this._deckSwiper._root.swipeRight()
-                          this.setState({ viewInfo: false });
-                          this.props.createUserApartment(
-                            this._deckSwiper._root.state.selectedItem.id,
-                            this.props.user.id,
-                            true
-                          );
-                        }}
-                      >
-                        <Icon
-                          name="heart"
-                          type="AntDesign"
-                          style={{ color: '#FFFFFF', fontSize: 32.5 }}
-                        />
-                      </Button>
-                    </CardItem>
-                    <CardItem
+                      <Icon
+                        name="times"
+                        type="FontAwesome"
+                        style={{ color: '#FFFFFF', fontSize: 32.5 }}
+                      />
+                    </Button>
+                    <Button
                       style={{
-                        justifyContent: 'center',
-                        alignItems: 'center'
+                        width: 65,
+                        height: 65,
+                        borderRadius: 65 / 2,
+                        backgroundColor: '#ED4A6A'
+                      }}
+                      onPress={() => {
+                        this._deckSwiper._root.swipeRight()
+                        this.setState({ viewInfo: false });
+                        this.props.createUserApartment(
+                          this._deckSwiper._root.state.selectedItem.id,
+                          this.props.user.id,
+                          true
+                        );
                       }}
                     >
-                      <Button
-                        style={{
-                          backgroundColor: 'none'
-                        }}
-                        onPress={() => {
-                          this.getAptInfo(item);
-                        }}
-                      >
-                        <Icon
-                          name="info-circle"
-                          type="FontAwesome"
-                          style={{ color: '#ED4A6A' }}
-                        />
-                      </Button>
-                    </CardItem>
-                    <CardItem style={{ justifyContent: 'center' }}>
-                      {this.state.viewInfo === true && (
-                        <View>
-                          <SmallMapView apartment={this.state.currentApt} />
-                          <ApartmentInfo
-                            apartment={this.state.currentApt}
-                            scrollToEnd={this.scrollToEnd}
-                          />
-                        </View>
-                      )}
-                    </CardItem>
-                  </Card>
-                )}
-              />
-            </View>
+                      <Icon
+                        name="heart"
+                        type="AntDesign"
+                        style={{ color: '#FFFFFF', fontSize: 32.5 }}
+                      />
+                    </Button>
+                  </CardItem>
+                  <CardItem
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <Button
+                      style={{
+                        backgroundColor: 'none'
+                      }}
+                      onPress={() => {
+                        this.getAptInfo(item);
+                      }}
+                    >
+                      <Icon
+                        name="info-circle"
+                        type="FontAwesome"
+                        style={{ color: '#ED4A6A' }}
+                      />
+                    </Button>
+                  </CardItem>
+                  <CardItem style={{ justifyContent: 'center' }}>
+
+                  </CardItem>
+                </Card>
+
+              )}
+            />
+
+
+
           </Container>
         )}
+        <View>
+          {this.state.viewInfo === true && (
+            <View>
+              <SmallMapView apartment={this.state.currentApt} />
+              {/* <ApartmentInfo
+                apartment={this.state.currentApt}
+                scrollToEnd={this.scrollToEnd}
+              /> */}
+            </View>
+          )}
+        </View>
       </ScrollView>
     );
   }
