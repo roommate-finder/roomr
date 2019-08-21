@@ -19,7 +19,7 @@ import SmallMapView from './SmallMapView';
 import { connect } from 'react-redux';
 import { getApartmentsThunk } from '../store/apartments';
 import { createUserApartmentThunk } from '../store/user-apartments';
-
+import Slideshow from 'react-native-image-slider-show';
 //because database does not currently have images
 const tempImage = require('../images/kitten.jpeg');
 
@@ -107,10 +107,12 @@ class ApartmentSwipe extends React.Component {
                     </Left>
                   </CardItem>
                   <CardItem cardBody>
-                    <Image
+                    {/* <Image
                       style={{ height: 300, flex: 1 }}
                       source={tempImage}
-                    />
+                    /> */}
+                    <Slideshow
+                      dataSource={item.photos} />
                   </CardItem>
                   <CardItem
                     style={{
