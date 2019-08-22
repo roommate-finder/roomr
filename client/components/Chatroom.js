@@ -12,11 +12,13 @@ import {
   View,
   TextInput,
   Button,
-  FlatList
+  FlatList,
+  Image
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import Messages from '../container/Messages';
 import { Constants } from 'expo';
+import moment from 'moment';
 import * as firebase from 'firebase';
 
 var firebaseConfig = {
@@ -67,7 +69,7 @@ export default class Chatroom extends React.Component {
       .ref()
       .child(props.chatId)
       .on('child_added', snapshot => {
-        const data = snapshot.val();
+        const data = snapshot.val() || [];
         if (data) {
           this.setState(prevState => ({
             messages: [data, ...prevState.messages]
@@ -86,18 +88,21 @@ export default class Chatroom extends React.Component {
   //   }
   sendMessage() {
     const props = this.props.navigation.state.params;
+    console.log('USSSSERRR', props.me);
     if (!this.state.message) return;
-
-    firebase
+    let msg = {
+      message: this.state.message,
+      time: firebase.database.ServerValue.TIMESTAMP,
+      firstName: props.me.firstName,
+      photo: props.me.photo
+    };
+    const newMsgRef = firebase
       .database()
       .ref()
       .child(props.chatId)
-      .push({
-        message: this.state.message,
-        userId: this.state.userId,
-        timestamp: Date.now()
-      });
-    this.setState({ message: '' });
+      .push();
+    msg.id = newMsgRef.key;
+    newMsgRef.set(msg, () => this.setState({ message: '' }));
     // newMessage.set(this.state.message, () => this.setState({ message: '' }));
     // newMessage.set(this.state.avatar, () => this.setState({ avatar: '' }));
     // newMessage.set(this.state.firstName, () =>
@@ -106,6 +111,9 @@ export default class Chatroom extends React.Component {
   }
 
   render() {
+    const props = this.props.navigation.state.params;
+    const messages = this.state.messages;
+    console.log('PROPSME', props.me);
     return (
       <View style={styles.container}>
         <View style={styles.msgBox}>
@@ -119,18 +127,27 @@ export default class Chatroom extends React.Component {
             placeholder="Enter your message"
             onChangeText={text => this.setState({ message: text })}
             value={this.state.message}
-            type="text"
+            style={styles.txtInput}
           />
-          <Button title="Send" onClick={this.sendMessage}>
+          <Button title="Send" onPress={this.sendMessage}>
             Send message
           </Button>
           {/* <Button title="Send" onPress={this.addItem} /> */}
         </View>
         <View>
-          {this.state.messages.map((msg, id) => (
+          {/* <GiftedChat
+            messages={messages}
+            onSend={messages => this.sendMessage(messages)}
+            user={{
+              _id: props.me.id
+            }}
+          /> */}
+          {this.state.messages.map(msg => (
             <View>
-              <Text>{msg.text}</Text>
-              <Text>{msg.timestamp}</Text>
+              <Text>{msg.message}</Text>
+              <Text>{moment(msg.time).from(Date.now())}</Text>
+              <Text>{msg.firstName}</Text>
+              <Image src={msg.photo} />
             </View>
           ))}
         </View>
