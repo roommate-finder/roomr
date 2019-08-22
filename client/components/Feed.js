@@ -86,9 +86,12 @@ class Feed extends React.Component {
 
                                 </Text> */}
                                 <Left>
-                                    <Button transparent onPress={() => this.props.navigation.navigate('MatchesFromApartment', { apartment: this.findApartmentInStore(apt)[0], matchIds: apt.matches_array.split(', ') })} >
+                                    {/* <Button transparent onPress={() => this.props.navigation.navigate('MatchesFromApartment', { apartment: this.findApartmentInStore(apt)[0], matchIds: apt.matches_array.split(', ') })} >
                                         <Text>{apt.matches_array !== null ? apt.matches_array.split(', ').length : 0} matches</Text>
-                                    </Button>
+                                    </Button> */}
+                                    {apt.matches_array !== null ? <Button transparent onPress={() => this.props.navigation.navigate('MatchesFromApartment', { apartment: this.findApartmentInStore(apt)[0], matchIds: apt.matches_array.split(', ') })} >
+                                        <Text>{apt.matches_array.split(', ').length} matches</Text>
+                                    </Button> : <Text> No matches :( </Text>}
 
                                 </Left>
                                 <Right>
