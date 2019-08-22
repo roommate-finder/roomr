@@ -19,6 +19,7 @@ import SmallMapView from './SmallMapView';
 import { connect } from 'react-redux';
 import { getApartmentsThunk } from '../store/apartments';
 import { createUserApartmentThunk } from '../store/user-apartments';
+import { getUnseenApartmentsThunk } from '../store/unseen-apartments';
 import Slideshow from 'react-native-image-slider-show';
 //because database does not currently have images
 const tempImage = require('../images/kitten.jpeg');
@@ -52,7 +53,8 @@ class ApartmentSwipe extends React.Component {
     };
   };
   componentDidMount() {
-    this.props.getApartments();
+    //this.props.getApartments()
+    this.props.getUnseenApartments(this.props.user)
   }
   getAptInfo = apartment => {
     // this.setState({ viewInfo: !this.state.viewInfo, currentApt: apartment });
@@ -75,20 +77,23 @@ class ApartmentSwipe extends React.Component {
   };
 
   render() {
-    const { apartments } = this.props;
+    const { unseenApartments } = this.props;
+    //const { apartments } = this.props;
+    //console.log('******APARTMENTS********', apartments)
+    //console.log('****************UNSEEN APARTMENTS', unseenApartments)
     return (
       <ScrollView
         ref={scrollView => {
           this.scrollView = scrollView;
         }}
       >
-        {this.props.apartments.length !== 0 && (
+        {this.props.unseenApartments.length !== 0 && (
           <Container>
             <Header />
 
             <DeckSwiper
               ref={c => (this._deckSwiper = c)}
-              dataSource={apartments}
+              dataSource={unseenApartments}
               looping={false}
               onSwipeLeft={() => {
                 this.setState({ viewInfo: false });
@@ -121,6 +126,7 @@ class ApartmentSwipe extends React.Component {
                       <Thumbnail source={tempImage} />
                       <Body>
                         <Text>{item.name}</Text>
+                        <Text>APT ID:{item.id}</Text>
                         <Text note>{item.address}</Text>
                       </Body>
                     </Left>
@@ -234,11 +240,13 @@ class ApartmentSwipe extends React.Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    apartments: state.apartments
+    apartments: state.apartments,
+    unseenApartments: state.unseenApartments
   };
 };
 
 const mapDispatchToProps = dispatch => ({
+  getUnseenApartments: user => dispatch(getUnseenApartmentsThunk(user)),
   getApartments: () => dispatch(getApartmentsThunk()),
   createUserApartment: (apartmentId, userId, likedBoolean) =>
     dispatch(createUserApartmentThunk(apartmentId, userId, likedBoolean))

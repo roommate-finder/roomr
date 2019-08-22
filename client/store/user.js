@@ -5,13 +5,13 @@ import { ngrok } from './'
  */
 const SET_USER = 'SET_USER';
 const CREATE_USER = 'CREATE_USER';
-
+const UPDATE_USER = 'UPDATE_USER'
 /**
  * ACTION CREATORS
  */
 const setUser = user => ({ type: SET_USER, user });
 const createUser = user => ({ type: CREATE_USER, user });
-
+const updateUser = user => ({ type: UPDATE_USER, user })
 /**
  * THUNK CREATORS
  */
@@ -41,6 +41,18 @@ export const createUserThunk = formData => async dispatch => {
   }
 };
 
+export const updateUserThunk = user => async dispatch => {
+  try {
+    console.log('USER IN UPDATE USER THUNK', user)
+    //const { data } = await axios.get(`${ngrok}/api/users/${user.id}`, user)
+    const { data } = await axios.put(`${ngrok}/api/users/${user.id}`, user)
+    console.log("DATA", data)
+    dispatch(updateUser(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -49,6 +61,8 @@ export default function (state = {}, action) {
     case SET_USER:
       return action.user;
     case CREATE_USER:
+      return action.user;
+    case UPDATE_USER:
       return action.user;
     default:
       return state;
