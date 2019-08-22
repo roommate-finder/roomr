@@ -54,7 +54,7 @@ class ApartmentSwipe extends React.Component {
   };
   componentDidMount() {
     //this.props.getApartments()
-    this.props.getUnseenApartments(this.props.user)
+    this.props.getUnseenApartments(this.props.user);
   }
   getAptInfo = apartment => {
     // this.setState({ viewInfo: !this.state.viewInfo, currentApt: apartment });
@@ -62,11 +62,11 @@ class ApartmentSwipe extends React.Component {
       viewInfo: !prevState.viewInfo,
       currentApt: apartment
     }));
-    if (this.state.viewInfo === false) {
-      this.scrollToEnd();
-    } else {
-      this.scrollToTop();
-    }
+    // if (this.state.viewInfo === false) {
+    //   this.scrollToEnd();
+    // } else {
+    //   this.scrollToTop();
+    // }
   };
 
   scrollToEnd = () => {
@@ -206,7 +206,10 @@ class ApartmentSwipe extends React.Component {
                         backgroundColor: 'none'
                       }}
                       onPress={() => {
-                        this.getAptInfo(item);
+                        this.props.navigation.navigate('ApartmentInfoFeed', {
+                          apartment: item
+                        });
+                        // this.getAptInfo(item);
                       }}
                     >
                       <Icon
@@ -217,21 +220,21 @@ class ApartmentSwipe extends React.Component {
                     </Button>
                   </CardItem>
                   <CardItem style={{ justifyContent: 'center' }} />
-                  {this.state.viewInfo === true && (
-                    <View>
-                      <SmallMapView apartment={this.state.currentApt} />
-                      <ApartmentInfo
-                        apartment={this.state.currentApt}
-                        scrollToEnd={this.scrollToEnd}
-                      />
-                    </View>
-                  )}
                 </Card>
               )}
             />
           </Container>
         )}
         <View />
+        {/* {this.state.viewInfo === true && (
+          <View>
+            <SmallMapView style={{margin:}} apartment={this.state.currentApt} />
+            <ApartmentInfo
+              apartment={this.state.currentApt}
+              scrollToEnd={this.scrollToEnd}
+            />
+          </View>
+        )} */}
       </ScrollView>
     );
   }
