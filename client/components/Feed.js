@@ -126,6 +126,7 @@ class Feed extends React.Component {
                                             <Text note>
                                                 {this.findApartmentInStore(apt)[0].address}
                                             </Text>
+
                                         </Body>
                                     </Left>
                                 </CardItem>
