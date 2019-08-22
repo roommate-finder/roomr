@@ -5,7 +5,6 @@
 // import { connect } from 'react-redux'
 // import { Constants } from 'expo';
 // import * as firebase from 'firebase';
-
 import React from 'react';
 import {
   StyleSheet,
@@ -15,6 +14,7 @@ import {
   Button,
   FlatList
 } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 import Messages from '../container/Messages';
 import { Constants } from 'expo';
 import * as firebase from 'firebase';
@@ -35,12 +35,11 @@ export default class Chatroom extends React.Component {
 
     this.state = {
       message: '',
-      avatar: '',
-      firstName: '',
       messages: []
     };
 
-    this.addItem = this.addItem.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+    this.findUsersInChat = this.findUsersInChat.bind(this);
   }
 
   componentDidMount() {
@@ -76,39 +75,63 @@ export default class Chatroom extends React.Component {
         }
       });
   }
-
-  addItem() {
+  findUsersInChat(mess) {
+    const userInChat = this.props.users.filter(user => user.id === mess);
+    return userInChat;
+  }
+  //   updateMessage(event) {
+  //     this.setState({
+  //       message: event.target.value
+  //     });
+  //   }
+  sendMessage() {
     const props = this.props.navigation.state.params;
     if (!this.state.message) return;
 
-    const newMessage = firebase
+    firebase
       .database()
       .ref()
       .child(props.chatId)
-      .push();
-    newMessage.set(this.state.message, () => this.setState({ message: '' }));
-    newMessage.set(this.state.avatar, () => this.setState({ avatar: '' }));
-    newMessage.set(this.state.firstName, () =>
-      this.setState({ firstName: '' })
-    );
+      .push({
+        message: this.state.message,
+        userId: this.state.userId,
+        timestamp: Date.now()
+      });
+    this.setState({ message: '' });
+    // newMessage.set(this.state.message, () => this.setState({ message: '' }));
+    // newMessage.set(this.state.avatar, () => this.setState({ avatar: '' }));
+    // newMessage.set(this.state.firstName, () =>
+    //   this.setState({ firstName: '' })
+    // );
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.msgBox}>
-          <Messages />
-          <TextInput
+          {/* <TextInput
             placeholder="Enter your message"
             value={this.state.message}
             onChangeText={text => this.setState({ message: text })}
             style={styles.txtInput}
+          /> */}
+          <TextInput
+            placeholder="Enter your message"
+            onChangeText={text => this.setState({ message: text })}
+            value={this.state.message}
+            type="text"
           />
-          <Button title="Send" onPress={this.addItem} />
+          <Button title="Send" onClick={this.sendMessage}>
+            Send message
+          </Button>
+          {/* <Button title="Send" onPress={this.addItem} /> */}
         </View>
         <View>
-          {this.state.messages.map(msg => (
-            <Text>{msg}</Text>
+          {this.state.messages.map((msg, id) => (
+            <View>
+              <Text>{msg.text}</Text>
+              <Text>{msg.timestamp}</Text>
+            </View>
           ))}
         </View>
 

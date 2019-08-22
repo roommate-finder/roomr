@@ -29,7 +29,7 @@ import { getUsersThunk } from '../store/users';
 import { connect } from 'react-redux';
 import * as Font from 'expo-font';
 import Slideshow from 'react-native-image-slider-show';
-import Chat from './Chat';
+
 //modal stuff
 // import Modal from 'react-native-modal'
 

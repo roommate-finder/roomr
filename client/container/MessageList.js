@@ -1,5 +1,11 @@
 import React from 'react';
-import { ImageBackground, Dimensions, Text, Image } from 'react-native';
+import {
+  ImageBackground,
+  Dimensions,
+  Text,
+  Image,
+  FlatList
+} from 'react-native';
 // import {
 //   ListView,
 //   View,
@@ -18,7 +24,6 @@ const Message = ({ msg }) => (
   <Row>
     <Image
       styleName="small-avator top"
-      source={require("../../assets/images/cody'.png")}
       style={{
         width: 30,
         height: 30
@@ -35,7 +40,7 @@ const Message = ({ msg }) => (
 );
 
 const MessageList = ({ messages, onLayout }) => (
-  <ListView
+  <FlatList
     data={messages}
     autoHideHeader={true}
     renderRow={msg => <Message msg={msg} />}
