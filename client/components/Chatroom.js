@@ -96,10 +96,10 @@ export default class Chatroom extends React.Component {
                     />
                     <Button title="Send" onPress={this.addItem} />
                 </View>
-                <Text>
+                <View>
                     {this.state.messages.map(msg => <Text>{msg}</Text>)}
 
-                </Text>
+                </View>
 
                 {/* <FlatList
                     data={this.state.messages}
