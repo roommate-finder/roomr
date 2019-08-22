@@ -5,31 +5,15 @@ import { connect } from 'react-redux';
 // import * as Font from 'expo-font';
 
 class Home extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTitle: 'Home',
-      headerRight: (
-        <Button
-          onPress={() => navigation.navigate('Friends')}
-          title="FRIENDS"
-          color="#000"
-        />
-      )
-    };
-  };
   render() {
     return (
       <View style={styles.container}>
         <Button onPress={() => this.props.navigation.navigate('Feed')}>
           <Text>FEED</Text>
-
         </Button>
         <Text>
           Hello, {this.props.user.firstName} {this.props.user.lastName}!
         </Text>
-        <Button onPress={() => this.props.navigation.navigate('Friends')}>
-          <Text>Add some friends</Text>
-        </Button>
         <Button
           title="User profile"
           onPress={() => this.props.navigation.navigate('UserProfile')}

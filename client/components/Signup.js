@@ -33,7 +33,7 @@ class PhoneLogin extends React.Component {
 
   handleSubmit() {
     this.props.createUser(this.state);
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('EditProfile');
   }
   render() {
     return (

@@ -1,6 +1,5 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Home from './Home';
-import Friends from './Friends';
 import Login from './Login';
 import UserProfile from './UserProfile';
 import EditProfile from './EditProfile';
@@ -19,7 +18,6 @@ const AppNavigator = createStackNavigator({
   Signup: { screen: Signup },
   PhoneLogin: { screen: PhoneLogin },
   Home: { screen: Home },
-  Friends: { screen: Friends },
   Login: { screen: Login },
   UserProfile: { screen: UserProfile },
   EditProfile: { screen: EditProfile },
