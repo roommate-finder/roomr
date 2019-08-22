@@ -31,6 +31,26 @@ class ApartmentSwipe extends React.Component {
       currentApt: {}
     };
   }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Button transparent onPress={() => navigation.navigate('UserProfile')}>
+          <Icon type="FontAwesome" name="user" style={{ color: 'grey' }} />
+        </Button>
+      ),
+      headerTitle: (
+        <Button transparent>
+          <Icon type="FontAwesome" name="home" style={{ color: '#0e677c' }} />
+        </Button>
+      ),
+
+      headerRight: (
+        <Button transparent onPress={() => navigation.navigate('Feed')}>
+          <Icon type="FontAwesome" name="users" style={{ color: 'grey' }} />
+        </Button>
+      )
+    };
+  };
   componentDidMount() {
     this.props.getApartments();
   }
@@ -42,8 +62,7 @@ class ApartmentSwipe extends React.Component {
     }));
     if (this.state.viewInfo === false) {
       this.scrollToEnd();
-    }
-    else {
+    } else {
       this.scrollToTop();
     }
   };
@@ -111,8 +130,7 @@ class ApartmentSwipe extends React.Component {
                       style={{ height: 300, flex: 1 }}
                       source={tempImage}
                     /> */}
-                    <Slideshow
-                      dataSource={item.photos} />
+                    <Slideshow dataSource={item.photos} />
                   </CardItem>
                   <CardItem
                     style={{
@@ -132,7 +150,7 @@ class ApartmentSwipe extends React.Component {
                         justifyContent: 'center'
                       }}
                       onPress={() => {
-                        this._deckSwiper._root.swipeLeft()
+                        this._deckSwiper._root.swipeLeft();
                         this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
@@ -155,7 +173,7 @@ class ApartmentSwipe extends React.Component {
                         backgroundColor: '#ED4A6A'
                       }}
                       onPress={() => {
-                        this._deckSwiper._root.swipeRight()
+                        this._deckSwiper._root.swipeRight();
                         this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
@@ -192,29 +210,22 @@ class ApartmentSwipe extends React.Component {
                       />
                     </Button>
                   </CardItem>
-                  <CardItem style={{ justifyContent: 'center' }}>
-
-                  </CardItem>
+                  <CardItem style={{ justifyContent: 'center' }} />
+                  {this.state.viewInfo === true && (
+                    <View>
+                      <SmallMapView apartment={this.state.currentApt} />
+                      <ApartmentInfo
+                        apartment={this.state.currentApt}
+                        scrollToEnd={this.scrollToEnd}
+                      />
+                    </View>
+                  )}
                 </Card>
-
               )}
             />
-
-
-
           </Container>
         )}
-        <View>
-          {this.state.viewInfo === true && (
-            <View>
-              <SmallMapView apartment={this.state.currentApt} />
-              {/* <ApartmentInfo
-                apartment={this.state.currentApt}
-                scrollToEnd={this.scrollToEnd}
-              /> */}
-            </View>
-          )}
-        </View>
+        <View />
       </ScrollView>
     );
   }

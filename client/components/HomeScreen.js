@@ -11,8 +11,8 @@ import {
   Icon,
   StyleProvider
 } from 'native-base';
-import * as Font from 'expo-font';
-import { StyleSheet, View, Button } from 'react-native';
+
+import { View, Button } from 'react-native';
 
 export default class HomeScreen extends Component {
   render() {
