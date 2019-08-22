@@ -28,6 +28,7 @@ export default class HomeScreen extends Component {
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
+            alignItems: 'center',
             marginBottom: 100
           }}
         >
