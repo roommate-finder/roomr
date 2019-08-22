@@ -100,6 +100,25 @@ export default class Home extends React.Component {
             <Icon type="FontAwesome" name="cog" />
           </Button>
         </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center'
+          }}
+        >
+          <Button
+            onPress={() => this.props.navigation.navigate('HomeScreen')}
+            style={{
+              width: 100,
+              height: 40,
+              borderRadius: 20,
+              justifyContent: 'center'
+            }}
+            light
+          >
+            <Text style={{ color: '#0e677c' }}>Logout</Text>
+          </Button>
+        </View>
       </View>
 
       //     <Container>

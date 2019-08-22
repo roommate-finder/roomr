@@ -35,6 +35,10 @@ class PhoneLogin extends React.Component {
   handleSubmit() {
     this.props.setUser(this.state);
     /* FOR DEVELOPMENT */
+    this.setState({
+      phone: '',
+      password: ''
+    });
     this.props.navigation.navigate('Home');
     /* FOR PRODUCTION */
     // this.props.navigation.navigate('ApartmentSwipe');
