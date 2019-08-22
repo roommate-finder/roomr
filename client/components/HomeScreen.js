@@ -7,24 +7,59 @@ import {
   Item,
   Input,
   Label,
-  Button,
-  Text
+  Text,
+  Icon,
+  StyleProvider
 } from 'native-base';
-import { StyleSheet, View } from 'react-native';
+import * as Font from 'expo-font';
+import { StyleSheet, View, Button } from 'react-native';
 
 export default class HomeScreen extends Component {
   render() {
     return (
-      <Container style={{ justifyContent: 'center', alignContent: 'center' }}>
-        <View style={{ justifyContent: 'center', alignContent: 'center' }}>
-          <Text>ROOMR</Text>
+      <Container
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#0e677c'
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginBottom: 100
+          }}
+        >
+          <Text style={{ fontSize: 30, color: 'white' }}>ROOMR</Text>
+          <Icon type="FontAwesome" name="home" style={{ color: 'white' }} />
         </View>
-        <Button onPress={() => this.props.navigation.navigate('PhoneLogin')}>
-          <Text>Phone login</Text>
-        </Button>
-        <Button onPress={() => this.props.navigation.navigate('Signup')}>
-          <Text>Signup</Text>
-        </Button>
+        <View>
+          <View
+            style={{
+              backgroundColor: 'white',
+              marginBottom: 10,
+              borderRadius: 10
+            }}
+          >
+            <Button
+              color="#0e677c"
+              title="Phone login"
+              onPress={() => this.props.navigation.navigate('PhoneLogin')}
+            >
+              <Text>Phone login</Text>
+            </Button>
+          </View>
+          <View style={{ backgroundColor: 'white', borderRadius: 10 }}>
+            <Button
+              color="#0e677c"
+              title="Signup"
+              onPress={() => this.props.navigation.navigate('Signup')}
+            >
+              <Text>Signup</Text>
+            </Button>
+          </View>
+        </View>
       </Container>
     );
   }
