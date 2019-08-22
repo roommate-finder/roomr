@@ -33,6 +33,7 @@ class Feed extends React.Component {
   constructor() {
     super();
     this.findUserInStore = this.findUserInStore.bind(this);
+    this.compare = this.compare.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +45,23 @@ class Feed extends React.Component {
     // console.log('---------------- USER IN STORE', userInStore)
     return userInStore;
   }
+
+  compare(a, b) {
+    let comparison = 0;
+    if (a.id < b.id) {
+      comparison = -1;
+    } else {
+      comparison = 1;
+    }
+    return comparison;
+  }
+
+  // goToChat() {
+  //     // to be called when you click on the message icon
+  //     // grab the two ids: user id and person who you clicked on's id
+  //     // look in the chat table to get id. if that combo doesnt exist, create a new row and return the id
+  //     // pass that chat id into the Chatroom's props. also could pass through objects for the two people in the conversation
+  // }
 
   render() {
     const props = this.props.navigation.state.params;
@@ -72,8 +90,12 @@ class Feed extends React.Component {
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
               <Button
                 onPress={() =>
-                  this.props.navigation.navigate('Chat', {
-                    userToChat: this.findUserInStore(Number(id)[0])
+                  this.props.navigation.navigate('Chatroom', {
+                    me: this.props.user,
+                    other: this.findUserInStore(Number(id))[0],
+                    chatId: `chat${[id, this.props.user.id].sort()[0]}-${
+                      [id, this.props.user.id].sort()[1]
+                    }`
                   })
                 }
               >
