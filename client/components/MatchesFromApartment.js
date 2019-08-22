@@ -72,7 +72,7 @@ class Feed extends React.Component {
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
               <Button
                 onPress={() =>
-                  this.props.navigation.naviagate('Chat', {
+                  this.props.navigation.navigate('Chat', {
                     userToChat: this.findUserInStore(Number(id)[0])
                   })
                 }
