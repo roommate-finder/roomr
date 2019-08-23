@@ -9,4 +9,8 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+<<<<<<< HEAD
+/firebase/config.js
+=======
 twilio
+>>>>>>> b4eb83e8f1389ad4b7d4dfb31ab1804eb610be6f

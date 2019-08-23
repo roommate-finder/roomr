@@ -13,6 +13,10 @@ const UPDATE_USER = 'UPDATE_USER';
 
 const setUser = user => ({ type: SET_USER, user });
 const createUser = user => ({ type: CREATE_USER, user });
+const setSingleUser = campus => ({
+  type: SINGLE_CAMPUS,
+  user
+});
 const updateUser = user => ({ type: UPDATE_USER, user });
 
 /**
@@ -26,6 +30,18 @@ export const setUserThunk = formData => async dispatch => {
     dispatch(setUser(data));
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const fetchUserThunk = userId => async dispatch => {
+  try {
+    const userPath = `/api/users/${userId}`;
+    const responses = await Promise.all([axios.get(userPath)]);
+    const [users, chatroom] = responses.map(res => res.data);
+    users.chatroom = chatroom;
+    dispatch(setSingleUser(users));
+  } catch (err) {
+    console.log("There's an error with fetchCampus on singleCampus!");
   }
 };
 

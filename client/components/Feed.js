@@ -108,7 +108,7 @@ class Feed extends React.Component {
           </Button> */}
           <Button
             style={{ backgroundColor: 'none' }}
-            onPress={() => this.props.navigation.navigate('ALLMESSAGES')}
+            onPress={() => this.props.navigation.navigate('AllMessages')}
           >
             <Text style={{ color: '#0e677c' }}>Messages</Text>
           </Button>

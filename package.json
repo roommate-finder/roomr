@@ -7,7 +7,7 @@
   "scripts": {
     "seed": "node script/seed.js",
     "start": "expo start",
-    "start-express": "node server/index.js",
+    "start-express": "nodemon server/index.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -32,6 +32,7 @@
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
     "react-native-gesture-handler": "^1.3.0",
+    "react-native-gifted-chat": "^0.9.11",
     "react-native-image-slider-show": "^1.0.3",
     "react-native-maps": "^0.25.0",
     "react-native-modal": "^11.3.1",

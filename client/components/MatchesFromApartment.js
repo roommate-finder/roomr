@@ -26,6 +26,7 @@ import {
 import { getFeedDataThunk } from '../store/feed';
 import { getApartmentsThunk } from '../store/apartments';
 import { getUsersThunk } from '../store/users';
+import { createUserChatroomThunk } from '../store/users';
 import { connect } from 'react-redux';
 import * as Font from 'expo-font';
 import axios from 'axios';
@@ -100,6 +101,7 @@ class Feed extends React.Component {
             <CardItem>
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
               <Button
+                // onSubmit={() => this.props.createUserChatroomThunk(user.id)}
                 onPress={() => {
                   this.sendTextNotification(
                     this.props.user,
