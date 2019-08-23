@@ -22,7 +22,7 @@ import {
   Input
 } from 'native-base';
 import { connect } from 'react-redux';
-import { createUserThunk } from '../store/user';
+import { createUserThunk, setUserThunk } from '../store/user';
 
 class PhoneLogin extends React.Component {
   constructor() {

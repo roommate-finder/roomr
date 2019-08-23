@@ -5,17 +5,22 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import apartments from './apartments';
 import feed from './feed';
-import users from './users'
-import unseenApartments from './unseen-apartments'
+import users from './users';
+import unseenApartments from './unseen-apartments';
 
-
-const reducer = combineReducers({ user, apartments, feed, users, unseenApartments });
+const reducer = combineReducers({
+  user,
+  apartments,
+  feed,
+  users,
+  unseenApartments
+});
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 const store = createStore(reducer, middleware);
 
-export const ngrok = 'https://3c2ff200.ngrok.io';
+export const ngrok = 'https://09e865df.ngrok.io';
 
 export default store;
 // export * from './user'

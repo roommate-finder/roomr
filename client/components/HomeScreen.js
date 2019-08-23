@@ -15,6 +15,9 @@ import {
 import { View, Button } from 'react-native';
 
 export default class HomeScreen extends Component {
+  static navigationOptions = {
+    header: null
+  };
   render() {
     return (
       <Container
