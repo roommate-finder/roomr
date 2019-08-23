@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  FlatList,
+  YellowBox
+} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Constants } from 'expo';
 import Login from './Login';
@@ -10,6 +17,7 @@ import AppNavigator from './AppNavigator';
 import { Provider } from 'react-redux';
 import store from '../store';
 
+YellowBox.ignoreWarnings(['Require cycle:']);
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
@@ -113,7 +121,6 @@ export default class App extends React.Component {
             addFriend: this.addFriend
           }}
         />
-
       </Provider>
 
       // <View style={styles.container}>

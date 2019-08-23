@@ -14,7 +14,6 @@ import {
 
 import { View, Button } from 'react-native';
 
-// eslint-disable-next-line react/no-multi-comp
 export default class HomeScreen extends Component {
   static navigationOptions = {
     header: null

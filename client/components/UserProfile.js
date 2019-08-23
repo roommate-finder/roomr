@@ -18,6 +18,8 @@ import {
   Col
 } from 'native-base';
 import { connect } from 'react-redux';
+import logoutUser from '../store/user';
+
 // import * as Font from 'expo-font';
 
 class UserProfile extends React.Component {
@@ -121,7 +123,11 @@ class UserProfile extends React.Component {
           }}
         >
           <Button
-            onPress={() => this.props.navigation.navigate('HomeScreen')}
+            onPress={() => {
+              console.log('PROPS', this.props);
+              this.props.logoutUserAction();
+              this.props.navigation.navigate('HomeScreen');
+            }}
             style={{
               width: 100,
               height: 40,
@@ -171,4 +177,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(UserProfile);
+const mapDispatchToProps = dispatch => ({
+  logoutUserAction: () => dispatch(logoutUser)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserProfile);
