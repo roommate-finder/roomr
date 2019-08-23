@@ -39,14 +39,14 @@ fs.createReadStream(photoData)
     console.log(photos);
   });
 
-const users = [];
-const userData = path.join(__dirname, 'user_data.csv');
-fs.createReadStream(userData)
-  .pipe(csv())
-  .on('data', data => users.push(data))
-  .on('end', () => {
-    console.log(users);
-  });
+// const users = [];
+// const userData = path.join(__dirname, 'user_data.csv');
+// fs.createReadStream(userData)
+//   .pipe(csv())
+//   .on('data', data => users.push(data))
+//   .on('end', () => {
+//     console.log(users);
+//   });
 
 const userApartments = [];
 const userApartmentData = path.join(__dirname, 'user_apartment_data.csv');
@@ -61,6 +61,68 @@ async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
 
+  const users = await Promise.all([
+    User.create({
+      firstName: 'Cody',
+      lastName: 'Codes',
+      password: '123',
+      phone: 2488724135,
+      email: 'cody@email.com',
+      photo: 'https://robohash.org/cody',
+      bio: 'i love to code',
+      age: '18',
+      gender: 'MALE',
+      job: 'fullstack developer'
+    }),
+    User.create({
+      firstName: 'Joey',
+      lastName: 'Doe',
+      phone: 9147086765,
+      password: '123',
+      email: 'joey@email.com',
+      photo: 'https://robohash.org/joey',
+      bio: 'cool dog looking for a nice place to live',
+      age: '21',
+      gender: 'MALE',
+      job: 'sprinter'
+    }),
+    User.create({
+      firstName: 'Rocky',
+      lastName: 'Smith',
+      phone: 1112222,
+      password: '123',
+      email: 'rockyrocks@email.com',
+      photo: 'https://robohash.org/rocky',
+      bio: 'rock enthusiast',
+      age: '24',
+      gender: 'MALE',
+      job: 'mailman'
+    }),
+    User.create({
+      firstName: 'Baxter',
+      lastName: 'Harris',
+      phone: 1232222,
+      password: '123',
+      email: 'baxter@email.com',
+      photo: 'https://robohash.org/baxter',
+      bio: 'a good boy',
+      age: '24',
+      gender: 'MALE',
+      job: 'mall cop'
+    }),
+    User.create({
+      firstName: 'Felix',
+      lastName: 'Martin',
+      phone: 1389798,
+      password: '123',
+      email: 'jack@email.com',
+      photo: 'https://robohash.org/jack',
+      bio: 'cool cat',
+      age: '24',
+      gender: 'MALE',
+      job: 'chef'
+    })
+  ]);
   const createApartments = [];
   apartments.forEach(apt => createApartments.push(Apartment.create(apt)));
   await Promise.all(createApartments);
@@ -69,9 +131,9 @@ async function seed() {
   photos.forEach(photo => createPhotos.push(Photo.create(photo)));
   await Promise.all(createPhotos);
 
-  const createUsers = [];
-  users.forEach(user => createUsers.push(User.create(user)));
-  await Promise.all(createUsers);
+  // const createUsers = [];
+  // users.forEach(user => createUsers.push(User.create(user)));
+  // await Promise.all(createUsers);
 
   const createUserApartments = [];
   userApartments.forEach(ua => createUserApartments.push(UserApartment.create(ua)));
@@ -85,6 +147,10 @@ async function seed() {
       user2Id: 2
     })
   ]);
+
+
+
+
   // const createChatroom = [];
   // chatroom.forEach(chatroom => createChatroom.push(Chatroom.create(chatroom)));
   // Promise.all(createChatroom);
