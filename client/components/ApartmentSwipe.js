@@ -53,9 +53,9 @@ class ApartmentSwipe extends React.Component {
       )
     };
   };
-  componentDidMount() {
+  async componentDidMount() {
     //this.props.getApartments()
-    this.props.getUnseenApartments(this.props.user);
+    await this.props.getUnseenApartments(this.props.user);
   }
   //disable yes and no buttons for 1/2 second for async action
   pressButton = () => {
