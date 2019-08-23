@@ -2,13 +2,13 @@ const router = require('express').Router();
 const { Chatroom } = require('../db/models');
 router.get('/', async (req, res, next) => {
   try {
-    const chatrooms = await Chatroom.findAll();
+    const chatrooms = await Chatroom.findAll({ include: [{ all: true }] });
     res.json(chatrooms);
   } catch (err) {
     next(err);
   }
 });
-router.get('/:id', async (req, res, next) => {
+router.get('/:chatrooId', async (req, res, next) => {
   try {
     const chatroom = await Chatroom.findOne(req.params.id);
     res.json(chatroom);

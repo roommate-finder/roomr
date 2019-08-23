@@ -7,7 +7,7 @@
   "scripts": {
     "seed": "node script/seed.js",
     "start": "expo start",
-    "start-express": "node server/index.js",
+    "start-express": "nodemon server/index.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",

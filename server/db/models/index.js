@@ -8,12 +8,12 @@ Apartment.belongsToMany(User, { through: UserApartment });
 User.belongsToMany(User, {
   through: 'chatroom',
   as: 'user1',
-  foreignKey: 'user1'
+  foreignKey: 'user1Id'
 });
 User.belongsToMany(User, {
   through: 'chatroom',
   as: 'user2',
-  foreignKey: 'user2'
+  foreignKey: 'user2Id'
 });
 
 Photo.belongsTo(Apartment);

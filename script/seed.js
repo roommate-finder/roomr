@@ -1,42 +1,47 @@
 'use strict';
 
 const db = require('../server/db');
-const { User, Apartment, Photo } = require('../server/db/models');
-const csv = require('csv-parser')
-const fs = require('fs')
+const { User, Apartment, Photo, Chatroom } = require('../server/db/models');
+const csv = require('csv-parser');
+const fs = require('fs');
 const path = require('path');
 
 const apartments = [];
+
 const apartmentData = path.join(__dirname, 'apartment_data.csv');
 fs.createReadStream(apartmentData)
   .pipe(csv())
-  .on('data', (data) => apartments.push(data))
+  .on('data', data => apartments.push(data))
   .on('end', () => {
     console.log(apartments);
-
   });
-
-
-const photos = []
-const photoData = path.join(__dirname, 'photo_data.csv')
+const chatroom = [];
+const chatroomData = path.join(__dirname, 'chatroom_data.csv');
+fs.createReadStream(chatroomData)
+  .pipe(csv())
+  .on('data', data => chatroom.push(data))
+  .on('end', () => {
+    console.log(chatroom);
+  });
+const photos = [];
+const photoData = path.join(__dirname, 'photo_data.csv');
 fs.createReadStream(photoData)
   .pipe(csv())
-  .on('data', (data) => photos.push(data))
+  .on('data', data => photos.push(data))
   .on('end', () => {
     console.log(photos);
-
   });
 async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
 
-  const createApartments = []
-  apartments.forEach(apt => createApartments.push(Apartment.create(apt)))
-  Promise.all(createApartments)
+  const createApartments = [];
+  apartments.forEach(apt => createApartments.push(Apartment.create(apt)));
+  Promise.all(createApartments);
 
-  const createPhotos = []
-  photos.forEach(photo => createPhotos.push(Photo.create(photo)))
-  Promise.all(createPhotos)
+  const createPhotos = [];
+  photos.forEach(photo => createPhotos.push(Photo.create(photo)));
+  Promise.all(createPhotos);
 
   const users = await Promise.all([
     User.create({
@@ -100,6 +105,17 @@ async function seed() {
       job: 'chef'
     })
   ]);
+
+  const chats = await Promise.all([
+    Chatroom.create({
+      chatId: '1-2',
+      user1Id: users[0].id,
+      user2Id: users[1].id
+    })
+  ]);
+  // const createChatroom = [];
+  // chatroom.forEach(chatroom => createChatroom.push(Chatroom.create(chatroom)));
+  // Promise.all(createChatroom);
   // const apartments = await Promise.all([
   //   Apartment.create({
   //     name: 'The Maynard at 2545 W Fitch',
@@ -187,9 +203,9 @@ async function seed() {
   //   })
   // ]);
 
-
   console.log(`seeded ${apartments.length} apartments`);
   console.log(`seeded ${users.length} users`);
+  console.log(`seeded ${chats.length} chats`);
   console.log(`seeded successfully`);
 }
 

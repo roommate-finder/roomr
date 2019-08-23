@@ -37,6 +37,9 @@ class Home extends React.Component {
         >
           <Text>Apartment Swipe</Text>
         </Button>
+        <Button onPress={() => this.props.navigation.navigate('AllMessages')}>
+          <Text>All Messages</Text>
+        </Button>
       </View>
     );
   }

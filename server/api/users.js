@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../db/models');
-
+const { Chatroom } = require('../db/models');
+const Sequelize = require('sequelize');
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll();
@@ -50,11 +51,43 @@ router.post('/signup', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
+    console.log('HERE');
     const user = await User.findByPk(req.params.userId);
-    res.json(user);
+    const userData = user.dataValues;
+    const chatrooms = await Chatroom.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { user1Id: req.params.userId },
+          { user2Id: req.params.userId }
+        ]
+      }
+    });
+    userData.chatrooms = chatrooms.map(chat => {
+      return chat.dataValues;
+    });
+    res.json(userData);
   } catch (err) {
     next(err);
   }
 });
 
+// router.get('/:userId/chatroom', async (req, res, next) => {
+//   try {
+//     const user = await Chatroom.findAll({
+//       where: {
+//         userId: req.params.userId
+//       },
+//       include: [Chatroom]
+//       // where: {
+//       //   [Sequelize.Op.or]: [
+//       //     { user1Id: req.params.userId },
+//       //     { user2Id: req.params.userId }
+//       //   ]
+//       // }
+//     });
+//     res.json(user);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 module.exports = router;

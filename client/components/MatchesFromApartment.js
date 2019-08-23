@@ -26,6 +26,7 @@ import {
 import { getFeedDataThunk } from '../store/feed';
 import { getApartmentsThunk } from '../store/apartments';
 import { getUsersThunk } from '../store/users';
+import { createUserChatroomThunk } from '../store/users';
 import { connect } from 'react-redux';
 import * as Font from 'expo-font';
 
@@ -89,6 +90,7 @@ class Feed extends React.Component {
             <CardItem>
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
               <Button
+                onSubmit={() => this.props.createUserChatroomThunk(user.id)}
                 onPress={() =>
                   this.props.navigation.navigate('Chatroom', {
                     me: this.props.user,
@@ -121,7 +123,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   getFeedData: user => dispatch(getFeedDataThunk(user)),
   getApartments: () => dispatch(getApartmentsThunk()),
-  getUsers: () => dispatch(getUsersThunk())
+  getUsers: () => dispatch(getUsersThunk()),
+  createUserChatroomThunk: userId => dispatch(createUserChatroomThunk(userId))
 });
 
 export default connect(

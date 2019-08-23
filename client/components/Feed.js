@@ -46,8 +46,6 @@ class Feed extends React.Component {
     this.findApartmentInStore = this.findApartmentInStore.bind(this);
     this.findUserInStore = this.findUserInStore.bind(this);
   }
-<<<<<<< HEAD
-=======
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
@@ -71,7 +69,6 @@ class Feed extends React.Component {
       )
     };
   };
->>>>>>> b2cb4f791e42416fdb2415db6383f8e49889025f
 
   componentDidMount() {
     this.props.getFeedData(this.props.user);
@@ -100,8 +97,6 @@ class Feed extends React.Component {
     // console.log('*******^^^^^^^^^^^^ USERS', this.props.users)
     return (
       <View>
-<<<<<<< HEAD
-=======
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           <Button style={{ backgroundColor: 'none' }}>
             <Text style={{ color: '#0e677c', fontWeight: 'bold' }}>Feed</Text>
@@ -113,12 +108,11 @@ class Feed extends React.Component {
           </Button> */}
           <Button
             style={{ backgroundColor: 'none' }}
-            onPress={() => this.props.navigation.navigate('ALLMESSAGES')}
+            onPress={() => this.props.navigation.navigate('AllMessages')}
           >
             <Text style={{ color: '#0e677c' }}>Messages</Text>
           </Button>
         </View>
->>>>>>> b2cb4f791e42416fdb2415db6383f8e49889025f
         <ScrollView>
           {this.props.feed[0] &&
             this.props.apartments.length > 0 &&
