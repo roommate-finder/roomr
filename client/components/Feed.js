@@ -118,7 +118,7 @@ class Feed extends React.Component {
             this.props.apartments.length > 0 &&
             this.props.users.length > 0 &&
             this.props.feed[0].map(apt => (
-              <Card>
+              <Card key={this.findApartmentInStore(apt)[0].id}>
                 <CardItem>
                   <Left>
                     <Body>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ngrok } from './';
+
 /**
  * ACTION TYPES
  */
@@ -9,6 +10,7 @@ const UPDATE_USER = 'UPDATE_USER';
 /**
  * ACTION CREATORS
  */
+
 const setUser = user => ({ type: SET_USER, user });
 const createUser = user => ({ type: CREATE_USER, user });
 const setSingleUser = campus => ({
@@ -16,6 +18,7 @@ const setSingleUser = campus => ({
   user
 });
 const updateUser = user => ({ type: UPDATE_USER, user });
+
 /**
  * THUNK CREATORS
  */
@@ -44,8 +47,11 @@ export const fetchUserThunk = userId => async dispatch => {
 
 export const createUserThunk = formData => async dispatch => {
   try {
+    console.log('BEFORE DATA');
+
     const { data } = await axios.post(`${ngrok}/api/users/signup`, formData);
     dispatch(createUser(data));
+    dispatch(setUser(data));
   } catch (err) {
     console.error(err);
   }
@@ -54,7 +60,6 @@ export const createUserThunk = formData => async dispatch => {
 export const updateUserThunk = user => async dispatch => {
   try {
     console.log('USER IN UPDATE USER THUNK', user);
-    //const { data } = await axios.get(`${ngrok}/api/users/${user.id}`, user)
     const { data } = await axios.put(`${ngrok}/api/users/${user.id}`, user);
     console.log('DATA', data);
     dispatch(updateUser(data));

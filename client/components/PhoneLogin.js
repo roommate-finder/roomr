@@ -39,9 +39,11 @@ class PhoneLogin extends React.Component {
       phone: '',
       password: ''
     });
-    this.props.navigation.navigate('Home');
+    // this.props.navigation.navigate('Home');
     /* FOR PRODUCTION */
-    // this.props.navigation.navigate('ApartmentSwipe');
+    setTimeout(() => {
+      this.props.navigation.navigate('ApartmentSwipe');
+    }, 500);
   }
   render() {
     return (
