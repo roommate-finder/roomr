@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import {
   Container,
   Header,
@@ -14,8 +14,8 @@ import {
   Icon,
   Button
 } from 'native-base';
-import ApartmentInfo from './ApartmentInfo';
-import SmallMapView from './SmallMapView';
+// import ApartmentInfo from './ApartmentInfo';
+// import SmallMapView from './SmallMapView';
 import { connect } from 'react-redux';
 import { getApartmentsThunk } from '../store/apartments';
 import { createUserApartmentThunk } from '../store/user-apartments';
@@ -28,8 +28,9 @@ class ApartmentSwipe extends React.Component {
   constructor() {
     super();
     this.state = {
-      viewInfo: false,
-      currentApt: {}
+      // viewInfo: false,
+      // currentApt: {},
+      disabled: false
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -56,25 +57,26 @@ class ApartmentSwipe extends React.Component {
     //this.props.getApartments()
     this.props.getUnseenApartments(this.props.user);
   }
-  getAptInfo = apartment => {
-    // this.setState({ viewInfo: !this.state.viewInfo, currentApt: apartment });
-    this.setState(prevState => ({
-      viewInfo: !prevState.viewInfo,
-      currentApt: apartment
-    }));
-    // if (this.state.viewInfo === false) {
-    //   this.scrollToEnd();
-    // } else {
-    //   this.scrollToTop();
-    // }
+  //disable yes and no buttons for 1/2 second for async action
+  pressButton = () => {
+    this.setState({
+      disabled: true
+    });
+    // enable after 500 ms
+    setTimeout(() => {
+      this.setState({
+        disabled: false
+      });
+    }, 500);
   };
 
-  scrollToEnd = () => {
-    this.scrollView.scrollToEnd();
-  };
-  scrollToTop = () => {
-    this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
-  };
+  // in case we want to attemp scrolling again
+  // scrollToEnd = () => {
+  //   this.scrollView.scrollToEnd();
+  // };
+  // scrollToTop = () => {
+  //   this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
+  // };
 
   render() {
     const { unseenApartments } = this.props;
@@ -96,7 +98,7 @@ class ApartmentSwipe extends React.Component {
               dataSource={unseenApartments}
               looping={false}
               onSwipeLeft={() => {
-                this.setState({ viewInfo: false });
+                // this.setState({ viewInfo: false });
                 this.props.createUserApartment(
                   this._deckSwiper._root.state.selectedItem.id,
                   this.props.user.id,
@@ -104,10 +106,7 @@ class ApartmentSwipe extends React.Component {
                 );
               }}
               onSwipeRight={() => {
-                // console.dir('currentApt', this.state);
-                // console.log('userId:', this.props.user.id);
-                // console.log('here', this._deckSwiper._root.state);
-                this.setState({ viewInfo: false });
+                // this.setState({ viewInfo: false });
                 this.props.createUserApartment(
                   this._deckSwiper._root.state.selectedItem.id,
                   this.props.user.id,
@@ -155,9 +154,11 @@ class ApartmentSwipe extends React.Component {
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}
+                      disabled={this.state.disabled}
                       onPress={() => {
+                        this.pressButton();
                         this._deckSwiper._root.swipeLeft();
-                        this.setState({ viewInfo: false });
+                        // this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
                           this.props.user.id,
@@ -178,9 +179,11 @@ class ApartmentSwipe extends React.Component {
                         borderRadius: 65 / 2,
                         backgroundColor: '#ED4A6A'
                       }}
+                      disabled={this.state.disabled}
                       onPress={() => {
+                        this.pressButton();
                         this._deckSwiper._root.swipeRight();
-                        this.setState({ viewInfo: false });
+                        // this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
                           this.props.user.id,
