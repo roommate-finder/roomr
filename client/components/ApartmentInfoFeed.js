@@ -13,8 +13,8 @@ class ApartmentInfoFeed extends React.Component {
     render() {
         const apartment = this.props.navigation.state.params.apartment;
         console.log('APARTMENT', apartment)
-        const latitude = apartment.longitude
-        const longitude = apartment.latitude
+        const latitude = apartment.latitude
+        const longitude = apartment.longitude
         const marker = { latitude: latitude, longitude: longitude }
         return (
             <Content>
@@ -33,7 +33,8 @@ class ApartmentInfoFeed extends React.Component {
                     <Text>On-site parking: {apartment.parking === true ? <Icon type="FontAwesome" name="check" style={{ color: 'green' }} /> : <Icon type="FontAwesome" name="times" style={{ color: 'red' }} />} </Text>
                     <Text>AC included: {apartment.ac === true ? <Icon type="FontAwesome" name="check" style={{ color: 'green' }} /> : <Icon type="FontAwesome" name="times" style={{ color: 'red' }} />} </Text>
                     <Text>Pool: {apartment.pool === true ? <Icon type="FontAwesome" name="check" style={{ color: 'green' }} /> : <Icon type="FontAwesome" name="times" style={{ color: 'red' }} />} </Text>
-
+                    <Text>Bedrooms: {apartment.numBedrooms}</Text>
+                    <Text>Bathrooms: {apartment.numBathrooms}</Text>
                     <MapView
                         showsUserLocation
                         style={styles.map}
