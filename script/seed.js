@@ -1,7 +1,13 @@
 'use strict';
 
 const db = require('../server/db');
-const { User, Apartment, Photo, Chatroom } = require('../server/db/models');
+const {
+  User,
+  Apartment,
+  Photo,
+  Chatroom,
+  UserApartment
+} = require('../server/db/models');
 const csv = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
@@ -25,12 +31,34 @@ fs.createReadStream(chatroomData)
   });
 const photos = [];
 const photoData = path.join(__dirname, 'photo_data.csv');
+
+const photos = [];
+const photoData = path.join(__dirname, 'photo_data.csv');
 fs.createReadStream(photoData)
   .pipe(csv())
   .on('data', data => photos.push(data))
   .on('end', () => {
     console.log(photos);
   });
+
+const users = [];
+const userData = path.join(__dirname, 'user_data.csv');
+fs.createReadStream(userData)
+  .pipe(csv())
+  .on('data', data => users.push(data))
+  .on('end', () => {
+    console.log(users);
+  });
+
+const userApartments = [];
+const userApartmentData = path.join(__dirname, 'user_apartment_data.csv');
+fs.createReadStream(userApartmentData)
+  .pipe(csv())
+  .on('data', data => userApartments.push(data))
+  .on('end', () => {
+    console.log(userApartments);
+  });
+
 async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
@@ -168,40 +196,11 @@ async function seed() {
   //     monthlyRent: 3284,
   //     image: 'https://images1.apartments.com/i2/Feqx7UDZjFJjNrncTHZT1Qnh02GDaZEPCcaEmc_oOFc/116/mila-chicago-il-building-photo.jpg'
 
-  //   }),
-  //   Apartment.create({
-  //     name: '1000 South Clark',
-  //     address: '1000 S Clark St',
-  //     latitude: 41.869538,
-  //     longitude: -87.631092,
-  //     unit: '13',
-  //     city: 'Chicago',
-  //     state: 'IL',
-  //     zip: 60605,
-  //     description:
-  //       'Fashion axe echo park food truck twee hella, try-hard irony. Echo park yr listicle tousled freegan, marfa pitchfork mustache sartorial vinyl wayfarers trust fund put a bird on it pabst.',
-  //     numBedrooms: 1,
-  //     numBathrooms: 1,
-  //     squareFeet: 645,
-  //     monthlyRent: 2149
-  //   }),
-  //   Apartment.create({
-  //     name: 'K2 Apartments',
-  //     address: '365 N Halsted St',
-  //     latitude: 41.888821,
-  //     longitude: -87.647103,
-  //     unit: 'P03',
-  //     city: 'Chicago',
-  //     state: 'IL',
-  //     zip: 60661,
-  //     description:
-  //       'Vegan brooklyn meditation flannel, gochujang kale chips humblebrag succulents listicle XOXO ennui.',
-  //     numBedrooms: 3,
-  //     numBathrooms: 3,
-  //     squareFeet: 1494,
-  //     monthlyRent: 4550
-  //   })
-  // ]);
+  const createUserApartments = [];
+  userApartments.forEach(ua =>
+    createUserApartments.push(UserApartment.create(ua))
+  );
+  await Promise.all(createUserApartments);
 
   console.log(`seeded ${apartments.length} apartments`);
   console.log(`seeded ${users.length} users`);

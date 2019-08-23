@@ -9,6 +9,7 @@ router.use('/apartments', require('./apartments'));
 router.use('/user-apartment', require('./user-apartment'));
 router.use('/photos', require('./photos'));
 router.use('/chatroom', require('./chatroom'));
+router.use('/twilio', require('./twilio'));
 router.use((req, res, next) => {
   const error = new Error('Not Found');
   error.status = 404;

@@ -153,6 +153,79 @@ export default class Chatroom extends React.Component {
         </View>
 
         {/* <FlatList
+        this.addItem = this.addItem.bind(this);
+    }
+
+    componentDidMount() {
+        const props = this.props.navigation.state.params;
+        console.log("PROPS IN CDM", props)
+        firebase
+            .database()
+            .ref()
+            .child(props.chatId)
+            .once("value", snapshot => {
+                const data = snapshot.val()
+                if (snapshot.val()) {
+                    const initMessages = [];
+                    Object
+                        .keys(data)
+                        .forEach(message => initMessages.push(data[message]));
+                    this.setState({
+                        messages: initMessages
+                    })
+                }
+            });
+
+        firebase
+            .database()
+            .ref()
+            .child(props.chatId)
+            .on("child_added", snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    this.setState(prevState => ({
+                        messages: [data, ...prevState.messages]
+                    }))
+                }
+            })
+
+    }
+
+
+
+    addItem() {
+        const props = this.props.navigation.state.params;
+        if (!this.state.message) return;
+
+        const newMessage = firebase.database().ref()
+            .child(props.chatId)
+            .push();
+        newMessage.set(this.state.message, () => this.setState({ message: '' }))
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+
+                <View style={styles.msgBox}>
+                    <TextInput
+                        placeholder="Enter your message"
+                        value={this.state.message}
+                        onChangeText={text => this.setState({ message: text })}
+                        style={styles.txtInput}
+                    />
+                    <Button title="Send" onPress={this.addItem} />
+
+                </View>
+                <View>
+                    {this.state.messages.map(msg => <Text>{msg.message}</Text>)}
+
+                </View>
+
+
+
+
+                {/* <FlatList
                     data={this.state.messages}
                     renderItem={({ item }) => (
                         <View style={styles.listItemContainer}>

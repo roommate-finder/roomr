@@ -6,8 +6,15 @@ import user from './user';
 import apartments from './apartments';
 import feed from './feed';
 import users from './users';
+import unseenApartments from './unseen-apartments';
 
-const reducer = combineReducers({ user, apartments, feed, users });
+const reducer = combineReducers({
+  user,
+  apartments,
+  feed,
+  users,
+  unseenApartments
+});
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

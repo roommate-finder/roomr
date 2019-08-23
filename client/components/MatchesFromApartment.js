@@ -29,6 +29,8 @@ import { getUsersThunk } from '../store/users';
 import { createUserChatroomThunk } from '../store/users';
 import { connect } from 'react-redux';
 import * as Font from 'expo-font';
+import axios from 'axios';
+import { ngrok } from '../../client/store';
 
 class Feed extends React.Component {
   constructor() {
@@ -57,6 +59,14 @@ class Feed extends React.Component {
     return comparison;
   }
 
+  async sendTextNotification(user1, user2, apartmentName) {
+    const { data } = await axios.post(`${ngrok}/api/twilio/`, {
+      user1: user1,
+      user2: user2,
+      apartmentName: apartmentName
+    });
+  }
+
   // goToChat() {
   //     // to be called when you click on the message icon
   //     // grab the two ids: user id and person who you clicked on's id
@@ -70,6 +80,7 @@ class Feed extends React.Component {
       <ScrollView>
         <Text>Matches for {props.apartment.name}</Text>
         {props.matchIds.map(id => (
+          // eslint-disable-next-line react/jsx-key
           <Card>
             <CardItem>
               <Left>
@@ -90,16 +101,21 @@ class Feed extends React.Component {
             <CardItem>
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
               <Button
-                onSubmit={() => this.props.createUserChatroomThunk(user.id)}
-                onPress={() =>
+                // onSubmit={() => this.props.createUserChatroomThunk(user.id)}
+                onPress={() => {
+                  this.sendTextNotification(
+                    this.props.user,
+                    this.findUserInStore(Number(id))[0],
+                    props.apartment.name
+                  ); // send user 1 and 2 to axios req
                   this.props.navigation.navigate('Chatroom', {
                     me: this.props.user,
                     other: this.findUserInStore(Number(id))[0],
                     chatId: `chat${[id, this.props.user.id].sort()[0]}-${
                       [id, this.props.user.id].sort()[1]
                     }`
-                  })
-                }
+                  });
+                }}
               >
                 <Icon type="FontAwesome" name="comments" />
               </Button>
@@ -123,8 +139,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   getFeedData: user => dispatch(getFeedDataThunk(user)),
   getApartments: () => dispatch(getApartmentsThunk()),
-  getUsers: () => dispatch(getUsersThunk()),
-  createUserChatroomThunk: userId => dispatch(createUserChatroomThunk(userId))
+  getUsers: () => dispatch(getUsersThunk())
 });
 
 export default connect(
