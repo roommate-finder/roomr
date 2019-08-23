@@ -1,0 +1,6 @@
+firstName,lastName,phone,password,email,photo,bio,age,gender,job
+Cody,Codes,2488724135,123,cody@email.com,https://robohash.org/cody,i love to code,18,MALE,fullstack developer
+Joey,Doe,9147086765,123,joey@email.com,https://robohash.org/joey,cool dog looking for a nice place to live,21,MALE,sprinter
+Rocky,Smith,123,123,rockyrocks@email.com,https://robohash.org/rocky,rock enthusiast,24,MALE,mailman
+Baxter,Harris,456,123,baxter@email.com,https://robohash.org/baxter,a good boy,24,MALE,mall cop
+Felix ,Martin,789,123,felix@email.com,https://robohash.org/felix,cool cat,24,MALE,chef
