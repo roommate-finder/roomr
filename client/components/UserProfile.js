@@ -18,7 +18,8 @@ import {
   Col
 } from 'native-base';
 import { connect } from 'react-redux';
-import logoutUser from '../store/user';
+// import { logoutUser } from '../store/user';
+import { logoutUserThunk } from '../store/user';
 
 // import * as Font from 'expo-font';
 
@@ -124,8 +125,9 @@ class UserProfile extends React.Component {
         >
           <Button
             onPress={() => {
-              console.log('PROPS', this.props);
-              this.props.logoutUserAction();
+              // this.props.logoutUser2();
+              // console.log('AFTER LOGOUT', this.props);
+
               this.props.navigation.navigate('HomeScreen');
             }}
             style={{
@@ -178,7 +180,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  logoutUserAction: () => dispatch(logoutUser)
+  // logoutUserAction: () => dispatch(logoutUser)
+  // logoutUser2: () => dispatch(logoutUserThunk)
 });
 
 export default connect(
