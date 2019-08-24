@@ -128,7 +128,9 @@ class Feed extends React.Component {
                         width: 20,
                         height: 20,
                         borderRadius: 20 / 2,
-                        backgroundColor: '#ED4A6A'
+                        backgroundColor: '#ED4A6A',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                       }}
                       transparent
                       onPress={() => {
@@ -137,7 +139,17 @@ class Feed extends React.Component {
                           this.findApartmentInStore(apt)[0].id
                         );
                       }}
-                    />
+                    >
+                      <Icon
+                        name="times"
+                        type="FontAwesome"
+                        style={{
+                          color: '#FFFFFF',
+                          fontSize: 10,
+                          marginBottom: 2
+                        }}
+                      />
+                    </Button>
                   </Right>
                 </CardItem>
                 <CardItem cardBody>

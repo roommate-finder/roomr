@@ -169,7 +169,11 @@ class ApartmentSwipe extends React.Component {
                       <Icon
                         name="times"
                         type="FontAwesome"
-                        style={{ color: '#FFFFFF', fontSize: 32.5 }}
+                        style={{
+                          color: '#FFFFFF',
+                          fontSize: 32.5,
+                          marginBottom: 3
+                        }}
                       />
                     </Button>
                     <Button
@@ -194,7 +198,11 @@ class ApartmentSwipe extends React.Component {
                       <Icon
                         name="heart"
                         type="AntDesign"
-                        style={{ color: '#FFFFFF', fontSize: 32.5 }}
+                        style={{
+                          color: '#FFFFFF',
+                          fontSize: 32.5,
+                          marginTop: 3
+                        }}
                       />
                     </Button>
                   </CardItem>
@@ -218,7 +226,7 @@ class ApartmentSwipe extends React.Component {
                       <Icon
                         name="info-circle"
                         type="FontAwesome"
-                        style={{ color: '#ED4A6A' }}
+                        style={{ color: '#ED4A6A', fontSize: 30 }}
                       />
                     </Button>
                   </CardItem>
