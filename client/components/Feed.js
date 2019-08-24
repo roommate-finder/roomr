@@ -46,21 +46,7 @@ class Feed extends React.Component {
     this.findApartmentInStore = this.findApartmentInStore.bind(this);
     this.findUserInStore = this.findUserInStore.bind(this);
   }
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     image1: (
-  //       <Image
-  //         source={require('../images/kitten.jpeg')}
-  //         style={{ height: 24, width: 24 }}
-  //       />
-  //       // <Button transparent onPress={() => navigation.navigate('UserProfile')}>
-  //       //   <Icon type="FontAwesome" name="user" style={{ color: 'grey' }} />
-  //       // </Button>
-  //     )
-  //   };
-  // };
 
-  //OLD NAV
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
@@ -81,10 +67,7 @@ class Feed extends React.Component {
               style={{ color: 'grey', fontSize: 30 }}
             />
           </Button>
-          <Button
-            transparent
-            // onPress={() => navigation.navigate('Feed')}
-          >
+          <Button transparent>
             <Icon
               type="FontAwesome"
               name="heart"
