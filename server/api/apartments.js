@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Apartment, UserApartment, User, Photo } = require('../db/models/');
-const client = require("../db");
+const client = require('../db');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -22,19 +22,23 @@ router.get('/:apartmentId', async (req, res, next) => {
 
 router.get('/show/:userId', async (req, res, next) => {
   try {
-    console.log("-------------REQ PARAMS", req.params)
+    // console.log("-------------REQ PARAMS", req.params)
     //const seenApartments = await Apartment.findAll({ include: [User, { model: Photo, include: [Apartment] }] })
-    const unseenApartments = await client.query(`SELECT * FROM "apartments" INNER JOIN (SELECT "id" FROM "apartments" EXCEPT (SELECT "apartmentId" FROM "user-apartments" WHERE  "userId"=${Number(req.params.userId)})) as "unseen-apartments" ON "apartments"."id" = "unseen-apartments"."id" JOIN "photos" ON "photos"."apartmentId" = "apartments"."id"`)
-    console.log("UNSEEN APTS", unseenApartments[0])
+    const unseenApartments = await client.query(
+      `SELECT * FROM "apartments" INNER JOIN (SELECT "id" FROM "apartments" EXCEPT (SELECT "apartmentId" FROM "user-apartments" WHERE  "userId"=${Number(
+        req.params.userId
+      )})) as "unseen-apartments" ON "apartments"."id" = "unseen-apartments"."id" JOIN "photos" ON "photos"."apartmentId" = "apartments"."id"`
+    );
+    // console.log("UNSEEN APTS", unseenApartments[0])
 
-    const apt = unseenApartments[0]
-    const clean = []
+    const apt = unseenApartments[0];
+    const clean = [];
     for (let i = 0; i < apt.length; i++) {
       let found = false;
       for (let j = 0; j < clean.length; j++) {
         if (clean[j].id === apt[i].apartmentId) {
-          clean[j].photos.push({ url: apt[i].url })
-          found = true
+          clean[j].photos.push({ url: apt[i].url });
+          found = true;
           break;
         }
       }
@@ -58,14 +62,14 @@ router.get('/show/:userId', async (req, res, next) => {
           createdAt: apt[i].createdAt,
           updatedAt: apt[i].updatedAt,
           photos: [{ url: apt[i].url }]
-        })
+        });
       }
     }
-    res.json(clean)
+    res.json(clean);
     // res.json(unseenApartments[0])
   } catch (err) {
-    next(err)
+    next(err);
   }
-})
+});
 
 module.exports = router;

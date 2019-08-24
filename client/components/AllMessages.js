@@ -23,7 +23,6 @@ export default class AllMessages extends React.Component {
   }
 
   render() {
-    console.log('PROPSPARAM', this.props);
     return (
       <ScrollView>
         {/* <Header style={{ height: 140, backgroundColor: 'white' }}> */}

@@ -46,7 +46,6 @@ export default class Chatroom extends React.Component {
 
   componentDidMount() {
     const props = this.props.navigation.state.params;
-    console.log('PROPS IN CDM', props);
     firebase
       .database()
       .ref()
@@ -88,7 +87,6 @@ export default class Chatroom extends React.Component {
   //   }
   sendMessage() {
     const props = this.props.navigation.state.params;
-    console.log('USSSSERRR', props.me);
     if (!this.state.message) return;
     let msg = {
       message: this.state.message,
@@ -113,7 +111,6 @@ export default class Chatroom extends React.Component {
   render() {
     const props = this.props.navigation.state.params;
     const messages = this.state.messages;
-    console.log('PROPSME', props.me);
     return (
       <View style={styles.container}>
         <View style={styles.msgBox}>
