@@ -1,6 +1,21 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { View, Text, Icon, Content } from 'native-base';
+import {
+  View,
+  Text,
+  Icon,
+  Content,
+  Container,
+  Header,
+  List,
+  ListItem,
+  Thumbnail,
+  Left,
+  Body,
+  Right,
+  Button
+} from 'native-base';
+
 import MapView, { Marker } from 'react-native-maps';
 // import console = require('console');
 
@@ -12,10 +27,72 @@ class ApartmentInfoFeed extends React.Component {
 
   render() {
     const apartment = this.props.navigation.state.params.apartment;
+    console.log('TCL: apartment', apartment);
     const latitude = apartment.longitude;
     const longitude = apartment.latitude;
     const marker = { latitude: latitude, longitude: longitude };
     return (
+      // <Container>
+      //   <Container>
+      //     <Header>
+      //       <Text>{apartment.name} Info</Text>
+      //     </Header>
+      //     <Content>
+      //       <List>
+      //         <ListItem thumbnail>
+      //           {/* <Left>
+      //           <Thumbnail square source={{ uri: 'https://robohash.org/1' }} />
+      //         </Left> */}
+      //           <Left>
+      //             <Text>
+      //               {apartment.petFriendly === true ? (
+      //                 <Icon
+      //                   type="FontAwesome"
+      //                   name="check"
+      //                   style={{ color: 'green' }}
+      //                 />
+      //               ) : (
+      //                 <Icon
+      //                   type="FontAwesome"
+      //                   name="times"
+      //                   style={{ color: 'red' }}
+      //                 />
+      //               )}{' '}
+      //               {/* <Icon square source={{ uri: 'https://robohash.org/1' }} /> */}
+      //             </Text>
+      //           </Left>
+      //           <Body>
+      //             <Text>Pet Friendly</Text>
+      //             {/* <Text note numberOfLines={1}>
+      //             Its time to build a difference . .
+      //           </Text> */}
+      //           </Body>
+      //           <Right>
+      //             {/* <Text>Pet Friendly</Text> */}
+      //             {/* <Button transparent>
+      //             <Text>View</Text>
+      //           </Button> */}
+      //           </Right>
+      //         </ListItem>
+      //       </List>
+      //     </Content>
+      //   </Container>
+      //   <Container style={{ flexDirection: 'row', justifyContent: 'center' }}>
+      //     <MapView
+      //       showsUserLocation
+      //       style={styles.map}
+      //       initialRegion={{
+      //         latitude: latitude,
+      //         longitude: longitude,
+      //         latitudeDelta: 0.0922,
+      //         longitudeDelta: 0.0421
+      //       }}
+      //     >
+      //       <Marker coordinate={marker} />
+      //     </MapView>
+      //   </Container>
+      // </Container>
+
       <Content>
         <Content>
           <Text style={{ fontSize: 20 }}>{apartment.name}</Text>
@@ -98,10 +175,12 @@ class ApartmentInfoFeed extends React.Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   map: {
     width: 300,
-    height: 300
+    height: 300,
+    justifyContent: 'center'
   }
 });
 export default ApartmentInfoFeed;
