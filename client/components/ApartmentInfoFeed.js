@@ -25,10 +25,11 @@ const styles = StyleSheet.create({
     height: 300
   },
   body: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center'
+    // flexDirection: 'row',
+    // flexStart: 1,
+    // justifyContent: 'center',
+    // alignContent: 'center'
+    // alignItems: 'right'
   }
 });
 
@@ -119,28 +120,31 @@ class ApartmentInfoFeed extends React.Component {
                 </Body>
               </ListItem>
               <ListItem thumbnail>
-                <Body style={styles.body}>
+                <Left>
                   <Text>Pet Friendly:</Text>
-                  <Text>
-                    {aptInStore.petFriendly === true ? (
-                      <Icon
-                        type="FontAwesome"
-                        name="check"
-                        style={{ color: 'green' }}
-                      />
-                    ) : (
-                      <Icon
-                        type="FontAwesome"
-                        name="times"
-                        style={{ color: 'red' }}
-                      />
-                    )}{' '}
-                  </Text>
+                </Left>
+                <Body style={styles.body}>
+                  {aptInStore.petFriendly === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
                 </Body>
               </ListItem>
               <ListItem thumbnail>
-                <Body style={styles.body}>
+                <Left>
                   <Text>On-site parking:</Text>
+                </Left>
+
+                <Body style={styles.body}>
                   <Text>
                     {aptInStore.parking === true ? (
                       <Icon
@@ -159,8 +163,10 @@ class ApartmentInfoFeed extends React.Component {
                 </Body>
               </ListItem>
               <ListItem thumbnail>
-                <Body style={styles.body}>
+                <Left>
                   <Text>AC included:</Text>
+                </Left>
+                <Body style={styles.body}>
                   <Text>
                     {aptInStore.ac === true ? (
                       <Icon
@@ -179,8 +185,10 @@ class ApartmentInfoFeed extends React.Component {
                 </Body>
               </ListItem>
               <ListItem thumbnail>
-                <Body style={styles.body}>
+                <Left>
                   <Text>Pool:</Text>
+                </Left>
+                <Body style={styles.body}>
                   <Text>
                     {aptInStore.pool === true ? (
                       <Icon
