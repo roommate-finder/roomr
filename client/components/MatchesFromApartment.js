@@ -106,7 +106,7 @@ class Feed extends React.Component {
           //   </CardItem>
 
           // </Card>
-          <Card>
+          <Card key={this.findUserInStore(Number(id))[0].id}>
             <CardItem>
               <Left>
                 <Body>
