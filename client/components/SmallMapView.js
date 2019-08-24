@@ -19,7 +19,6 @@ export default class SmallMapView extends React.Component {
 
   render() {
     const { latitude, longitude, marker } = this.state;
-    console.log('MARKER', this.state.marker);
     if (latitude) {
       return (
         <MapView

@@ -77,27 +77,18 @@ class Feed extends React.Component {
   }
 
   findApartmentInStore(apartment) {
-    console.log('TCL: findApartmentInStore -> apartment', apartment);
-    console.log('HEREEEE', this.props.feed[0]);
     const apartmentInStore = this.props.apartments.filter(
       apt => apt.id === apartment.apartmentId
     );
-    // console.log('APARTMENT IN STORE THAT IS RETURNED', apartmentInStore)
     return apartmentInStore;
   }
 
   findUserInStore(match) {
     const userInStore = this.props.users.filter(user => user.id === match);
-    // console.log('---------------- USER IN STORE', userInStore)
     return userInStore;
   }
 
   render() {
-    console.log('inside feed render');
-    //console.log('PROPS', this.props)
-    // console.log('________APARTMENTS', this.props.apartments)
-    // console.log('*****************this.props.feed', this.props.feed[0])
-    // console.log('*******^^^^^^^^^^^^ USERS', this.props.users)
     return (
       <View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
@@ -141,18 +132,9 @@ class Feed extends React.Component {
                       }}
                       transparent
                       onPress={() => {
-                        console.log(
-                          'FEED STATE BEFORE DELETE',
-                          this.props.feed[0]
-                        );
-
                         this.props.deleteUserApartment(
                           this.props.user.id,
                           this.findApartmentInStore(apt)[0].id
-                        );
-                        console.log(
-                          'FEED STATE AFTER DELETE',
-                          this.props.feed[0]
                         );
                       }}
                     />

@@ -31,9 +31,6 @@ router.get('/:userId', async (req, res, next) => {
 
 router.put('/delete', async (req, res, next) => {
   try {
-    console.log('REQ.BODY', req.body.userId);
-    console.log('REQ.BODY', req.body.apartmentId);
-
     await UserApartment.destroy({
       where: {
         userId: req.body.userId,
@@ -53,7 +50,6 @@ router.post('/create', async (req, res, next) => {
       userId: req.body.userId,
       liked: req.body.liked
     });
-    console.log('TCL: userApartment', userApartment);
     if (userApartment) {
       res.json(userApartment);
     } else {

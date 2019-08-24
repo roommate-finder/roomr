@@ -26,7 +26,6 @@ export const getFeedDataThunk = user => {
       const { data } = await axios.get(
         `${ngrok}/api/user-apartment/${user.id}`
       );
-      console.log('TCL: data', data);
       await dispatch(getFeedData(data));
     } catch (err) {
       console.error(err);
@@ -39,9 +38,6 @@ export const deleteUserApartmentThunk = (
   apartmentId
 ) => async dispatch => {
   try {
-    console.log('TCL: userId', userId);
-    console.log('TCL: apartmentId', apartmentId);
-
     await axios.put(`${ngrok}/api/user-apartment/delete/`, {
       userId: userId,
       apartmentId: apartmentId
@@ -56,9 +52,6 @@ export const deleteUserApartmentThunk = (
  * REDUCER
  */
 const feedReducer = (state = [], action) => {
-  console.log('action id', action.id);
-
-  console.log('ACTION', action);
   switch (action.type) {
     case GET_FEED_DATA:
       return action.data;
