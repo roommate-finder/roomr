@@ -140,19 +140,15 @@ class ApartmentSwipe extends React.Component {
                 <Card style={{ elevation: 3 }}>
                   <CardItem>
                     <Left>
-                      <Thumbnail source={tempImage} />
                       <Body>
                         <Text>{item.name}</Text>
-                        <Text>APT ID:{item.id}</Text>
+                        <Text>Bedrooms: {item.numBedrooms}</Text>
+                        <Text>Monthly rent: ${item.monthlyRent}</Text>
                         <Text note>{item.address}</Text>
                       </Body>
                     </Left>
                   </CardItem>
                   <CardItem cardBody>
-                    {/* <Image
-                      style={{ height: 300, flex: 1 }}
-                      source={tempImage}
-                    /> */}
                     <Slideshow dataSource={item.photos} />
                   </CardItem>
                   <CardItem
