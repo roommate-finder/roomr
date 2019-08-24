@@ -56,11 +56,68 @@ class ApartmentInfoFeed extends React.Component {
           <Header>
             <Text style={{ fontWeight: 'bold' }}>{aptInStore.name} Info</Text>
           </Header>
-          <Text style={{ margin: 20, fontSize: 12 }}>
+          <Text style={{ fontSize: 12, margin: 20 }}>
             {aptInStore.description}
           </Text>
+          {/* <Text>
+            {aptInStore.address}, {aptInStore.unit}
+          </Text>
+          <Text>
+            {aptInStore.city}, {aptInStore.state} {aptInStore.zip}
+          </Text>
+          <Text>
+            {aptInStore.city}, {aptInStore.state} {aptInStore.zip}
+          </Text>
+
+
+          <Text>
+            Monthly rent: ${aptInStore.monthlyRent}
+          </Text>
+          <Text>
+            Bedrooms: {aptInStore.numBedrooms}
+          </Text>
+          <Text>
+            Bathroomss: {aptInStore.numBathrooms}
+          </Text> */}
           <Content>
             <List>
+              <ListItem>
+                <Left>
+                  <Text>Address:</Text>
+                </Left>
+                <Body>
+                  <Text>
+                    {aptInStore.address}, Unit {aptInStore.unit}
+                  </Text>
+                  <Text>
+                    {aptInStore.city}, {aptInStore.state} {aptInStore.zip}
+                  </Text>
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Monthly rent:</Text>
+                </Left>
+                <Body>
+                  <Text>${aptInStore.monthlyRent}</Text>
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Bedrooms:</Text>
+                </Left>
+                <Body>
+                  <Text>{aptInStore.numBedrooms}</Text>
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Bathrooms:</Text>
+                </Left>
+                <Body>
+                  <Text>{aptInStore.numBathrooms}</Text>
+                </Body>
+              </ListItem>
               <ListItem thumbnail>
                 <Body style={styles.body}>
                   <Text>Pet Friendly:</Text>
