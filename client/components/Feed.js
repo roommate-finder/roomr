@@ -83,19 +83,27 @@ class Feed extends React.Component {
           </Button>
           <Button
             transparent
-            onPress={() => navigation.navigate('ApartmentSwipe')}
+            // onPress={() => navigation.navigate('Feed')}
           >
-            <Icon type="FontAwesome" name="heart" style={{ color: 'grey' }} />
+            <Icon
+              type="FontAwesome"
+              name="heart"
+              style={{ color: '#0e677c' }}
+            />
           </Button>
         </View>
       ),
 
       headerRight: (
-        <Button transparent style={{ marginBottom: 4 }}>
+        <Button
+          transparent
+          style={{ marginBottom: 4 }}
+          onPress={() => navigation.navigate('AllMessages')}
+        >
           <Icon
             type="FontAwesome"
             name="comments"
-            style={{ color: '#0e677c', fontSize: 30 }}
+            style={{ color: 'grey', fontSize: 30 }}
           />
         </Button>
       )
