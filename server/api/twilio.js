@@ -7,7 +7,7 @@ router.post('/', async (req, res, next) => {
   try {
     client.messages
       .create({
-        body: `${req.body.user1.firstName}  ${
+        body: `${req.body.user1.firstName} ${
           req.body.user1.lastName
         } started a chat with you to discuss ${
           req.body.apartmentName
