@@ -1,4 +1,5 @@
-export const firebaseConfig = {
+import firebase from "firebase";
+const firebaseConfig = {
   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
   authDomain: 'capstone-roomr.firebaseapp.com',
   databaseURL: 'https://capstone-roomr.firebaseio.com',
@@ -7,4 +8,6 @@ export const firebaseConfig = {
   messagingSenderId: '759179201870',
   appId: '1:759179201870:web:c501209350a62fde'
 };
-firebase.initializeApp(firebaseConfig);
+// const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebaseConfig
+export default firebaseApp;
