@@ -13,23 +13,23 @@ import {
   TextInput,
   Button,
   FlatList,
-  Image
+  Image, StatusBar
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import Messages from '../container/Messages';
 import { Constants } from 'expo';
 import moment from 'moment';
 import firebaseApp from '../../firebase/config'
+require('firebase/database');
 
 class Chatroom extends React.Component {
   constructor(props) {
     super(props);
     var FirebaseDB = firebaseApp.database();
     var roomKey = this.props.navigation.state.params.chatId;
-    this.messagesRef = FirebaseDB.ref(`messages/${roomKey}`);
+    this.messagesRef = FirebaseDB.ref(`/${roomKey}`);
     this.state = {
       user: '',
-      messages: []
     }
   }
   componentDidMount() {
