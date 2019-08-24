@@ -32,8 +32,8 @@ class PhoneLogin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
-    this.props.setUser(this.state);
+  async handleSubmit() {
+    await this.props.setUser(this.state);
     /* FOR DEVELOPMENT */
     this.setState({
       phone: '',
