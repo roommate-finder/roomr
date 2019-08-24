@@ -46,6 +46,21 @@ class Feed extends React.Component {
     this.findApartmentInStore = this.findApartmentInStore.bind(this);
     this.findUserInStore = this.findUserInStore.bind(this);
   }
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //     image1: (
+  //       <Image
+  //         source={require('../images/kitten.jpeg')}
+  //         style={{ height: 24, width: 24 }}
+  //       />
+  //       // <Button transparent onPress={() => navigation.navigate('UserProfile')}>
+  //       //   <Icon type="FontAwesome" name="user" style={{ color: 'grey' }} />
+  //       // </Button>
+  //     )
+  //   };
+  // };
+
+  //OLD NAV
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
@@ -54,12 +69,20 @@ class Feed extends React.Component {
         </Button>
       ),
       headerTitle: (
-        <Button
-          transparent
-          onPress={() => navigation.navigate('ApartmentSwipe')}
-        >
-          <Icon type="FontAwesome" name="home" style={{ color: 'grey' }} />
-        </Button>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+          <Button
+            transparent
+            onPress={() => navigation.navigate('ApartmentSwipe')}
+          >
+            <Icon type="FontAwesome" name="home" style={{ color: 'grey' }} />
+          </Button>
+          <Button
+            transparent
+            onPress={() => navigation.navigate('ApartmentSwipe')}
+          >
+            <Icon type="FontAwesome" name="home" style={{ color: 'grey' }} />
+          </Button>
+        </View>
       ),
 
       headerRight: (
@@ -91,22 +114,18 @@ class Feed extends React.Component {
   render() {
     return (
       <View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+        <Header />
+        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
           <Button style={{ backgroundColor: 'none' }}>
             <Text style={{ color: '#0e677c', fontWeight: 'bold' }}>Feed</Text>
           </Button>
-          {/* Adding | to separate Feed and Messages
-
-          <Button style={{ backgroundColor: 'none' }}>
-            <Text style={{ color: '#0e677c', fontWeight: 'bold' }}>|</Text>
-          </Button> */}
           <Button
             style={{ backgroundColor: 'none' }}
             onPress={() => this.props.navigation.navigate('AllMessages')}
           >
             <Text style={{ color: '#0e677c' }}>Messages</Text>
           </Button>
-        </View>
+        </View> */}
         <ScrollView>
           {this.props.feed[0] &&
             this.props.apartments.length > 0 &&
