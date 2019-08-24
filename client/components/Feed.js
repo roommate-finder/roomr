@@ -70,10 +70,10 @@ class Feed extends React.Component {
     };
   };
 
-  componentDidMount() {
-    this.props.getFeedData(this.props.user);
-    this.props.getApartments();
-    this.props.getUsers();
+  async componentDidMount() {
+    await this.props.getFeedData(this.props.user);
+    await this.props.getApartments();
+    await this.props.getUsers();
   }
 
   findApartmentInStore(apartment) {

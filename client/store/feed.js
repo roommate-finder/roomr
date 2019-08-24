@@ -63,9 +63,7 @@ const feedReducer = (state = [], action) => {
     case GET_FEED_DATA:
       return action.data;
     case DELETE_USER_APARTMENT:
-      console.log('FEED REDUCER STATE FIRST ELT', state[0]);
-      console.log('FEED REDUCER STATE LENGTH', state.length)
-      let first = state[0]
+      let first = state[0];
       return [
         first.filter(apartment => {
           return Number(apartment.apartmentId) !== action.id;
