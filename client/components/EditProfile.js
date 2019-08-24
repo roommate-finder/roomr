@@ -48,9 +48,7 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
-    console.log('MOUNTED');
     const user = this.props.user;
-    console.log('USER IN CDM', user);
 
     this.setState({
       bio: user.bio,
