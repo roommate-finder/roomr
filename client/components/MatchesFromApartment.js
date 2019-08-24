@@ -81,6 +81,26 @@ class Feed extends React.Component {
         <Text>Matches for {props.apartment.name}</Text>
         {props.matchIds.map(id => (
           // eslint-disable-next-line react/jsx-key
+          // <Card style={{
+          //   flexDirection: 'row',
+          //   // justifyContent: 'space-around',
+          //   // alignItems: 'center',
+          //   // marginTop: 20
+          // }} >
+          //   <CardItem cardbody>
+          //     <Image
+          //       source={{ uri: this.findUserInStore(Number(id))[0].photo }}
+          //       style={{ height: 100, width: 100, flex: 1 }}
+          //     />
+          //   </CardItem>
+          //   <CardItem>
+          //     <Text>
+          //       {this.findUserInStore(Number(id))[0].firstName}{' '}
+          //       {this.findUserInStore(Number(id))[0].lastName}
+          //     </Text>
+          //   </CardItem>
+
+          // </Card>
           <Card>
             <CardItem>
               <Left>
@@ -113,7 +133,7 @@ class Feed extends React.Component {
                     other: this.findUserInStore(Number(id))[0],
                     chatId: `chat${[id, this.props.user.id].sort()[0]}-${
                       [id, this.props.user.id].sort()[1]
-                    }`
+                      }`
                   });
                 }}
               >
