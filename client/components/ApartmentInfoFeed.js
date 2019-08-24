@@ -2,6 +2,8 @@ import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { View, Text, Icon, Content } from 'native-base';
 import MapView, { Marker } from 'react-native-maps';
+import { connect } from 'react-redux';
+
 // import console = require('console');
 
 class ApartmentInfoFeed extends React.Component {
@@ -9,28 +11,36 @@ class ApartmentInfoFeed extends React.Component {
     super();
     this.state = {};
   }
+  findApartmentInStore = apartment => {
+    const apartmentInStore = this.props.apartments.filter(
+      apt => apt.id === apartment.id
+    );
+    return apartmentInStore;
+  };
 
   render() {
     const apartment = this.props.navigation.state.params.apartment;
-    const latitude = apartment.longitude;
-    const longitude = apartment.latitude;
+    const aptInStore = this.findApartmentInStore(apartment)[0];
+
+    const latitude = aptInStore.longitude;
+    const longitude = aptInStore.latitude;
     const marker = { latitude: latitude, longitude: longitude };
     return (
       <Content>
         <Content>
-          <Text style={{ fontSize: 20 }}>{apartment.name}</Text>
+          <Text style={{ fontSize: 20 }}>{aptInStore.name}</Text>
           <Text>
-            {apartment.address}, Unit: {apartment.unit}
+            {aptInStore.address}, Unit: {aptInStore.unit}
           </Text>
           <Text>
-            {apartment.city}, {apartment.state} {apartment.zip}
+            {aptInStore.city}, {aptInStore.state} {aptInStore.zip}
           </Text>
 
-          <Text>Rent: ${apartment.monthlyRent}</Text>
+          <Text>Rent: ${aptInStore.monthlyRent}</Text>
           <Text style={{ fontSize: 20 }}> Details </Text>
           <Text>
             Pet friendly:{' '}
-            {apartment.petFriendly === true ? (
+            {aptInStore.petFriendly === true ? (
               <Icon
                 type="FontAwesome"
                 name="check"
@@ -42,7 +52,7 @@ class ApartmentInfoFeed extends React.Component {
           </Text>
           <Text>
             On-site parking:{' '}
-            {apartment.parking === true ? (
+            {aptInStore.parking === true ? (
               <Icon
                 type="FontAwesome"
                 name="check"
@@ -54,7 +64,7 @@ class ApartmentInfoFeed extends React.Component {
           </Text>
           <Text>
             AC included:{' '}
-            {apartment.ac === true ? (
+            {aptInStore.ac === true ? (
               <Icon
                 type="FontAwesome"
                 name="check"
@@ -66,7 +76,7 @@ class ApartmentInfoFeed extends React.Component {
           </Text>
           <Text>
             Pool:{' '}
-            {apartment.pool === true ? (
+            {aptInStore.pool === true ? (
               <Icon
                 type="FontAwesome"
                 name="check"
@@ -89,11 +99,10 @@ class ApartmentInfoFeed extends React.Component {
           >
             <Marker coordinate={marker} />
           </MapView>
+          <Text style={{ paddingTop: 20 }}>
+            Description: {aptInStore.description}
+          </Text>
         </Content>
-
-        <Text style={{ paddingTop: 20 }}>
-          Description: {apartment.description}
-        </Text>
       </Content>
     );
   }
@@ -104,7 +113,14 @@ const styles = StyleSheet.create({
     height: 300
   }
 });
-export default ApartmentInfoFeed;
+
+const mapStateToProps = state => {
+  return {
+    apartments: state.apartments
+  };
+};
+
+export default connect(mapStateToProps)(ApartmentInfoFeed);
 
 /*
 Apartment {
