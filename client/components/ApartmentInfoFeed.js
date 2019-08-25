@@ -9,7 +9,6 @@ import {
   Header,
   List,
   ListItem,
-  Thumbnail,
   Left,
   Body,
   Right,
@@ -18,20 +17,6 @@ import {
 
 import { connect } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
-
-const styles = StyleSheet.create({
-  map: {
-    width: 300,
-    height: 300
-  },
-  body: {
-    // flexDirection: 'row',
-    // flexStart: 1,
-    // justifyContent: 'center',
-    // alignContent: 'center'
-    // alignItems: 'right'
-  }
-});
 
 class ApartmentInfoFeed extends React.Component {
   constructor() {
@@ -60,26 +45,6 @@ class ApartmentInfoFeed extends React.Component {
           <Text style={{ fontSize: 12, margin: 20 }}>
             {aptInStore.description}
           </Text>
-          {/* <Text>
-            {aptInStore.address}, {aptInStore.unit}
-          </Text>
-          <Text>
-            {aptInStore.city}, {aptInStore.state} {aptInStore.zip}
-          </Text>
-          <Text>
-            {aptInStore.city}, {aptInStore.state} {aptInStore.zip}
-          </Text>
-
-
-          <Text>
-            Monthly rent: ${aptInStore.monthlyRent}
-          </Text>
-          <Text>
-            Bedrooms: {aptInStore.numBedrooms}
-          </Text>
-          <Text>
-            Bathroomss: {aptInStore.numBathrooms}
-          </Text> */}
           <Content>
             <List>
               <ListItem>
@@ -181,7 +146,6 @@ class ApartmentInfoFeed extends React.Component {
                   )}
                 </Body>
               </ListItem>
-
               <ListItem>
                 <Left>
                   <Text>Pool:</Text>
@@ -202,7 +166,6 @@ class ApartmentInfoFeed extends React.Component {
                   )}
                 </Body>
               </ListItem>
-
               <ListItem thumbnail>
                 <Body style={{ justifyContent: 'center' }}>
                   <MapView
