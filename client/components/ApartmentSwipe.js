@@ -76,13 +76,15 @@ class ApartmentSwipe extends React.Component {
       )
     };
   };
-  consoleLog = () => {
-    console.log('PROPS IN APT SWIPE', this.props);
-  };
+
   async componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        loaded: true
+      });
+    }, 4000);
     await this.props.getApartments();
     await this.props.getUnseenApartments(this.props.user);
-    // this.setState({ loaded: true });
   }
   //disable yes and no buttons for 1/2 second for async action
   pressButton = () => {
@@ -97,21 +99,12 @@ class ApartmentSwipe extends React.Component {
     }, 500);
   };
 
-  // in case we want to attemp scrolling again
-  // scrollToEnd = () => {
-  //   this.scrollView.scrollToEnd();
-  // };
-  // scrollToTop = () => {
-  //   this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
-  // };
-
   render() {
     const { unseenApartments } = this.props;
-    //const { apartments } = this.props;
-    //console.log('******APARTMENTS********', apartments)
-    //console.log('****************UNSEEN APARTMENTS', unseenApartments)
+
     return (
       <ScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
         ref={scrollView => {
           this.scrollView = scrollView;
         }}
@@ -125,7 +118,6 @@ class ApartmentSwipe extends React.Component {
               dataSource={unseenApartments}
               looping={false}
               onSwipeLeft={() => {
-                // this.setState({ viewInfo: false });
                 this.props.createUserApartment(
                   this._deckSwiper._root.state.selectedItem.id,
                   this.props.user.id,
@@ -133,7 +125,6 @@ class ApartmentSwipe extends React.Component {
                 );
               }}
               onSwipeRight={() => {
-                // this.setState({ viewInfo: false });
                 this.props.createUserApartment(
                   this._deckSwiper._root.state.selectedItem.id,
                   this.props.user.id,
@@ -181,7 +172,6 @@ class ApartmentSwipe extends React.Component {
                       onPress={() => {
                         this.pressButton();
                         this._deckSwiper._root.swipeLeft();
-                        // this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
                           this.props.user.id,
@@ -210,7 +200,6 @@ class ApartmentSwipe extends React.Component {
                       onPress={() => {
                         this.pressButton();
                         this._deckSwiper._root.swipeRight();
-                        // this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
                           this.props.user.id,
@@ -243,7 +232,6 @@ class ApartmentSwipe extends React.Component {
                         this.props.navigation.navigate('ApartmentInfoFeed', {
                           apartment: item
                         });
-                        // this.getAptInfo(item);
                       }}
                     >
                       <Icon
@@ -261,29 +249,16 @@ class ApartmentSwipe extends React.Component {
         ) : (
           // <Loader />
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Button onPress={() => this.consoleLog()}>
-              <Text>LOADING APARTMENTS</Text>
-            </Button>
-            {/* <Image source={thing}></Image> */}
+            <Text>Loading Apartments... </Text>
             <CacheImage
               source={{
                 uri:
                   'https://loading.io/spinners/ball/lg.bouncing-circle-loading-icon.gif'
               }}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 200, height: 200 }}
             />
           </View>
         )}
-        <View />
-        {/* {this.state.viewInfo === true && (
-          <View>
-            <SmallMapView style={{margin:}} apartment={this.state.currentApt} />
-            <ApartmentInfo
-              apartment={this.state.currentApt}
-              scrollToEnd={this.scrollToEnd}
-            />
-          </View>
-        )} */}
       </ScrollView>
     );
   }
