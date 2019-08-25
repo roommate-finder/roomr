@@ -50,6 +50,7 @@ class PhoneLogin extends React.Component {
           <Item fixedLabel>
             <Label>Password</Label>
             <Input
+              secureTextEntry={true}
               style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
               value={this.state.password}
               onChangeText={text => this.setState({ password: text })}
