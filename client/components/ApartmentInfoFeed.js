@@ -119,11 +119,11 @@ class ApartmentInfoFeed extends React.Component {
                   <Text>{aptInStore.numBathrooms}</Text>
                 </Body>
               </ListItem>
-              <ListItem thumbnail>
+              <ListItem>
                 <Left>
                   <Text>Pet Friendly:</Text>
                 </Left>
-                <Body style={styles.body}>
+                <Body>
                   {aptInStore.petFriendly === true ? (
                     <Icon
                       type="FontAwesome"
@@ -139,73 +139,70 @@ class ApartmentInfoFeed extends React.Component {
                   )}
                 </Body>
               </ListItem>
-              <ListItem thumbnail>
+
+              <ListItem>
                 <Left>
                   <Text>On-site parking:</Text>
                 </Left>
-
-                <Body style={styles.body}>
-                  <Text>
-                    {aptInStore.parking === true ? (
-                      <Icon
-                        type="FontAwesome"
-                        name="check"
-                        style={{ color: 'green' }}
-                      />
-                    ) : (
-                      <Icon
-                        type="FontAwesome"
-                        name="times"
-                        style={{ color: 'red' }}
-                      />
-                    )}{' '}
-                  </Text>
+                <Body>
+                  {aptInStore.parking === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
                 </Body>
               </ListItem>
-              <ListItem thumbnail>
+
+              <ListItem>
                 <Left>
                   <Text>AC included:</Text>
                 </Left>
-                <Body style={styles.body}>
-                  <Text>
-                    {aptInStore.ac === true ? (
-                      <Icon
-                        type="FontAwesome"
-                        name="check"
-                        style={{ color: 'green' }}
-                      />
-                    ) : (
-                      <Icon
-                        type="FontAwesome"
-                        name="times"
-                        style={{ color: 'red' }}
-                      />
-                    )}{' '}
-                  </Text>
+                <Body>
+                  {aptInStore.ac === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
                 </Body>
               </ListItem>
-              <ListItem thumbnail>
+
+              <ListItem>
                 <Left>
                   <Text>Pool:</Text>
                 </Left>
-                <Body style={styles.body}>
-                  <Text>
-                    {aptInStore.pool === true ? (
-                      <Icon
-                        type="FontAwesome"
-                        name="check"
-                        style={{ color: 'green' }}
-                      />
-                    ) : (
-                      <Icon
-                        type="FontAwesome"
-                        name="times"
-                        style={{ color: 'red' }}
-                      />
-                    )}{' '}
-                  </Text>
+                <Body>
+                  {aptInStore.pool === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
                 </Body>
               </ListItem>
+
               <ListItem thumbnail>
                 <Body style={{ justifyContent: 'center' }}>
                   <MapView
