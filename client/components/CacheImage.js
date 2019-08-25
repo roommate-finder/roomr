@@ -14,7 +14,9 @@ export default class CacheImage extends React.Component {
     console.log('TCL: CacheImage -> componentDidMount -> uri', uri);
     // const name = shorthash.unique(uri); // hash it for security
     // console.log('NAME', name);
-    const path = await `${FileSystem.documentDirectory}${uri}`;
+    const path = await `${
+      FileSystem.documentDirectory
+    }lg.bouncing-circle-loading-icon.gif`;
     console.log('TCL: CacheImage -> componentDidMount -> path', path);
     const image = await FileSystem.getInfoAsync(path);
     console.log('TCL: CacheImage -> componentDidMount -> image', image);
