@@ -62,12 +62,19 @@ class PhoneLogin extends React.Component {
           <Item fixedLabel>
             <Label>Password</Label>
             <Input
-              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+              style={{
+                height: 40,
+                borderColor: 'gray',
+                borderWidth: 1
+              }}
               value={this.state.password}
               onChangeText={text => this.setState({ password: text })}
             />
           </Item>
-          <Button onPress={() => this.handleSubmit()}>
+          <Button
+            style={{ backgroundColor: '#0e677c', marginTop: 10 }}
+            onPress={() => this.handleSubmit()}
+          >
             <Text>Submit</Text>
           </Button>
         </Form>

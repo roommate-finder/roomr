@@ -55,7 +55,10 @@ class PhoneLogin extends React.Component {
               onChangeText={text => this.setState({ password: text })}
             />
           </Item>
-          <Button onPress={() => this.handleSubmit()}>
+          <Button
+            style={{ backgroundColor: '#0e677c', marginTop: 10 }}
+            onPress={() => this.handleSubmit()}
+          >
             <Text>Submit</Text>
           </Button>
         </Form>

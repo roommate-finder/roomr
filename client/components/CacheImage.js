@@ -11,15 +11,10 @@ export default class CacheImage extends React.Component {
 
   async componentDidMount() {
     const { uri } = this.props.source; // pass in location of the file on the internet
-    console.log('TCL: CacheImage -> componentDidMount -> uri', uri);
-    // const name = shorthash.unique(uri); // hash it for security
-    // console.log('NAME', name);
     const path = await `${
       FileSystem.documentDirectory
-    }lg.bouncing-circle-loading-icon.gif`;
-    console.log('TCL: CacheImage -> componentDidMount -> path', path);
+    }lg.rotate-pie-preloader-gif.gif`;
     const image = await FileSystem.getInfoAsync(path);
-    console.log('TCL: CacheImage -> componentDidMount -> image', image);
     if (image.exists) {
       console.log('read image from cache');
       this.setState({
@@ -32,10 +27,10 @@ export default class CacheImage extends React.Component {
 
     console.log('downloading image to cache');
     const newImage = await FileSystem.downloadAsync(
-      'https://loading.io/spinners/ball/lg.bouncing-circle-loading-icon.gif',
-      FileSystem.documentDirectory + 'lg.bouncing-circle-loading-icon.gif'
+      'https://loading.io/spinners/wedges/lg.rotate-pie-preloader-gif.gif',
+      FileSystem.documentDirectory + 'lg.rotate-pie-preloader-gif.gif'
     );
-    console.log('TCL: CacheImage -> componentDidMount -> newImage', newImage);
+
     this.setState({
       source: {
         uri: newImage.uri

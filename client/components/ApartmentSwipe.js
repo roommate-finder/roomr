@@ -21,23 +21,18 @@ import { getApartmentsThunk } from '../store/apartments';
 import { createUserApartmentThunk } from '../store/user-apartments';
 import { getUnseenApartmentsThunk } from '../store/unseen-apartments';
 import Slideshow from 'react-native-image-slider-show';
-import Loader from './Loader';
 import CacheImage from './CacheImage';
 
 //because database does not currently have images
 const tempImage = require('../images/kitten.jpeg');
-// const loaderImage = require('../images/loader.gif');
 
 class ApartmentSwipe extends React.Component {
   constructor() {
     super();
     this.state = {
-      // viewInfo: false,
-      // currentApt: {},
       loaded: false,
       disabled: false
     };
-    // Loader.load(v => this.setState({ loaded: true }));
   }
   static navigationOptions = ({ navigation }) => {
     return {
@@ -82,7 +77,7 @@ class ApartmentSwipe extends React.Component {
       this.setState({
         loaded: true
       });
-    }, 4000);
+    }, 3000);
     await this.props.getApartments();
     await this.props.getUnseenApartments(this.props.user);
   }
@@ -249,11 +244,11 @@ class ApartmentSwipe extends React.Component {
         ) : (
           // <Loader />
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Loading Apartments... </Text>
+            <Text>Loading Apartments...</Text>
             <CacheImage
               source={{
                 uri:
-                  'https://loading.io/spinners/ball/lg.bouncing-circle-loading-icon.gif'
+                  'https://loading.io/spinners/wedges/lg.rotate-pie-preloader-gif.gif'
               }}
               style={{ width: 200, height: 200 }}
             />
