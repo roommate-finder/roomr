@@ -99,7 +99,7 @@ class Feed extends React.Component {
       this.setState({
         loaded: true
       });
-    }, 2000);
+    }, 1500);
     await this.props.getFeedData(this.props.user);
     await this.props.getApartments();
     await this.props.getUsers();
@@ -137,14 +137,18 @@ class Feed extends React.Component {
                     </Text>
                   </Body>
                 </Left>
-                <Right>
+                <Right
+                  style={{
+                    justifyContent: 'center'
+                  }}
+                >
                   <Button
                     style={{
-                      width: 20,
-                      height: 20,
-                      borderRadius: 20 / 2,
-                      backgroundColor: '#ED4A6A',
-                      alignItems: 'center',
+                      width: 70,
+                      height: 25,
+                      // borderRadius: 20 / 2,
+                      backgroundColor: '#0e677c',
+                      alignContent: 'center',
                       justifyContent: 'center'
                     }}
                     transparent
@@ -155,7 +159,15 @@ class Feed extends React.Component {
                       );
                     }}
                   >
-                    <Icon
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        paddingRight: 25
+                      }}
+                    >
+                      unlike
+                    </Text>
+                    {/* <Icon
                       name="times"
                       type="FontAwesome"
                       style={{
@@ -163,7 +175,7 @@ class Feed extends React.Component {
                         fontSize: 10,
                         marginBottom: 2
                       }}
-                    />
+                    /> */}
                   </Button>
                 </Right>
               </CardItem>
@@ -227,7 +239,11 @@ class Feed extends React.Component {
                       })
                     }
                   >
-                    <Icon type="FontAwesome" name="info-circle" />
+                    <Icon
+                      style={{ color: '#ED4A6A' }}
+                      type="FontAwesome"
+                      name="info-circle"
+                    />
                   </Button>
                 </Right>
               </CardItem>

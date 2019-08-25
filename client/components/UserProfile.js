@@ -120,7 +120,11 @@ class UserProfile extends React.Component {
             }}
             onPress={() => this.props.navigation.navigate('EditProfile')}
           >
-            <Icon type="FontAwesome" name="pencil" />
+            <Icon
+              type="FontAwesome"
+              name="pencil"
+              style={{ color: '#0e677c' }}
+            />
           </Button>
 
           <Button
@@ -132,7 +136,7 @@ class UserProfile extends React.Component {
             }}
             light
           >
-            <Icon type="FontAwesome" name="cog" />
+            <Icon type="FontAwesome" name="cog" style={{ color: '#0e677c' }} />
           </Button>
         </View>
         <View
