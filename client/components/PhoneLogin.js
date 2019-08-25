@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput, Image } from 'react-native';
 import {
   Container,
   Header,
@@ -24,6 +24,8 @@ import {
 // import * as Font from 'expo-font';
 import { connect } from 'react-redux';
 import { setUserThunk } from '../store/user';
+
+// const loaderImage = require('../images/loader.gif');
 
 class PhoneLogin extends React.Component {
   constructor() {

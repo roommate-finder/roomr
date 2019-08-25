@@ -18,6 +18,7 @@ export default class HomeScreen extends Component {
   static navigationOptions = {
     header: null
   };
+
   render() {
     return (
       <Container
@@ -35,7 +36,7 @@ export default class HomeScreen extends Component {
             marginBottom: 100
           }}
         >
-          <Text style={{ fontSize: 30, color: 'white' }}>ROOMR</Text>
+          <Text style={{ fontSize: 35, color: 'white' }}>roomr </Text>
           <Icon type="FontAwesome" name="home" style={{ color: 'white' }} />
         </View>
         <View>

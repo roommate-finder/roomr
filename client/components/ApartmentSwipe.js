@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Image } from 'react-native';
 import {
   Container,
   Header,
@@ -21,8 +21,12 @@ import { getApartmentsThunk } from '../store/apartments';
 import { createUserApartmentThunk } from '../store/user-apartments';
 import { getUnseenApartmentsThunk } from '../store/unseen-apartments';
 import Slideshow from 'react-native-image-slider-show';
+import Loader from './Loader';
+import CacheImage from './CacheImage';
+
 //because database does not currently have images
 const tempImage = require('../images/kitten.jpeg');
+// const loaderImage = require('../images/loader.gif');
 
 class ApartmentSwipe extends React.Component {
   constructor() {
@@ -30,8 +34,10 @@ class ApartmentSwipe extends React.Component {
     this.state = {
       // viewInfo: false,
       // currentApt: {},
+      loaded: false,
       disabled: false
     };
+    // Loader.load(v => this.setState({ loaded: true }));
   }
   static navigationOptions = ({ navigation }) => {
     return {
@@ -70,10 +76,13 @@ class ApartmentSwipe extends React.Component {
       )
     };
   };
-
+  consoleLog = () => {
+    console.log('PROPS IN APT SWIPE', this.props);
+  };
   async componentDidMount() {
     await this.props.getApartments();
     await this.props.getUnseenApartments(this.props.user);
+    // this.setState({ loaded: true });
   }
   //disable yes and no buttons for 1/2 second for async action
   pressButton = () => {
@@ -107,7 +116,7 @@ class ApartmentSwipe extends React.Component {
           this.scrollView = scrollView;
         }}
       >
-        {this.props.unseenApartments.length !== 0 && (
+        {this.props.unseenApartments.length !== 0 && this.state.loaded ? (
           <Container>
             <Header />
 
@@ -249,6 +258,21 @@ class ApartmentSwipe extends React.Component {
               )}
             />
           </Container>
+        ) : (
+          // <Loader />
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Button onPress={() => this.consoleLog()}>
+              <Text>LOADING APARTMENTS</Text>
+            </Button>
+            {/* <Image source={thing}></Image> */}
+            <CacheImage
+              source={{
+                uri:
+                  'https://loading.io/spinners/ball/lg.bouncing-circle-loading-icon.gif'
+              }}
+              style={{ width: 100, height: 100 }}
+            />
+          </View>
         )}
         <View />
         {/* {this.state.viewInfo === true && (
