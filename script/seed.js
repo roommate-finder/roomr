@@ -32,8 +32,6 @@ fs.createReadStream(chatroomData)
 const photos = [];
 const photoData = path.join(__dirname, 'photo_data.csv');
 
-const photos = [];
-const photoData = path.join(__dirname, 'photo_data.csv');
 fs.createReadStream(photoData)
   .pipe(csv())
   .on('data', data => photos.push(data))
