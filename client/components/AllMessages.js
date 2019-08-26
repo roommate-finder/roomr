@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import {
   Container,
   Text,
@@ -8,7 +8,8 @@ import {
   Left,
   searchBar,
   Input,
-  InputGroup
+  InputGroup,
+  Button
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Chatroom from './Chatroom';
@@ -21,6 +22,44 @@ export default class AllMessages extends React.Component {
       messages: []
     };
   }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Button transparent onPress={() => navigation.navigate('UserProfile')}>
+          <Icon type="FontAwesome" name="user" style={{ color: 'grey' }} />
+        </Button>
+      ),
+      headerTitle: (
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            style={{ marginRight: 55 }}
+            transparent
+            onPress={() => navigation.navigate('ApartmentSwipe')}
+          >
+            <Icon
+              type="FontAwesome"
+              name="home"
+              style={{ color: 'grey', fontSize: 30 }}
+            />
+          </Button>
+          <Button transparent onPress={() => navigation.navigate('Feed')}>
+            <Icon type="FontAwesome" name="heart" style={{ color: 'grey' }} />
+          </Button>
+        </View>
+      ),
+
+      headerRight: (
+        <Button transparent style={{ marginBottom: 4 }}>
+          <Icon
+            type="FontAwesome"
+            name="comments"
+            style={{ color: '#0e677c', fontSize: 30 }}
+          />
+        </Button>
+      )
+    };
+  };
 
   render() {
     return (

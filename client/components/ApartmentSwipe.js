@@ -41,20 +41,38 @@ class ApartmentSwipe extends React.Component {
         </Button>
       ),
       headerTitle: (
-        <Button transparent>
-          <Icon type="FontAwesome" name="home" style={{ color: '#0e677c' }} />
-        </Button>
+        <View style={{ flexDirection: 'row' }}>
+          <Button style={{ marginRight: 55 }} transparent>
+            <Icon
+              type="FontAwesome"
+              name="home"
+              style={{ color: '#0e677c', fontSize: 30 }}
+            />
+          </Button>
+          <Button transparent onPress={() => navigation.navigate('Feed')}>
+            <Icon type="FontAwesome" name="heart" style={{ color: 'grey' }} />
+          </Button>
+        </View>
       ),
 
       headerRight: (
-        <Button transparent onPress={() => navigation.navigate('Feed')}>
-          <Icon type="FontAwesome" name="users" style={{ color: 'grey' }} />
+        <Button
+          transparent
+          style={{ marginBottom: 4 }}
+          onPress={() => navigation.navigate('AllMessages')}
+        >
+          <Icon
+            type="FontAwesome"
+            name="comments"
+            style={{ color: 'grey', fontSize: 30 }}
+          />
         </Button>
       )
     };
   };
+
   async componentDidMount() {
-    //this.props.getApartments()
+    await this.props.getApartments();
     await this.props.getUnseenApartments(this.props.user);
   }
   //disable yes and no buttons for 1/2 second for async action
@@ -122,19 +140,15 @@ class ApartmentSwipe extends React.Component {
                 <Card style={{ elevation: 3 }}>
                   <CardItem>
                     <Left>
-                      <Thumbnail source={tempImage} />
                       <Body>
                         <Text>{item.name}</Text>
-                        <Text>APT ID:{item.id}</Text>
+                        <Text>Bedrooms: {item.numBedrooms}</Text>
+                        <Text>Monthly rent: ${item.monthlyRent}</Text>
                         <Text note>{item.address}</Text>
                       </Body>
                     </Left>
                   </CardItem>
                   <CardItem cardBody>
-                    {/* <Image
-                      style={{ height: 300, flex: 1 }}
-                      source={tempImage}
-                    /> */}
                     <Slideshow dataSource={item.photos} />
                   </CardItem>
                   <CardItem

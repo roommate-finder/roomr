@@ -1,127 +1,202 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { View, Text, Icon, Content } from 'native-base';
+import {
+  View,
+  Text,
+  Icon,
+  Content,
+  Container,
+  Header,
+  List,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Button
+} from 'native-base';
+
+import { connect } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
-// import console = require('console');
 
 class ApartmentInfoFeed extends React.Component {
   constructor() {
     super();
     this.state = {};
   }
+  findApartmentInStore = apartment => {
+    const apartmentInStore = this.props.apartments.filter(
+      apt => apt.id === apartment.id
+    );
+    return apartmentInStore;
+  };
 
   render() {
     const apartment = this.props.navigation.state.params.apartment;
-    const latitude = apartment.longitude;
-    const longitude = apartment.latitude;
+    const aptInStore = this.findApartmentInStore(apartment)[0];
+    const latitude = aptInStore.longitude;
+    const longitude = aptInStore.latitude;
     const marker = { latitude: latitude, longitude: longitude };
     return (
-      <Content>
-        <Content>
-          <Text style={{ fontSize: 20 }}>{apartment.name}</Text>
-          <Text>
-            {apartment.address}, Unit: {apartment.unit}
+      <Container>
+        <Container>
+          <Header>
+            <Text style={{ fontWeight: 'bold' }}>{aptInStore.name} Info</Text>
+          </Header>
+          <Text style={{ fontSize: 12, margin: 20 }}>
+            {aptInStore.description}
           </Text>
-          <Text>
-            {apartment.city}, {apartment.state} {apartment.zip}
-          </Text>
+          <Content>
+            <List>
+              <ListItem>
+                <Left>
+                  <Text>Address:</Text>
+                </Left>
+                <Body>
+                  <Text>
+                    {aptInStore.address}, Unit {aptInStore.unit}
+                  </Text>
+                  <Text>
+                    {aptInStore.city}, {aptInStore.state} {aptInStore.zip}
+                  </Text>
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Monthly rent:</Text>
+                </Left>
+                <Body>
+                  <Text>${aptInStore.monthlyRent}</Text>
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Bedrooms:</Text>
+                </Left>
+                <Body>
+                  <Text>{aptInStore.numBedrooms}</Text>
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Bathrooms:</Text>
+                </Left>
+                <Body>
+                  <Text>{aptInStore.numBathrooms}</Text>
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Pet Friendly:</Text>
+                </Left>
+                <Body>
+                  {aptInStore.petFriendly === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
+                </Body>
+              </ListItem>
 
-          <Text>Rent: ${apartment.monthlyRent}</Text>
-          <Text style={{ fontSize: 20 }}> Details </Text>
-          <Text>
-            Pet friendly:{' '}
-            {apartment.petFriendly === true ? (
-              <Icon
-                type="FontAwesome"
-                name="check"
-                style={{ color: 'green' }}
-              />
-            ) : (
-              <Icon type="FontAwesome" name="times" style={{ color: 'red' }} />
-            )}{' '}
-          </Text>
-          <Text>
-            On-site parking:{' '}
-            {apartment.parking === true ? (
-              <Icon
-                type="FontAwesome"
-                name="check"
-                style={{ color: 'green' }}
-              />
-            ) : (
-              <Icon type="FontAwesome" name="times" style={{ color: 'red' }} />
-            )}{' '}
-          </Text>
-          <Text>
-            AC included:{' '}
-            {apartment.ac === true ? (
-              <Icon
-                type="FontAwesome"
-                name="check"
-                style={{ color: 'green' }}
-              />
-            ) : (
-              <Icon type="FontAwesome" name="times" style={{ color: 'red' }} />
-            )}{' '}
-          </Text>
-          <Text>
-            Pool:{' '}
-            {apartment.pool === true ? (
-              <Icon
-                type="FontAwesome"
-                name="check"
-                style={{ color: 'green' }}
-              />
-            ) : (
-              <Icon type="FontAwesome" name="times" style={{ color: 'red' }} />
-            )}{' '}
-          </Text>
+              <ListItem>
+                <Left>
+                  <Text>On-site parking:</Text>
+                </Left>
+                <Body>
+                  {aptInStore.parking === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
+                </Body>
+              </ListItem>
 
-          <MapView
-            showsUserLocation
-            style={styles.map}
-            initialRegion={{
-              latitude: latitude,
-              longitude: longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421
-            }}
-          >
-            <Marker coordinate={marker} />
-          </MapView>
-        </Content>
-
-        <Text style={{ paddingTop: 20 }}>
-          Description: {apartment.description}
-        </Text>
-      </Content>
+              <ListItem>
+                <Left>
+                  <Text>AC included:</Text>
+                </Left>
+                <Body>
+                  {aptInStore.ac === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
+                </Body>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Pool:</Text>
+                </Left>
+                <Body>
+                  {aptInStore.pool === true ? (
+                    <Icon
+                      type="FontAwesome"
+                      name="check"
+                      style={{ color: 'green' }}
+                    />
+                  ) : (
+                    <Icon
+                      type="FontAwesome"
+                      name="times"
+                      style={{ color: 'red' }}
+                    />
+                  )}
+                </Body>
+              </ListItem>
+              <ListItem thumbnail>
+                <Body style={{ justifyContent: 'center' }}>
+                  <MapView
+                    showsUserLocation
+                    style={{
+                      width: 300,
+                      height: 300
+                    }}
+                    initialRegion={{
+                      latitude: latitude,
+                      longitude: longitude,
+                      latitudeDelta: 0.0922,
+                      longitudeDelta: 0.0421
+                    }}
+                  >
+                    <Marker coordinate={marker} />
+                  </MapView>
+                </Body>
+              </ListItem>
+            </List>
+          </Content>
+        </Container>
+      </Container>
     );
   }
 }
-const styles = StyleSheet.create({
-  map: {
-    width: 300,
-    height: 300
-  }
-});
-export default ApartmentInfoFeed;
 
-/*
-Apartment {
-            "apartment": Object {
-            "address": "201 N Garland Ct",
-        "city": "Chicago",
-        "createdAt": "2019-08-15T18:17:25.238Z",
-        "description": "idk",
-        "id": 2,
-        "monthlyRent": 3284,
-        "name": "MILA",
-        "numBathrooms": 2,
-        "numBedrooms": 2,
-        "squareFeet": 1107,
-        "state": "IL",
-        "unit": "07",
-        "updatedAt": "2019-08-15T18:17:25.238Z",
-        "zip": 60601,
-      },
-    */
+const mapStateToProps = state => {
+  return {
+    apartments: state.apartments
+  };
+};
+
+export default connect(mapStateToProps)(ApartmentInfoFeed);

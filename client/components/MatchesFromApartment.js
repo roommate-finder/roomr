@@ -60,11 +60,16 @@ class Feed extends React.Component {
   }
 
   async sendTextNotification(user1, user2, apartmentName) {
-    const { data } = await axios.post(`${ngrok}/api/twilio/`, {
-      user1: user1,
-      user2: user2,
-      apartmentName: apartmentName
-    });
+    if (
+      (user1.firstName === 'Cody' && user2.firstName === 'Joey') ||
+      (user1.firstName === 'Joey' && user2.firstName === 'Cody')
+    ) {
+      const { data } = await axios.post(`${ngrok}/api/twilio/`, {
+        user1: user1,
+        user2: user2,
+        apartmentName: apartmentName
+      });
+    }
   }
 
   // goToChat() {
@@ -101,7 +106,7 @@ class Feed extends React.Component {
           //   </CardItem>
 
           // </Card>
-          <Card>
+          <Card key={this.findUserInStore(Number(id))[0].id}>
             <CardItem>
               <Left>
                 <Body>
@@ -133,7 +138,7 @@ class Feed extends React.Component {
                     other: this.findUserInStore(Number(id))[0],
                     chatId: `chat${[id, this.props.user.id].sort()[0]}-${
                       [id, this.props.user.id].sort()[1]
-                      }`
+                    }`
                   });
                 }}
               >
