@@ -1,28 +1,24 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, FlatList, View } from 'react-native';
 import {
   Container,
   Text,
   Header,
   Title,
   Left,
-  searchBar,
   Input,
   InputGroup,
-  Button
+  Button,
+  Icon
 } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { ListItem } from 'react-native-elements';
 import Chatroom from './Chatroom';
-import { getChatRoomsThunk } from '../store/users';
-
-export default class AllMessages extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: []
-    };
-  }
-
+import { getUserChatroomThunk } from '../store/user';
+import MatchesFromApartment from './MatchesFromApartment';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import { ngrok } from '../../client/store';
+class AllMessages extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
@@ -43,14 +39,23 @@ export default class AllMessages extends React.Component {
               style={{ color: 'grey', fontSize: 30 }}
             />
           </Button>
-          <Button transparent onPress={() => navigation.navigate('Feed')}>
-            <Icon type="FontAwesome" name="heart" style={{ color: 'grey' }} />
+          <Button transparent>
+            <Icon
+              type="FontAwesome"
+              name="heart"
+              style={{ color: 'grey' }}
+              onPress={() => navigation.navigate('Feed')}
+            />
           </Button>
         </View>
       ),
 
       headerRight: (
-        <Button transparent style={{ marginBottom: 4 }}>
+        <Button
+          transparent
+          style={{ marginBottom: 4 }}
+          // onPress={() => navigation.navigate('AllMessages')}
+        >
           <Icon
             type="FontAwesome"
             name="comments"
@@ -60,193 +65,158 @@ export default class AllMessages extends React.Component {
       )
     };
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      messages: [],
+      refreshing: false
+    };
+    this.findUserInStore = this.findUserInStore.bind(this);
+    this.onPress = this.onPress.bind(this);
+  }
 
-  render() {
+  async componentDidMount() {
+    await this.props.getUserChatroomThunk(this.props.user.id);
+  }
+
+  findUserInStore(match) {
+    const userInStore = this.props.users.filter(user => user.id === match);
+    // console.log('---------------- USER IN STORE', userInStore)
+    return userInStore;
+  }
+
+  renderSeparator = () => {
     return (
-      <ScrollView>
-        {/* <Header style={{ height: 140, backgroundColor: 'white' }}> */}
-        <Container
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            marginTop: -320,
-            marginLeft: -180
-          }}
-        >
-          <Icon
-            name="home"
-            style={{
-              color: '#d6d6d6',
-              fontSize: 30
-            }}
-          />
-
-          <Icon
-            name="comments"
-            style={{
-              color: '#008db1',
-              fontSize: 30
-            }}
-          />
-        </Container>
-        {/* </Header> */}
-        <Header
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            marginTop: -350,
-            marginLeft: -20,
-            backgroundColor: 'white'
-          }}
-        >
-          <Title
-            style={{
-              color: '#008db1',
-              fontSize: 26
-            }}
-          >
-            Messages
-          </Title>
-        </Header>
-        {/* </Header> */}
-        <Header
-          searchBar
-          rounded
-          style={{ marginTop: -290, height: 20, backgroundColor: 'white' }}
-        />
-        <Container>
-          <Title
-            style={{
-              color: '#008db1',
-              fontSize: 11,
-              backgroundColor: 'white',
-              marginLeft: -320,
-              marginTop: -80
-            }}
-          >
-            Messages
-          </Title>
-          {/* <Container style={{ display: 'flex' }}> */}
-          <Container
-            style={{
-              justifyContent: 'space-evenly',
-              flexDirection: 'column',
-              marginTop: 10,
-              marginBottom: 4,
-              marginLeft: 12
-            }}
-          />
-          <Container
-            style={{
-              flexWrap: 'nowrap',
-              alignItems: 'flex-start',
-              marginTop: -700,
-              marginLeft: 70
-            }}
-          >
-            <Header
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-evenly',
-                alignItems: 'flex-start',
-                backgroundColor: 'white',
-                width: 900,
-                marginBottom: 120,
-                marginTop: 50,
-                paddingBottom: 20
-              }}
-            >
-              <Title
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  backgroundColor: 'white'
-                }}
-              >
-                Jesse
-              </Title>
-              <Text>Heyy, what's up!</Text>
-            </Header>
-            {/* <Header
-              style={{
-                flexDirection: 'column',
-                justifyContent: 'space-around',
-                alignItems: 'flex-start',
-                backgroundColor: 'white',
-                width: 900,
-                marginBottom: -120,
-                marginTop: -50,
-                paddingBottom: -800
-              }}
-            >
-              <Title
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  backgroundColor: 'white',
-                  paddingTop: 35
-                }}
-              >
-                Cassie
-              </Title>
-              <Text>Hey, so you like dogs?</Text>
-            </Header>
-            <Header
-              style={{
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                backgroundColor: 'white',
-                justifyContent: 'space-evenly',
-                marginTop: 50,
-                paddingBottom: 20,
-                marginBottom: 120,
-                width: 900
-              }}
-            >
-              <Title
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  backgroundColor: 'white',
-                  paddingTop: 35
-                }}
-              >
-                John
-              </Title>
-              <Text>What's your opinion on slushies?</Text>
-            </Header>
-            <Header
-              style={{
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                backgroundColor: 'white',
-                justifyContent: 'space-evenly',
-                marginTop: 50,
-                paddingBottom: 20,
-                marginBottom: 120,
-                width: 900
-              }}
-            >
-              <Title
-                style={{
-                  color: 'black',
-                  fontSize: 18,
-                  backgroundColor: 'white',
-
-                  paddingTop: 35
-                }}
-              >
-                Fiddle
-              </Title>
-
-              <Text>So what's your number?</Text>
-            </Header> */}
-          </Container>
-          {/* </Container> */}
-        </Container>
-      </ScrollView>
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%'
+        }}
+      />
     );
+  };
+  onPress = async () => {
+    this.props.navigation.navigate('Chatroom', {
+      me: this.props.user,
+      chatId: `chat${[chat.user1Id, this.props.user.id].sort()[0]}-${
+        [chat.user2Id, this.props.user.id].sort()[1]
+      }`
+    });
+  };
+
+  _renderItem = ({ item }) => (
+    <FlatList title={`${item.firstName}`} avatar={`${item.photo}`} />
+  );
+  render() {
+    const props = this.props.navigation.state.params;
+
+    return this.props.user &&
+      this.props.user.chatrooms &&
+      this.props.user.chatrooms.length
+      ? this.props.user.chatrooms.map(chat => {
+          return chat.user1Id === this.props.user.id ? (
+            <View style={{ height: 65 }}>
+              <FlatList
+                data={[this.props.users[chat.user2Id]]}
+                renderItem={({ item }) => (
+                  <ListItem
+                    key={item.id}
+                    leftAvatar={{ source: { uri: item.photo } }}
+                    onPress={async () => {
+                      this.props.navigation.navigate('Chatroom', {
+                        me: this.props.user,
+                        other: this.props.users[chat.user2Id],
+                        chatId: `chat${
+                          [
+                            this.props.users[chat.user1Id].id,
+                            this.props.user.id
+                          ].sort()[0]
+                        }-${
+                          [
+                            this.props.users[chat.user2Id].id,
+                            this.props.user.id
+                          ].sort()[1]
+                        }`
+                      });
+                    }}
+                    title={
+                      <Text style={{ fontWeight: 'bold' }}>
+                        {item.firstName}
+                      </Text>
+                    }
+                    subtitle={
+                      <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
+                    }
+                    chevron={true}
+                    topDivider={true}
+                    bottomDivider={true}
+                  />
+                )}
+                ItemSeparatorComponent={this.renderSeparator}
+              />
+            </View>
+          ) : (
+            // <View>
+            //   <Button
+            //     onPress={async () => {
+            //       //   await axios.get(`${ngrok}/api/users/createChatroom`);
+            //       this.props.navigation.navigate('Chatroom', {
+            //         me: this.props.user,
+            //         chatId: `chat${
+            //           [chat.user1Id, this.props.user.id].sort()[0]
+            //         }-${[chat.user2Id, this.props.user.id].sort()[1]}`
+            //       });
+            //     }}
+            //   >
+            //     <Text
+            //       style={{
+            //         marginRight: 100
+            //       }}
+            //     >
+            //       {this.props.users[chat.user2Id].firstName}
+            //     </Text>
+            //   </Button>
+            //   </View>
+
+            <Title>{this.props.users[chat.user1Id].firstName}</Title>
+          );
+          /* //     if (chat.user1Id === this.props.user.id) {
+              //       <Title>{chat[0]}</Title>;
+              //     } else {
+              //       <Title>{chat.user1Id}</Title>;
+              //     }
+              console.log('THISPROPS', this.props.user);
+              console.log('THISPROPSCHATROOM', this.props.user.chatrooms); */
+        })
+      : null;
+
+    //   return this.props.user.chatrooms.map(chat => {
+    //     <Text>Hello</Text>;
+    //       <ScrollView>
+
+    //       </ScrollView>
+    //   });
   }
 }
+
+const mapState = state => {
+  return {
+    user: state.user,
+    feed: state.feed,
+    MatchesFromApartment: state.MatchesFromApartment,
+    users: state.users
+  };
+};
+
+const mapDispatch = dispatch => {
+  return {
+    getUserChatroomThunk: userId => dispatch(getUserChatroomThunk(userId))
+  };
+};
+export default connect(
+  mapState,
+  mapDispatch
+)(AllMessages);
