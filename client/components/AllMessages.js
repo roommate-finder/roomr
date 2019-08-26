@@ -137,12 +137,21 @@ class AllMessages extends React.Component {
                     key={item.id}
                     leftAvatar={{ source: { uri: item.photo } }}
                     onPress={async () => {
+                      console.log('USER2ID', this.props.users[chat.user2Id].id);
                       //   await axios.get(`${ngrok}/api/users/createChatroom`);
                       this.props.navigation.navigate('Chatroom', {
                         me: this.props.user,
                         chatId: `chat${
-                          [item.user1Id, this.props.user.id].sort()[0]
-                        }-${[item.user2Id, this.props.user.id].sort()[1]}`
+                          [
+                            this.props.users[chat.user1Id].id,
+                            this.props.user.id
+                          ].sort()[0]
+                        }-${
+                          [
+                            this.props.users[chat.user2Id].id,
+                            this.props.user.id
+                          ].sort()[1]
+                        }`
                       });
                     }}
                     title={
