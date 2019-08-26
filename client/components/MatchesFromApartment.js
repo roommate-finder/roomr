@@ -127,7 +127,12 @@ class Feed extends React.Component {
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
               <Button
                 // onSubmit={() => this.props.createUserChatroomThunk(user.id)}
-                onPress={() => {
+                onPress={async () => {
+                  await axios.post(`${ngrok}/api/users/createChatroom`, {
+                    user1Id: [id, this.props.user.id].sort()[0],
+                    user2Id: [id, this.props.user.id].sort()[1]
+                  });
+
                   this.sendTextNotification(
                     this.props.user,
                     this.findUserInStore(Number(id))[0],

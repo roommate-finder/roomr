@@ -7,16 +7,15 @@ import { ngrok } from './';
 const SET_USER = 'SET_USER';
 const CREATE_USER = 'CREATE_USER';
 const UPDATE_USER = 'UPDATE_USER';
+const GET_USER_CHATROOM = 'GET_USER_CHATROOM';
 /**
  * ACTION CREATORS
  */
 
 const setUser = user => ({ type: SET_USER, user });
 const createUser = user => ({ type: CREATE_USER, user });
-const setSingleUser = campus => ({
-  type: SINGLE_CAMPUS,
-  user
-});
+const getUserChat = user => ({ type: GET_USER_CHATROOM, user });
+
 const updateUser = user => ({ type: UPDATE_USER, user });
 
 /**
@@ -41,8 +40,15 @@ export const fetchUserThunk = userId => async dispatch => {
     users.chatroom = chatroom;
     dispatch(setSingleUser(users));
   } catch (err) {
-    console.error(err);
+    console.log("There's an error with fetchUser!");
   }
+};
+
+export const getUserChatroomThunk = userId => async dispatch => {
+  try {
+    const { data } = await axios.get(`${ngrok}/api/users/${userId}`);
+    dispatch(getUserChat(data));
+  } catch (err) {}
 };
 
 export const createUserThunk = formData => async dispatch => {
@@ -76,6 +82,8 @@ export default function(state = {}, action) {
     case CREATE_USER:
       return action.user;
     case UPDATE_USER:
+      return action.user;
+    case GET_USER_CHATROOM:
       return action.user;
     default:
       return state;
