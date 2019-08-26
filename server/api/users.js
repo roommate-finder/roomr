@@ -60,7 +60,6 @@ router.post('/signup', async (req, res, next) => {
 });
 router.put('/:userId', async (req, res, next) => {
   try {
-    console.log('INSIDE PUT REQ');
     const userToEdit = await User.findByPk(Number(req.params.userId));
     const user = await userToEdit.update(req.body);
     res.json(user);
@@ -70,7 +69,6 @@ router.put('/:userId', async (req, res, next) => {
 });
 router.get('/:userId', async (req, res, next) => {
   try {
-    console.log('HERE');
     const user = await User.findByPk(req.params.userId);
     const userData = user.dataValues;
     const chatrooms = await Chatroom.findAll({

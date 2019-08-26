@@ -12,7 +12,7 @@ const firebaseConfig = {
   storageBucket: ''
 };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 export default class Login extends Component {
   constructor(props) {

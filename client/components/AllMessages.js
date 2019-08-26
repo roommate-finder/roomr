@@ -1,16 +1,14 @@
 import React from 'react';
-import { ScrollView, FlatList } from 'react-native';
+import { ScrollView, FlatList, View } from 'react-native';
 import {
   Container,
   Text,
-  View,
   Header,
   Title,
-  Button,
   Left,
-  searchBar,
   Input,
-  InputGroup
+  InputGroup,
+  Button
 } from 'native-base';
 import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -127,7 +125,7 @@ class AllMessages extends React.Component {
           //     )
           //   );
           //   [this.props.users[chat.user2Id]]
-          console.log('PROPSUSERSCHAT', this.props.users[chat.user2Id].photo);
+          console.log('PROPSUSERSCHAT', this.props.users);
           return chat.user1Id === this.props.user.id ? (
             <View style={{ height: 65 }}>
               <FlatList
@@ -141,6 +139,7 @@ class AllMessages extends React.Component {
                       //   await axios.get(`${ngrok}/api/users/createChatroom`);
                       this.props.navigation.navigate('Chatroom', {
                         me: this.props.user,
+                        other: this.props.users[chat.user2Id],
                         chatId: `chat${
                           [
                             this.props.users[chat.user1Id].id,

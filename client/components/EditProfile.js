@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
+
 import {
   Container,
   Header,
@@ -48,9 +50,7 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
-    console.log('MOUNTED');
     const user = this.props.user;
-    console.log('USER IN CDM', user);
 
     this.setState({
       bio: user.bio,
@@ -81,31 +81,32 @@ class EditProfile extends Component {
 
   render() {
     return (
-      <Container>
-        <Content>
-          <Form>
-            <Item fixedLabel>
-              <Label>Bio</Label>
-              <Input
-                multiline={true}
-                numberOfLines={4}
-                value={this.state.bio}
-                onChangeText={bio => this.setState({ bio })}
-              />
-            </Item>
-            <Item fixedLabel>
-              <Label>Job Title</Label>
-              <Input
-                value={this.state.job}
-                onChangeText={job => this.setState({ job })}
-              />
-            </Item>
-          </Form>
-          <Button onPress={() => this.handleSave()}>
-            <Text> Save</Text>
-          </Button>
-        </Content>
-      </Container>
+      <View style={{ padding: 10 }}>
+        <Form>
+          <Item fixedLabel>
+            <Label>Bio</Label>
+            <Input
+              multiline={true}
+              numberOfLines={4}
+              value={this.state.bio}
+              onChangeText={bio => this.setState({ bio })}
+            />
+          </Item>
+          <Item fixedLabel>
+            <Label>Job Title</Label>
+            <Input
+              value={this.state.job}
+              onChangeText={job => this.setState({ job })}
+            />
+          </Item>
+        </Form>
+        <Button
+          style={{ backgroundColor: '#0e677c', marginTop: 10 }}
+          onPress={() => this.handleSave()}
+        >
+          <Text style={{ color: '#FFF' }}> Save</Text>
+        </Button>
+      </View>
     );
   }
 }

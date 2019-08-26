@@ -23,12 +23,13 @@ import {
   Right,
   Accordion
 } from 'native-base';
-import { getFeedDataThunk } from '../store/feed';
+import { getFeedDataThunk, deleteUserApartmentThunk } from '../store/feed';
 import { getApartmentsThunk } from '../store/apartments';
 import { getUsersThunk } from '../store/users';
 import { connect } from 'react-redux';
 import * as Font from 'expo-font';
 import Slideshow from 'react-native-image-slider-show';
+import CacheImage from './CacheImage';
 
 //modal stuff
 // import Modal from 'react-native-modal'
@@ -42,10 +43,11 @@ import Slideshow from 'react-native-image-slider-show';
 class Feed extends React.Component {
   constructor() {
     super();
-    this.state = { modalVisible: false };
+    this.state = { modalVisible: false, loaded: false };
     this.findApartmentInStore = this.findApartmentInStore.bind(this);
     this.findUserInStore = this.findUserInStore.bind(this);
   }
+
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
@@ -54,95 +56,160 @@ class Feed extends React.Component {
         </Button>
       ),
       headerTitle: (
-        <Button
-          transparent
-          onPress={() => navigation.navigate('ApartmentSwipe')}
-        >
-          <Icon type="FontAwesome" name="home" style={{ color: 'grey' }} />
-        </Button>
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            style={{ marginRight: 55 }}
+            transparent
+            onPress={() => navigation.navigate('ApartmentSwipe')}
+          >
+            <Icon
+              type="FontAwesome"
+              name="home"
+              style={{ color: 'grey', fontSize: 30 }}
+            />
+          </Button>
+          <Button transparent>
+            <Icon
+              type="FontAwesome"
+              name="heart"
+              style={{ color: '#0e677c' }}
+            />
+          </Button>
+        </View>
       ),
 
       headerRight: (
-        <Button transparent>
-          <Icon type="FontAwesome" name="users" style={{ color: '#0e677c' }} />
+        <Button
+          transparent
+          style={{ marginBottom: 4 }}
+          onPress={() => navigation.navigate('AllMessages')}
+        >
+          <Icon
+            type="FontAwesome"
+            name="comments"
+            style={{ color: 'grey', fontSize: 30 }}
+          />
         </Button>
       )
     };
   };
 
-  componentDidMount() {
-    this.props.getFeedData(this.props.user);
-    this.props.getApartments();
-    this.props.getUsers();
+  async componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        loaded: true
+      });
+    }, 1500);
+    await this.props.getFeedData(this.props.user);
+    await this.props.getApartments();
+    await this.props.getUsers();
   }
 
   findApartmentInStore(apartment) {
     const apartmentInStore = this.props.apartments.filter(
       apt => apt.id === apartment.apartmentId
     );
-    // console.log('APARTMENT IN STORE THAT IS RETURNED', apartmentInStore)
     return apartmentInStore;
   }
 
   findUserInStore(match) {
     const userInStore = this.props.users.filter(user => user.id === match);
-    // console.log('---------------- USER IN STORE', userInStore)
     return userInStore;
   }
 
   render() {
-    //console.log('PROPS', this.props)
-    // console.log('________APARTMENTS', this.props.apartments)
-    // console.log('*****************this.props.feed', this.props.feed[0])
-    // console.log('*******^^^^^^^^^^^^ USERS', this.props.users)
     return (
-      <View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-          <Button style={{ backgroundColor: 'none' }}>
-            <Text style={{ color: '#0e677c', fontWeight: 'bold' }}>Feed</Text>
-          </Button>
-          {/* Adding | to separate Feed and Messages
-
-          <Button style={{ backgroundColor: 'none' }}>
-            <Text style={{ color: '#0e677c', fontWeight: 'bold' }}>|</Text>
-          </Button> */}
-          <Button
-            style={{ backgroundColor: 'none' }}
-            onPress={() => this.props.navigation.navigate('AllMessages')}
-          >
-            <Text style={{ color: '#0e677c' }}>Messages</Text>
-          </Button>
-        </View>
-        <ScrollView>
-          {this.props.feed[0] &&
-            this.props.apartments.length > 0 &&
-            this.props.users.length > 0 &&
-            this.props.feed[0].map(apt => (
-              <Card key={this.findApartmentInStore(apt)[0].id}>
-                <CardItem>
-                  <Left>
-                    <Body>
-                      <Text>{this.findApartmentInStore(apt)[0].name}</Text>
-                      <Text note>
-                        {this.findApartmentInStore(apt)[0].address}
-                      </Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody>
-                  <Slideshow
-                    dataSource={this.findApartmentInStore(apt)[0].photos}
-                  />
-                </CardItem>
-                <CardItem>
-                  {/* <Text>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+      >
+        {this.state.loaded &&
+        this.props.feed[0] &&
+        this.props.apartments.length > 0 &&
+        this.props.users.length > 0 ? (
+          this.props.feed[0].map(apt => (
+            <Card key={this.findApartmentInStore(apt)[0].id}>
+              <CardItem>
+                <Left>
+                  <Body>
+                    <Text>{this.findApartmentInStore(apt)[0].name}</Text>
+                    <Text note>
+                      {this.findApartmentInStore(apt)[0].address}
+                    </Text>
+                  </Body>
+                </Left>
+                <Right
+                  style={{
+                    justifyContent: 'center'
+                  }}
+                >
+                  <Button
+                    style={{
+                      width: 70,
+                      height: 25,
+                      // borderRadius: 20 / 2,
+                      backgroundColor: '#0e677c',
+                      alignContent: 'center',
+                      justifyContent: 'center'
+                    }}
+                    transparent
+                    onPress={() => {
+                      this.props.deleteUserApartment(
+                        this.props.user.id,
+                        this.findApartmentInStore(apt)[0].id
+                      );
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: '#FFF',
+                        paddingRight: 25
+                      }}
+                    >
+                      unlike
+                    </Text>
+                    {/* <Icon
+                      name="times"
+                      type="FontAwesome"
+                      style={{
+                        color: '#FFFFFF',
+                        fontSize: 10,
+                        marginBottom: 2
+                      }}
+                    /> */}
+                  </Button>
+                </Right>
+              </CardItem>
+              <CardItem cardBody>
+                <Slideshow
+                  dataSource={this.findApartmentInStore(apt)[0].photos}
+                />
+              </CardItem>
+              <CardItem>
+                {/* <Text>
                                     <Text>
                                         {apt.matches_array !== null ? apt.matches_array.split(', ').length : 0} matches
                                     </Text>
                                     {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName} {this.findUserInStore(Number(match))[0].lastName}</Text>) : ''}
 
                                 </Text> */}
-                  <Left>
+                <Left>
+                  {/* <Button
+                                            transparent
+                                            onPress={() =>
+                                                this.props.navigation.navigate('MatchesFromApartment', {
+                                                    apartment: this.findApartmentInStore(apt)[0],
+                                                    matchIds: apt.matches_array.split(', ')
+                                                })
+                                            }
+                                        >
+                                            <Text>
+                                                {apt.matches_array !== null
+                                                    ? apt.matches_array.split(', ').length
+                                                    : 0}{' '}
+                                                matches
+                      </Text>
+                                        </Button> */}
+                  {apt.matches_array !== null ? (
                     <Button
                       transparent
                       onPress={() =>
@@ -159,24 +226,43 @@ class Feed extends React.Component {
                         matches
                       </Text>
                     </Button>
-                  </Left>
-                  <Right>
-                    <Button
-                      transparent
-                      onPress={() =>
-                        this.props.navigation.navigate('ApartmentInfoFeed', {
-                          apartment: this.findApartmentInStore(apt)[0]
-                        })
-                      }
-                    >
-                      <Icon type="FontAwesome" name="info-circle" />
-                    </Button>
-                  </Right>
-                </CardItem>
-              </Card>
-            ))}
-        </ScrollView>
-      </View>
+                  ) : (
+                    <Text> No matches</Text>
+                  )}
+                </Left>
+                <Right>
+                  <Button
+                    transparent
+                    onPress={() =>
+                      this.props.navigation.navigate('ApartmentInfoFeed', {
+                        apartment: this.findApartmentInStore(apt)[0]
+                      })
+                    }
+                  >
+                    <Icon
+                      style={{ color: '#ED4A6A' }}
+                      type="FontAwesome"
+                      name="info-circle"
+                    />
+                  </Button>
+                </Right>
+              </CardItem>
+            </Card>
+          ))
+        ) : (
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Loading your likes and matches...</Text>
+            <CacheImage
+              source={{
+                uri:
+                  'https://loading.io/spinners/wedges/lg.rotate-pie-preloader-gif.gif'
+              }}
+              style={{ width: 200, height: 200 }}
+            />
+          </View>
+        )}
+      </ScrollView>
+      // {/* </View> */}
 
       // <Container>
       //     <Card>
@@ -236,7 +322,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   getFeedData: user => dispatch(getFeedDataThunk(user)),
   getApartments: () => dispatch(getApartmentsThunk()),
-  getUsers: () => dispatch(getUsersThunk())
+  getUsers: () => dispatch(getUsersThunk()),
+  deleteUserApartment: (userId, apartmentId) =>
+    dispatch(deleteUserApartmentThunk(userId, apartmentId))
 });
 
 export default connect(

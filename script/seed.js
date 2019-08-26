@@ -31,7 +31,6 @@ fs.createReadStream(chatroomData)
   });
 const photos = [];
 const photoData = path.join(__dirname, 'photo_data.csv');
-
 fs.createReadStream(photoData)
   .pipe(csv())
   .on('data', data => photos.push(data))
@@ -39,14 +38,14 @@ fs.createReadStream(photoData)
     console.log(photos);
   });
 
-const users = [];
-const userData = path.join(__dirname, 'user_data.csv');
-fs.createReadStream(userData)
-  .pipe(csv())
-  .on('data', data => users.push(data))
-  .on('end', () => {
-    console.log(users);
-  });
+// const users = [];
+// const userData = path.join(__dirname, 'user_data.csv');
+// fs.createReadStream(userData)
+//   .pipe(csv())
+//   .on('data', data => users.push(data))
+//   .on('end', () => {
+//     console.log(users);
+//   });
 
 const userApartments = [];
 const userApartmentData = path.join(__dirname, 'user_apartment_data.csv');
@@ -61,20 +60,12 @@ async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
 
-  const createApartments = [];
-  apartments.forEach(apt => createApartments.push(Apartment.create(apt)));
-  Promise.all(createApartments);
-
-  const createPhotos = [];
-  photos.forEach(photo => createPhotos.push(Photo.create(photo)));
-  Promise.all(createPhotos);
-
   const users = await Promise.all([
     User.create({
       firstName: 'Cody',
       lastName: 'Codes',
       password: '123',
-      phone: 123,
+      phone: 2488724135,
       email: 'cody@email.com',
       photo: 'https://robohash.org/cody',
       bio: 'i love to code',
@@ -85,8 +76,8 @@ async function seed() {
     User.create({
       firstName: 'Joey',
       lastName: 'Doe',
-      phone: 7654321,
-      password: 'banana',
+      phone: 9147086765,
+      password: '123',
       email: 'joey@email.com',
       photo: 'https://robohash.org/joey',
       bio: 'cool dog looking for a nice place to live',
@@ -98,7 +89,7 @@ async function seed() {
       firstName: 'Rocky',
       lastName: 'Smith',
       phone: 1112222,
-      password: 'apple',
+      password: '123',
       email: 'rockyrocks@email.com',
       photo: 'https://robohash.org/rocky',
       bio: 'rock enthusiast',
@@ -110,7 +101,7 @@ async function seed() {
       firstName: 'Baxter',
       lastName: 'Harris',
       phone: 1232222,
-      password: 'candy',
+      password: '123',
       email: 'baxter@email.com',
       photo: 'https://robohash.org/baxter',
       bio: 'a good boy',
@@ -122,7 +113,7 @@ async function seed() {
       firstName: 'Felix',
       lastName: 'Martin',
       phone: 1389798,
-      password: 'lettuce',
+      password: '123',
       email: 'jack@email.com',
       photo: 'https://robohash.org/jack',
       bio: 'cool cat',
@@ -131,14 +122,32 @@ async function seed() {
       job: 'chef'
     })
   ]);
+  const createApartments = [];
+  apartments.forEach(apt => createApartments.push(Apartment.create(apt)));
+  await Promise.all(createApartments);
+
+  const createPhotos = [];
+  photos.forEach(photo => createPhotos.push(Photo.create(photo)));
+  await Promise.all(createPhotos);
+
+  // const createUsers = [];
+  // users.forEach(user => createUsers.push(User.create(user)));
+  // await Promise.all(createUsers);
+
+  const createUserApartments = [];
+  userApartments.forEach(ua =>
+    createUserApartments.push(UserApartment.create(ua))
+  );
+  await Promise.all(createUserApartments);
 
   const chats = await Promise.all([
     Chatroom.create({
       chatId: '1-2',
-      user1Id: users[0].id,
-      user2Id: users[1].id
+      user1Id: 1,
+      user2Id: 2
     })
   ]);
+
   // const createChatroom = [];
   // chatroom.forEach(chatroom => createChatroom.push(Chatroom.create(chatroom)));
   // Promise.all(createChatroom);
@@ -194,11 +203,11 @@ async function seed() {
   //     monthlyRent: 3284,
   //     image: 'https://images1.apartments.com/i2/Feqx7UDZjFJjNrncTHZT1Qnh02GDaZEPCcaEmc_oOFc/116/mila-chicago-il-building-photo.jpg'
 
-  const createUserApartments = [];
-  userApartments.forEach(ua =>
-    createUserApartments.push(UserApartment.create(ua))
-  );
-  await Promise.all(createUserApartments);
+  // const createUserApartments = [];
+  // userApartments.forEach(ua =>
+  //   createUserApartments.push(UserApartment.create(ua))
+  // );
+  // await Promise.all(createUserApartments);
 
   console.log(`seeded ${apartments.length} apartments`);
   console.log(`seeded ${users.length} users`);

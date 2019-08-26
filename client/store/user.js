@@ -53,8 +53,6 @@ export const getUserChatroomThunk = userId => async dispatch => {
 
 export const createUserThunk = formData => async dispatch => {
   try {
-    console.log('BEFORE DATA');
-
     const { data } = await axios.post(`${ngrok}/api/users/signup`, formData);
     dispatch(createUser(data));
     dispatch(setUser(data));
