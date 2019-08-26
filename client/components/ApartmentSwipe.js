@@ -26,12 +26,16 @@ import CacheImage from './CacheImage';
 //because database does not currently have images
 const tempImage = require('../images/kitten.jpeg');
 
+const swipeLeft = require('../images/swipe-left.png');
+const swipeRight = require('../images/swipe-right.png');
+
 class ApartmentSwipe extends React.Component {
   constructor() {
     super();
     this.state = {
       loaded: false,
-      disabled: false
+      disabled: false,
+      showHands: true
     };
   }
   static navigationOptions = ({ navigation }) => {
@@ -80,6 +84,11 @@ class ApartmentSwipe extends React.Component {
     }, 3000);
     await this.props.getApartments();
     await this.props.getUnseenApartments(this.props.user);
+    setTimeout(() => {
+      this.setState({
+        showHands: false
+      });
+    }, 3000);
   }
   //disable yes and no buttons for 1/2 second for async action
   pressButton = () => {
@@ -174,13 +183,16 @@ class ApartmentSwipe extends React.Component {
                         );
                       }}
                     >
-                      <Icon
-                        name="times"
-                        type="FontAwesome"
+                      <Image
+                        source={swipeRight}
+                        // name="times"
+                        // type="FontAwesome"
                         style={{
-                          color: '#FFFFFF',
-                          fontSize: 32.5,
-                          marginBottom: 3
+                          width: 65,
+                          height: 65
+                          // color: '#FFFFFF',
+                          // fontSize: 32.5,
+                          // marginBottom: 3
                         }}
                       />
                     </Button>
@@ -232,6 +244,11 @@ class ApartmentSwipe extends React.Component {
                       <Icon
                         name="info-circle"
                         type="FontAwesome"
+                        style={{ color: '#ED4A6A', fontSize: 30 }}
+                      />
+                      <Icon
+                        name="hand-point-right"
+                        type="font-awesome"
                         style={{ color: '#ED4A6A', fontSize: 30 }}
                       />
                     </Button>
