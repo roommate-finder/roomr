@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput, Image } from 'react-native';
 import {
   Container,
   Header,
@@ -25,6 +25,8 @@ import {
 import { connect } from 'react-redux';
 import { setUserThunk } from '../store/user';
 
+// const loaderImage = require('../images/loader.gif');
+
 class PhoneLogin extends React.Component {
   constructor() {
     super();
@@ -32,8 +34,8 @@ class PhoneLogin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
-    this.props.setUser(this.state);
+  async handleSubmit() {
+    await this.props.setUser(this.state);
     /* FOR DEVELOPMENT */
     this.setState({
       phone: '',
@@ -60,12 +62,20 @@ class PhoneLogin extends React.Component {
           <Item fixedLabel>
             <Label>Password</Label>
             <Input
-              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+              secureTextEntry={true}
+              style={{
+                height: 40,
+                borderColor: 'gray',
+                borderWidth: 1
+              }}
               value={this.state.password}
               onChangeText={text => this.setState({ password: text })}
             />
           </Item>
-          <Button onPress={() => this.handleSubmit()}>
+          <Button
+            style={{ backgroundColor: '#0e677c', marginTop: 10 }}
+            onPress={() => this.handleSubmit()}
+          >
             <Text>Submit</Text>
           </Button>
         </Form>

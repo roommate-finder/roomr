@@ -60,11 +60,16 @@ class Feed extends React.Component {
   }
 
   async sendTextNotification(user1, user2, apartmentName) {
-    const { data } = await axios.post(`${ngrok}/api/twilio/`, {
-      user1: user1,
-      user2: user2,
-      apartmentName: apartmentName
-    });
+    if (
+      (user1.firstName === 'Cody' && user2.firstName === 'Joey') ||
+      (user1.firstName === 'Joey' && user2.firstName === 'Cody')
+    ) {
+      const { data } = await axios.post(`${ngrok}/api/twilio/`, {
+        user1: user1,
+        user2: user2,
+        apartmentName: apartmentName
+      });
+    }
   }
 
   // goToChat() {
@@ -81,7 +86,27 @@ class Feed extends React.Component {
         <Text>Matches for {props.apartment.name}</Text>
         {props.matchIds.map(id => (
           // eslint-disable-next-line react/jsx-key
-          <Card>
+          // <Card style={{
+          //   flexDirection: 'row',
+          //   // justifyContent: 'space-around',
+          //   // alignItems: 'center',
+          //   // marginTop: 20
+          // }} >
+          //   <CardItem cardbody>
+          //     <Image
+          //       source={{ uri: this.findUserInStore(Number(id))[0].photo }}
+          //       style={{ height: 100, width: 100, flex: 1 }}
+          //     />
+          //   </CardItem>
+          //   <CardItem>
+          //     <Text>
+          //       {this.findUserInStore(Number(id))[0].firstName}{' '}
+          //       {this.findUserInStore(Number(id))[0].lastName}
+          //     </Text>
+          //   </CardItem>
+
+          // </Card>
+          <Card key={this.findUserInStore(Number(id))[0].id}>
             <CardItem>
               <Left>
                 <Body>

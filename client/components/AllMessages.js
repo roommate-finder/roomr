@@ -10,7 +10,8 @@ import {
   Left,
   searchBar,
   Input,
-  InputGroup
+  InputGroup,
+  Button
 } from 'native-base';
 import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';

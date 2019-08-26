@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ngrok } from './'
+import { ngrok } from './';
 /**
  * ACTION TYPES
  */
@@ -21,10 +21,11 @@ export const createUserApartmentThunk = (
   likedBoolean
 ) => async dispatch => {
   try {
-    const { data } = await axios.post(
-      `${ngrok}/api/user-apartment/create`,
-      { apartmentId: apartmentId, userId: userId, liked: likedBoolean }
-    );
+    const { data } = await axios.post(`${ngrok}/api/user-apartment/create`, {
+      apartmentId: apartmentId,
+      userId: userId,
+      liked: likedBoolean
+    });
     dispatch(createUserApartment(data));
   } catch (err) {
     console.error(err);
@@ -34,10 +35,10 @@ export const createUserApartmentThunk = (
 /**
  * REDUCER
  */
-export default function (state = {}, action) {
+export default function(state = [], action) {
   switch (action.type) {
     case CREATE_USER_APARTMENT:
-      return action.ids;
+      return [...state, action.ids];
     default:
       return state;
   }
