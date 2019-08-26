@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Image } from 'react-native';
 import {
   Container,
   Header,
@@ -21,6 +21,8 @@ import { getApartmentsThunk } from '../store/apartments';
 import { createUserApartmentThunk } from '../store/user-apartments';
 import { getUnseenApartmentsThunk } from '../store/unseen-apartments';
 import Slideshow from 'react-native-image-slider-show';
+import CacheImage from './CacheImage';
+
 //because database does not currently have images
 const tempImage = require('../images/kitten.jpeg');
 
@@ -28,8 +30,7 @@ class ApartmentSwipe extends React.Component {
   constructor() {
     super();
     this.state = {
-      // viewInfo: false,
-      // currentApt: {},
+      loaded: false,
       disabled: false
     };
   }
@@ -72,6 +73,11 @@ class ApartmentSwipe extends React.Component {
   };
 
   async componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        loaded: true
+      });
+    }, 3000);
     await this.props.getApartments();
     await this.props.getUnseenApartments(this.props.user);
   }
@@ -88,26 +94,17 @@ class ApartmentSwipe extends React.Component {
     }, 500);
   };
 
-  // in case we want to attemp scrolling again
-  // scrollToEnd = () => {
-  //   this.scrollView.scrollToEnd();
-  // };
-  // scrollToTop = () => {
-  //   this.scrollView.scrollTo({ x: 0, y: 0, animated: true });
-  // };
-
   render() {
     const { unseenApartments } = this.props;
-    //const { apartments } = this.props;
-    //console.log('******APARTMENTS********', apartments)
-    //console.log('****************UNSEEN APARTMENTS', unseenApartments)
+
     return (
       <ScrollView
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
         ref={scrollView => {
           this.scrollView = scrollView;
         }}
       >
-        {this.props.unseenApartments.length !== 0 && (
+        {this.props.unseenApartments.length !== 0 && this.state.loaded ? (
           <Container>
             <Header />
 
@@ -116,7 +113,6 @@ class ApartmentSwipe extends React.Component {
               dataSource={unseenApartments}
               looping={false}
               onSwipeLeft={() => {
-                // this.setState({ viewInfo: false });
                 this.props.createUserApartment(
                   this._deckSwiper._root.state.selectedItem.id,
                   this.props.user.id,
@@ -124,7 +120,6 @@ class ApartmentSwipe extends React.Component {
                 );
               }}
               onSwipeRight={() => {
-                // this.setState({ viewInfo: false });
                 this.props.createUserApartment(
                   this._deckSwiper._root.state.selectedItem.id,
                   this.props.user.id,
@@ -172,7 +167,6 @@ class ApartmentSwipe extends React.Component {
                       onPress={() => {
                         this.pressButton();
                         this._deckSwiper._root.swipeLeft();
-                        // this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
                           this.props.user.id,
@@ -201,7 +195,6 @@ class ApartmentSwipe extends React.Component {
                       onPress={() => {
                         this.pressButton();
                         this._deckSwiper._root.swipeRight();
-                        // this.setState({ viewInfo: false });
                         this.props.createUserApartment(
                           this._deckSwiper._root.state.selectedItem.id,
                           this.props.user.id,
@@ -234,7 +227,6 @@ class ApartmentSwipe extends React.Component {
                         this.props.navigation.navigate('ApartmentInfoFeed', {
                           apartment: item
                         });
-                        // this.getAptInfo(item);
                       }}
                     >
                       <Icon
@@ -249,17 +241,19 @@ class ApartmentSwipe extends React.Component {
               )}
             />
           </Container>
-        )}
-        <View />
-        {/* {this.state.viewInfo === true && (
-          <View>
-            <SmallMapView style={{margin:}} apartment={this.state.currentApt} />
-            <ApartmentInfo
-              apartment={this.state.currentApt}
-              scrollToEnd={this.scrollToEnd}
+        ) : (
+          // <Loader />
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Loading Apartments...</Text>
+            <CacheImage
+              source={{
+                uri:
+                  'https://loading.io/spinners/wedges/lg.rotate-pie-preloader-gif.gif'
+              }}
+              style={{ width: 200, height: 200 }}
             />
           </View>
-        )} */}
+        )}
       </ScrollView>
     );
   }

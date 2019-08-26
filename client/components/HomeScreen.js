@@ -18,6 +18,7 @@ export default class HomeScreen extends Component {
   static navigationOptions = {
     header: null
   };
+
   render() {
     return (
       <Container
@@ -35,15 +36,20 @@ export default class HomeScreen extends Component {
             marginBottom: 100
           }}
         >
-          <Text style={{ fontSize: 30, color: 'white' }}>ROOMR</Text>
-          <Icon type="FontAwesome" name="home" style={{ color: 'white' }} />
+          <Text style={{ fontSize: 55, color: 'white' }}>roomr </Text>
+          <Icon
+            type="FontAwesome"
+            name="home"
+            style={{ color: 'white', fontSize: 60 }}
+          />
         </View>
         <View>
           <View
             style={{
               backgroundColor: 'white',
               marginBottom: 10,
-              borderRadius: 10
+              borderRadius: 10,
+              width: 125
             }}
           >
             <Button
@@ -54,7 +60,9 @@ export default class HomeScreen extends Component {
               <Text>Phone login</Text>
             </Button>
           </View>
-          <View style={{ backgroundColor: 'white', borderRadius: 10 }}>
+          <View
+            style={{ backgroundColor: 'white', borderRadius: 10, width: 125 }}
+          >
             <Button
               color="#0e677c"
               title="Signup"

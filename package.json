@@ -22,6 +22,7 @@
     "env": "0.0.2",
     "expo": "^34.0.1",
     "expo-facebook": "^6.0.0",
+    "expo-file-system": "^6.0.2",
     "expo-font": "^6.0.1",
     "express": "^4.17.1",
     "firebase": "^6.3.5",
@@ -46,6 +47,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.15.0",
+    "shorthash": "0.0.2",
     "twilio": "^3.33.4"
   },
   "prettier": {
