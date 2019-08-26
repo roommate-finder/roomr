@@ -60,7 +60,11 @@ class ApartmentSwipe extends React.Component {
         <Button
           transparent
           style={{ marginBottom: 4 }}
-          onPress={() => navigation.navigate('AllMessages')}
+          onPress={() =>
+            navigation.navigate('AllMessages', {
+              user: this.props.user
+            })
+          }
         >
           <Icon
             type="FontAwesome"

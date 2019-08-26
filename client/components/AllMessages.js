@@ -10,8 +10,7 @@ import {
   Left,
   searchBar,
   Input,
-  InputGroup,
-  Button
+  InputGroup
 } from 'native-base';
 import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -30,10 +29,11 @@ class AllMessages extends React.Component {
       refreshing: false
     };
     this.findUserInStore = this.findUserInStore.bind(this);
-    this.onPress = this.onPress.bind(this);
+    // this.onPress = this.onPress.bind(this);
   }
 
   async componentDidMount() {
+    console.log('PROPSONCOMP', this.props);
     await this.props.getUserChatroomThunk(this.props.user.id);
   }
   //   headerRight: (
@@ -44,6 +44,11 @@ class AllMessages extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerStyle: { height: 120 },
+      headerLeft: (
+        <Button transparent onPress={() => navigation.navigate('UserProfile')}>
+          <Icon type="FontAwesome" name="user" style={{ color: 'grey' }} />
+        </Button>
+      ),
       headerLeft: (
         <Button transparent onPress={() => navigation.navigate('Feed')}>
           <Icon
@@ -99,21 +104,21 @@ class AllMessages extends React.Component {
       />
     );
   };
-  onPress = async () => {
-    // await axios.get(`${ngrok}/api/users/createChatroom`);
-    this.props.navigation.navigate('Chatroom', {
-      me: this.props.user,
-      chatId: `chat${[chat.user1Id, this.props.user.id].sort()[0]}-${
-        [chat.user2Id, this.props.user.id].sort()[1]
-      }`
-    });
-  };
+  //   onPress = async () => {
+  //     // await axios.get(`${ngrok}/api/users/createChatroom`);
+  //     this.props.navigation.navigate('Chatroom', {
+  //       me: this.props.user,
+  //       chatId: `chat${[chat.user1Id, this.props.user.id].sort()[0]}-${
+  //         [chat.user2Id, this.props.user.id].sort()[1]
+  //       }`
+  //     });
+  //   };
 
   _renderItem = ({ item }) => (
     <FlatList title={`${item.firstName}`} avatar={`${item.photo}`} />
   );
   render() {
-    const props = this.props.navigation.state.params;
+    // const props = this.props.navigation.state.params;
     console.log('PROPSPARAM', this.props.user);
 
     return this.props.user &&
@@ -128,7 +133,8 @@ class AllMessages extends React.Component {
           //     )
           //   );
           //   [this.props.users[chat.user2Id]]
-          console.log('PROPSUSERSCHAT', this.props.users[chat.user2Id].photo);
+          //   console.log('PROPSUSERSCHAT', this.props.users[chat.user2Id].photo);
+          console.log('HELP', this.props);
           return chat.user1Id === this.props.user.id ? (
             <View style={{ height: 65 }}>
               <FlatList

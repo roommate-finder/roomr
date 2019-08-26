@@ -29,7 +29,8 @@ fs.createReadStream(chatroomData)
   .on('end', () => {
     console.log(chatroom);
   });
-
+const photos = [];
+const photoData = path.join(__dirname, 'photo_data.csv');
 fs.createReadStream(photoData)
   .pipe(csv())
   .on('data', data => photos.push(data))
@@ -134,9 +135,10 @@ async function seed() {
   // await Promise.all(createUsers);
 
   const createUserApartments = [];
-  userApartments.forEach(ua => createUserApartments.push(UserApartment.create(ua)));
+  userApartments.forEach(ua =>
+    createUserApartments.push(UserApartment.create(ua))
+  );
   await Promise.all(createUserApartments);
-
 
   const chats = await Promise.all([
     Chatroom.create({
@@ -145,9 +147,6 @@ async function seed() {
       user2Id: 2
     })
   ]);
-
-
-
 
   // const createChatroom = [];
   // chatroom.forEach(chatroom => createChatroom.push(Chatroom.create(chatroom)));

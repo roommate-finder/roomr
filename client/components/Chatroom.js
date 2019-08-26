@@ -2,7 +2,7 @@
 // import { StyleSheet, Text, View, TextInput, Button, FlatList } from "react-native";
 // //import { Container, Header, Title, Content, Footer, FooterTab, Left, Right, Body, Icon, Thumbnail, Grid, Col } from 'native-base';
 // // import * as Font from 'expo-font';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 // import { Constants } from 'expo';
 // import * as firebase from 'firebase';
 import React from 'react';
@@ -13,13 +13,14 @@ import {
   TextInput,
   Button,
   FlatList,
-  Image, StatusBar
+  Image,
+  StatusBar
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import Messages from '../container/Messages';
 import { Constants } from 'expo';
 import moment from 'moment';
-import firebaseApp from '../../firebase/config'
+import firebaseApp from '../../firebase/config';
 require('firebase/database');
 
 class Chatroom extends React.Component {
@@ -29,36 +30,39 @@ class Chatroom extends React.Component {
     var roomKey = this.props.navigation.state.params.chatId;
     this.messagesRef = FirebaseDB.ref(`/${roomKey}`);
     this.state = {
-      user: '',
-    }
-  }
-
-  static navigationOptions = ({ navigation }) => {
-    // console.log('NAVIGATION STATE', navigation.state)
-    return {
-      headerTitle: (
-        <Text>{navigation.state.params.other.firstName}</Text>
-      ),
+      user: ''
     };
   }
+
+  //   static navigationOptions = ({ navigation }) => {
+  //     // console.log('NAVIGATION STATE', navigation.state)
+  //     return {
+  //       //   headerTitle: (
+  //       //     <Text>{navigation.state.params.other.firstName}</Text>
+  //       //   ),
+  //     };
+  //   };
   componentDidMount() {
     this.setState({ user: this.props.user });
     this.listenForMessages(this.messagesRef);
   }
 
   listenForMessages(messagesRef) {
-    messagesRef.on('value', (dataSnapshot) => {
+    messagesRef.on('value', dataSnapshot => {
       var messagesFB = [];
-      dataSnapshot.forEach((child) => {
-        messagesFB = [({
-          _id: child.key,
-          text: child.val().text,
-          createdAt: child.val().createdAt,
-          user: {
-            _id: child.val().user._id,
-            name: child.val().user.name
-          }
-        }), ...messagesFB];
+      dataSnapshot.forEach(child => {
+        messagesFB = [
+          {
+            _id: child.key,
+            text: child.val().text,
+            createdAt: child.val().createdAt,
+            user: {
+              _id: child.val().user._id,
+              name: child.val().user.name
+            }
+          },
+          ...messagesFB
+        ];
       });
       this.setState({ messages: messagesFB });
     });
@@ -73,7 +77,7 @@ class Chatroom extends React.Component {
         _id: message[0].user._id,
         name: message[0].user.name
       }
-    })
+    });
   }
 
   render() {
@@ -85,19 +89,13 @@ class Chatroom extends React.Component {
           onSend={this.addMessage.bind(this)}
           user={{
             _id: this.props.user.id,
-            name: this.props.user.firstName,
+            name: this.props.user.firstName
           }}
         />
       </View>
     );
   }
 }
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -142,4 +140,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Chatroom);
-
