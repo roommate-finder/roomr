@@ -8,10 +8,10 @@ import {
   Left,
   Input,
   InputGroup,
-  Button
+  Button,
+  Icon
 } from 'native-base';
 import { ListItem } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Chatroom from './Chatroom';
 import { getUserChatroomThunk } from '../store/user';
 import MatchesFromApartment from './MatchesFromApartment';
@@ -19,6 +19,52 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { ngrok } from '../../client/store';
 class AllMessages extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Button transparent onPress={() => navigation.navigate('UserProfile')}>
+          <Icon type="FontAwesome" name="user" style={{ color: 'grey' }} />
+        </Button>
+      ),
+      headerTitle: (
+        <View style={{ flexDirection: 'row' }}>
+          <Button
+            style={{ marginRight: 55 }}
+            transparent
+            onPress={() => navigation.navigate('ApartmentSwipe')}
+          >
+            <Icon
+              type="FontAwesome"
+              name="home"
+              style={{ color: 'grey', fontSize: 30 }}
+            />
+          </Button>
+          <Button transparent>
+            <Icon
+              type="FontAwesome"
+              name="heart"
+              style={{ color: 'grey' }}
+              onPress={() => navigation.navigate('Feed')}
+            />
+          </Button>
+        </View>
+      ),
+
+      headerRight: (
+        <Button
+          transparent
+          style={{ marginBottom: 4 }}
+          // onPress={() => navigation.navigate('AllMessages')}
+        >
+          <Icon
+            type="FontAwesome"
+            name="comments"
+            style={{ color: '#0e677c', fontSize: 30 }}
+          />
+        </Button>
+      )
+    };
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -33,51 +79,7 @@ class AllMessages extends React.Component {
   async componentDidMount() {
     await this.props.getUserChatroomThunk(this.props.user.id);
   }
-  //   headerRight: (
-  //     <Button transparent>
-  //       <Icon type="FontAwesome" name="users" style={{ color: '#0e677c' }} />
-  //     </Button>
-  //   )
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerStyle: { height: 120 },
-      headerLeft: (
-        <Button transparent onPress={() => navigation.navigate('Feed')}>
-          <Icon
-            type="FontAwesome"
-            name="users"
-            style={{
-              fontSize: 25,
-              color: '#d6d6d6',
-              top: -25
-            }}
-          />
-        </Button>
-      ),
 
-      headerTitle: (
-        <View>
-          <Button transparent>
-            <Icon
-              type="FontAwesome"
-              name="envelope"
-              style={{ fontSize: 25, color: '#0e677c', top: -5, left: 50 }}
-            />
-          </Button>
-          <Title
-            style={{
-              color: '#0e677c',
-              fontSize: 24,
-              marginTop: 10,
-              left: -105
-            }}
-          >
-            Messages
-          </Title>
-        </View>
-      )
-    };
-  };
   findUserInStore(match) {
     const userInStore = this.props.users.filter(user => user.id === match);
     // console.log('---------------- USER IN STORE', userInStore)
@@ -97,7 +99,6 @@ class AllMessages extends React.Component {
     );
   };
   onPress = async () => {
-    // await axios.get(`${ngrok}/api/users/createChatroom`);
     this.props.navigation.navigate('Chatroom', {
       me: this.props.user,
       chatId: `chat${[chat.user1Id, this.props.user.id].sort()[0]}-${
@@ -111,21 +112,11 @@ class AllMessages extends React.Component {
   );
   render() {
     const props = this.props.navigation.state.params;
-    console.log('PROPSPARAM', this.props.user);
 
     return this.props.user &&
       this.props.user.chatrooms &&
       this.props.user.chatrooms.length
       ? this.props.user.chatrooms.map(chat => {
-          //   console.log(
-          //     'THISPROPSCHATROOM',
-          //     Array.prototype.push.apply(
-          //       this.props.users[chat.user2Id][0],
-          //       this.props.users[chat.user2Id][1]
-          //     )
-          //   );
-          //   [this.props.users[chat.user2Id]]
-          console.log('PROPSUSERSCHAT', this.props.users);
           return chat.user1Id === this.props.user.id ? (
             <View style={{ height: 65 }}>
               <FlatList
@@ -135,8 +126,6 @@ class AllMessages extends React.Component {
                     key={item.id}
                     leftAvatar={{ source: { uri: item.photo } }}
                     onPress={async () => {
-                      console.log('USER2ID', this.props.users[chat.user2Id].id);
-                      //   await axios.get(`${ngrok}/api/users/createChatroom`);
                       this.props.navigation.navigate('Chatroom', {
                         me: this.props.user,
                         other: this.props.users[chat.user2Id],
