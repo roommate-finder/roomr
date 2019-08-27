@@ -75,7 +75,6 @@ class AllMessages extends React.Component {
       refreshing: false
     };
     this.findUserInStore = this.findUserInStore.bind(this);
-    this.onPress = this.onPress.bind(this);
   }
 
   async componentDidMount() {
