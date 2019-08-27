@@ -81,9 +81,19 @@ class Feed extends React.Component {
 
   render() {
     const props = this.props.navigation.state.params;
+    const styles = StyleSheet.create({
+      overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(0,0,255,0.5)'
+      }
+    });
     return (
       <ScrollView>
-        <Text>Matches for {props.apartment.name}</Text>
+        <Header style={{ height: 70, backgroundColor: 'white' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+            Matches for {props.apartment.name}
+          </Text>
+        </Header>
         {props.matchIds.map(id => (
           // eslint-disable-next-line react/jsx-key
           // <Card style={{
@@ -110,19 +120,28 @@ class Feed extends React.Component {
             <CardItem>
               <Left>
                 <Body>
-                  <Text>
-                    {this.findUserInStore(Number(id))[0].firstName}{' '}
-                    {this.findUserInStore(Number(id))[0].lastName}
-                  </Text>
+                  <Header style={{ backgroundColor: 'white', maxWidth: 2000 }}>
+                    <Text style={{ left: -120, fontWeight: 'bold' }}>
+                      {this.findUserInStore(Number(id))[0].firstName}{' '}
+                      {this.findUserInStore(Number(id))[0].lastName}
+                    </Text>
+                  </Header>
                 </Body>
               </Left>
             </CardItem>
-            <CardItem cardBody>
-              <Image
-                source={{ uri: this.findUserInStore(Number(id))[0].photo }}
-                style={{ height: 200, width: null, flex: 1 }}
-              />
+            <CardItem cardBody style={{ height: 300 }}>
+              <View style={styles.overlay}>
+                <Image
+                  source={{ uri: this.findUserInStore(Number(id))[0].photo }}
+                  style={{
+                    height: 320,
+                    width: null,
+                    flex: 1
+                  }}
+                />
+              </View>
             </CardItem>
+
             <CardItem>
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
               <Button
