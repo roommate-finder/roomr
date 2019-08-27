@@ -44,7 +44,7 @@ class ChangeProfilePic extends React.Component {
         photo.exif.Orientation = 1;
         console.log('test-image', photo.uri);
         try {
-          this.uploadImage(photo.uri, 'test-image');
+          this.uploadImage(photo.uri, this.props.user.id);
         } catch (err) {
           console.log('error uploading photo', err);
         }
@@ -64,12 +64,13 @@ class ChangeProfilePic extends React.Component {
   }
 
   async updatePictureInPostgres() {
-    let storageRef = await firebase.storage().ref('images/test-image');
-    await storageRef.getDownloadURL().then(function(url) {
-      console.log('URL:', url);
-      this.props.updateUser({
-        photo: url
-      });
+    let storageRef = await firebase
+      .storage()
+      .ref(`images/${this.props.user.id}`);
+    const url = await storageRef.getDownloadURL();
+    await this.props.updateUser({
+      id: this.props.user.id,
+      photo: url
     });
   }
   render() {
