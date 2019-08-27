@@ -18,6 +18,8 @@ import MatchesFromApartment from './MatchesFromApartment';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { ngrok } from '../../client/store';
+import getOtherUser from '../util/getOtherUser';
+
 class AllMessages extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -73,7 +75,6 @@ class AllMessages extends React.Component {
       refreshing: false
     };
     this.findUserInStore = this.findUserInStore.bind(this);
-    this.onPress = this.onPress.bind(this);
   }
 
   async componentDidMount() {
@@ -98,100 +99,119 @@ class AllMessages extends React.Component {
       />
     );
   };
-  onPress = async () => {
-    this.props.navigation.navigate('Chatroom', {
-      me: this.props.user,
-      chatId: `chat${[chat.user1Id, this.props.user.id].sort()[0]}-${
-        [chat.user2Id, this.props.user.id].sort()[1]
-      }`
-    });
-  };
 
   _renderItem = ({ item }) => (
     <FlatList title={`${item.firstName}`} avatar={`${item.photo}`} />
   );
   render() {
     const props = this.props.navigation.state.params;
-
-    return this.props.user &&
-      this.props.user.chatrooms &&
-      this.props.user.chatrooms.length
-      ? this.props.user.chatrooms.map(chat => {
-          return chat.user1Id === this.props.user.id ? (
+    console.log('PROPSUSER', this.props);
+    if (!this.props.user) {
+      console.log('HERE NO USER');
+      return (
+        <View>
+          <Text>Sorry no messages yet</Text>
+        </View>
+      );
+    } else if (!this.props.user.chatrooms) {
+      console.log('HERE NO CHATS');
+      return (
+        <View>
+          <Text>Sorry no messages yet</Text>
+        </View>
+      );
+    } else {
+      return this.props.user.chatrooms.map(chat => {
+        console.log('HERE I AM', this.props.users[chat.user1Id - 1]);
+        console.log('CHAT1', chat.user1Id);
+        console.log('CHAT', chat);
+        if (chat.user1Id !== this.props.user.id)
+          return (
             <View style={{ height: 65 }}>
               <FlatList
-                data={[this.props.users[chat.user2Id]]}
-                renderItem={({ item }) => (
-                  <ListItem
-                    key={item.id}
-                    leftAvatar={{ source: { uri: item.photo } }}
-                    onPress={async () => {
-                      this.props.navigation.navigate('Chatroom', {
-                        me: this.props.user,
-                        other: this.props.users[chat.user2Id],
-                        chatId: `chat${
-                          [
-                            this.props.users[chat.user1Id].id,
-                            this.props.user.id
-                          ].sort()[0]
-                        }-${
-                          [
-                            this.props.users[chat.user2Id].id,
-                            this.props.user.id
-                          ].sort()[1]
-                        }`
-                      });
-                    }}
-                    title={
-                      <Text style={{ fontWeight: 'bold' }}>
-                        {item.firstName}
-                      </Text>
-                    }
-                    subtitle={
-                      <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
-                    }
-                    chevron={true}
-                    topDivider={true}
-                    bottomDivider={true}
-                  />
-                )}
+                data={[this.props.users[chat.user1Id - 1]]}
+                renderItem={({ item }) => {
+                  console.log('ITEM', item);
+                  return (
+                    <ListItem
+                      key={item.id}
+                      leftAvatar={{ source: { uri: item.photo } }}
+                      onPress={async () => {
+                        this.props.navigation.navigate('Chatroom', {
+                          me: this.props.user,
+                          other: getOtherUser(
+                            this.props.users,
+                            this.props.user,
+                            chat
+                          ),
+                          chatId: `chat${
+                            this.props.users[chat.user1Id - 1].id
+                          }-${this.props.users[chat.user2Id - 1].id}`
+                        });
+                      }}
+                      title={
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {item.firstName}
+                        </Text>
+                      }
+                      subtitle={
+                        <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
+                      }
+                      chevron={true}
+                      topDivider={true}
+                      bottomDivider={true}
+                    />
+                  );
+                }}
                 ItemSeparatorComponent={this.renderSeparator}
               />
             </View>
-          ) : (
-            // <View>
-            //   <Button
-            //     onPress={async () => {
-            //       //   await axios.get(`${ngrok}/api/users/createChatroom`);
-            //       this.props.navigation.navigate('Chatroom', {
-            //         me: this.props.user,
-            //         chatId: `chat${
-            //           [chat.user1Id, this.props.user.id].sort()[0]
-            //         }-${[chat.user2Id, this.props.user.id].sort()[1]}`
-            //       });
-            //     }}
-            //   >
-            //     <Text
-            //       style={{
-            //         marginRight: 100
-            //       }}
-            //     >
-            //       {this.props.users[chat.user2Id].firstName}
-            //     </Text>
-            //   </Button>
-            //   </View>
-
-            <Title>{this.props.users[chat.user1Id].firstName}</Title>
           );
-          /* //     if (chat.user1Id === this.props.user.id) {
-              //       <Title>{chat[0]}</Title>;
-              //     } else {
-              //       <Title>{chat.user1Id}</Title>;
-              //     }
-              console.log('THISPROPS', this.props.user);
-              console.log('THISPROPSCHATROOM', this.props.user.chatrooms); */
-        })
-      : null;
+        else {
+          return (
+            <View style={{ height: 65 }}>
+              <FlatList
+                data={[this.props.users[chat.user2Id - 1]]}
+                renderItem={({ item }) => {
+                  console.log('ITEM2', item);
+                  return (
+                    <ListItem
+                      key={item.id}
+                      leftAvatar={{ source: { uri: item.photo } }}
+                      onPress={async () => {
+                        this.props.navigation.navigate('Chatroom', {
+                          me: this.props.user,
+                          other: getOtherUser(
+                            this.props.users,
+                            this.props.user,
+                            chat
+                          ),
+                          chatId: `chat${
+                            this.props.users[chat.user1Id - 1].id
+                          }-${this.props.users[chat.user2Id - 1].id}`
+                        });
+                      }}
+                      title={
+                        <Text style={{ fontWeight: 'bold' }}>
+                          {item.firstName}
+                        </Text>
+                      }
+                      subtitle={
+                        <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
+                      }
+                      chevron={true}
+                      topDivider={true}
+                      bottomDivider={true}
+                    />
+                  );
+                }}
+                ItemSeparatorComponent={this.renderSeparator}
+              />
+            </View>
+          );
+        }
+      });
+    }
 
     //   return this.props.user.chatrooms.map(chat => {
     //     <Text>Hello</Text>;

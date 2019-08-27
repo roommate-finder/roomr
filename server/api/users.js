@@ -32,10 +32,10 @@ router.put('/login', async (req, res, next) => {
 });
 router.post('/createChatroom', async (req, res, next) => {
   try {
-    const chatroom = await Chatroom.findOrCreateChat({
-      user1Id: req.body.user1Id,
-      user2Id: req.body.user2Id
-    });
+    const chatroom = await Chatroom.findOrCreateChat(
+      req.body.user1Id,
+      req.body.user2Id
+    );
     res.json(chatroom);
   } catch (err) {
     next(err);
