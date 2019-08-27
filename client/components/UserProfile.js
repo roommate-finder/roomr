@@ -17,6 +17,7 @@ import {
   Grid,
   Col
 } from 'native-base';
+
 import { connect } from 'react-redux';
 // import { logoutUser } from '../store/user';
 import { logoutUserThunk } from '../store/user';
@@ -70,6 +71,7 @@ class UserProfile extends React.Component {
     return (
       <View
         style={{
+          marginTop: 100,
           flexDirection: 'column',
           justifyContent: 'center'
           // alignItems: 'center',
@@ -97,17 +99,20 @@ class UserProfile extends React.Component {
             }}
             source={{ uri: this.props.user.photo }}
           />
-          <Text>
-            {this.props.user.firstName} {this.props.user.lastName}
-          </Text>
-          <Text>{this.props.user.bio}</Text>
+          <View style={{ marginTop: 20 }}>
+            <Text>
+              {this.props.user.firstName} {this.props.user.lastName}
+            </Text>
+            <Text style={{ marginTop: 10 }}>{this.props.user.bio}</Text>
+          </View>
         </View>
 
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
-            alignItems: 'center'
+            alignItems: 'center',
+            marginTop: 20
           }}
         >
           <Button
@@ -142,7 +147,8 @@ class UserProfile extends React.Component {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            marginTop: 20
           }}
         >
           <Button
@@ -161,6 +167,22 @@ class UserProfile extends React.Component {
             light
           >
             <Text style={{ color: '#0e677c' }}>Logout</Text>
+          </Button>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 40
+          }}
+        >
+          <Button
+            style={{ backgroundColor: '#0e677c' }}
+            onPress={() => this.props.navigation.navigate('ChangeProfilePic')}
+          >
+            <Text style={{ color: 'white' }}>
+              Take a new photo for your profile!
+            </Text>
           </Button>
         </View>
       </View>

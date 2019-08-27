@@ -13,6 +13,8 @@ import MatchesFromApartment from './MatchesFromApartment';
 import ApartmentInfoFeed from './ApartmentInfoFeed';
 import Chatroom from './Chatroom';
 import AllMessages from './AllMessages';
+import ChangeProfilePic from './ChangeProfilePic';
+
 const AppNavigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
   Signup: { screen: Signup },
@@ -27,7 +29,8 @@ const AppNavigator = createStackNavigator({
   MatchesFromApartment: { screen: MatchesFromApartment },
   ApartmentInfoFeed: { screen: ApartmentInfoFeed },
   Chatroom: { screen: Chatroom },
-  AllMessages: { screen: AllMessages }
+  AllMessages: { screen: AllMessages },
+  ChangeProfilePic: { screen: ChangeProfilePic }
 });
 
 const AppContainer = createAppContainer(AppNavigator);

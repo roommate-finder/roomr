@@ -48,7 +48,9 @@ export const getUserChatroomThunk = userId => async dispatch => {
   try {
     const { data } = await axios.get(`${ngrok}/api/users/${userId}`);
     dispatch(getUserChat(data));
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const createUserThunk = formData => async dispatch => {
