@@ -20,10 +20,12 @@ class ChangeProfilePic extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    photoUploading: false
+    photoUploading: false,
+    showBackButton: false
   };
 
   async componentDidMount() {
+    this.setState({ user: this.props.user });
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
 
     this.setState({ hasCameraPermission: status === 'granted' });
@@ -50,6 +52,12 @@ class ChangeProfilePic extends React.Component {
         }
       });
       this.updatePictureInPostgres();
+      setTimeout(() => {
+        this.setState({
+          showBackButton: true,
+          photoUploading: false
+        });
+      }, 3200);
     }
   }
   async uploadImage(uri, imageName) {
@@ -68,7 +76,7 @@ class ChangeProfilePic extends React.Component {
       .storage()
       .ref(`images/${this.props.user.id}`);
     const url = await storageRef.getDownloadURL();
-    await this.props.updateUser({
+    this.props.updateUser({
       id: this.props.user.id,
       photo: url
     });
@@ -168,7 +176,22 @@ class ChangeProfilePic extends React.Component {
           <View>
             {this.state.photoUploading && (
               <View style={{ justifyContent: 'center', marginTop: 20 }}>
-                <Text style={{ textAlign: 'center' }}>Photo uploading!</Text>
+                <Text style={{ textAlign: 'center' }}>Photo uploading...</Text>
+              </View>
+            )}
+            {this.state.showBackButton && (
+              <View style={{ justifyContent: 'center', marginTop: 20 }}>
+                <Button
+                  onPress={() =>
+                    this.props.navigation.navigate('UserProfile', {
+                      placeholder: true
+                    })
+                  }
+                >
+                  <Text style={{ textAlign: 'center' }}>
+                    Upload complete! Click to go back to profile.
+                  </Text>
+                </Button>
               </View>
             )}
           </View>
