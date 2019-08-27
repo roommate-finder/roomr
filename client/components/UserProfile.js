@@ -17,7 +17,6 @@ import {
   Grid,
   Col
 } from 'native-base';
-import ImagePicker from './ImagePicker';
 
 import { connect } from 'react-redux';
 // import { logoutUser } from '../store/user';
@@ -166,7 +165,9 @@ class UserProfile extends React.Component {
           </Button>
         </View>
 
-        <Button onPress={() => this.props.navigation.navigate('ImagePicker')} />
+        <Button
+          onPress={() => this.props.navigation.navigate('ChangeProfilePic')}
+        />
       </View>
 
       //     <Container>

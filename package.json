@@ -21,6 +21,7 @@
     "dotenv": "^8.1.0",
     "env": "0.0.2",
     "expo": "^34.0.1",
+    "expo-camera": "^6.0.0",
     "expo-constants": "^6.0.0",
     "expo-facebook": "^6.0.0",
     "expo-file-system": "^6.0.2",
