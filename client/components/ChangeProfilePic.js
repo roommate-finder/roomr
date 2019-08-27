@@ -81,18 +81,18 @@ class ChangeProfilePic extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ width: 400, height: 400 }}>
+        <View style={{ justifyContent: 'center' }}>
           <Camera
             ref={ref => {
               this.camera = ref;
             }}
-            style={{ flex: 1 }}
+            style={{ width: 400, height: 400 }}
             type={this.state.type}
           >
             <View
               style={{
-                backgroundColor: 'transparent',
-                flexDirection: 'row'
+                backgroundColor: 'transparent'
+                // flexDirection: 'row',
               }}
             >
               <TouchableOpacity
