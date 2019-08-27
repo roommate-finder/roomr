@@ -81,21 +81,28 @@ class ChangeProfilePic extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ justifyContent: 'center' }}>
-          <Camera
-            ref={ref => {
-              this.camera = ref;
+        <View>
+          <View
+            style={{
+              width: 400,
+              height: 400,
+              marginTop: 120
             }}
-            style={{ width: 400, height: 400 }}
-            type={this.state.type}
           >
-            <View
-              style={{
-                backgroundColor: 'transparent'
-                // flexDirection: 'row',
+            <Camera
+              ref={ref => {
+                this.camera = ref;
               }}
+              style={{ flex: 1, justifyContent: 'center' }}
+              type={this.state.type}
             >
-              <TouchableOpacity
+              <View
+                style={{
+                  backgroundColor: 'transparent'
+                  // flexDirection: 'row',
+                }}
+              >
+                {/* <TouchableOpacity
                 style={{
                   justifyContent: 'center'
                 }}
@@ -112,20 +119,59 @@ class ChangeProfilePic extends React.Component {
                   {' '}
                   Flip{' '}
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+              </View>
+            </Camera>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop: 20
+              }}
+            >
+              <Button
+                onPress={() => {
+                  this.snapPhoto();
+                  this.camera.pausePreview();
+                  this.setState({ photoUploading: true });
+                }}
+                style={{
+                  width: 150,
+                  backgroundColor: '#0e677c',
+                  flexDirection: 'row',
+                  justifyContent: 'center'
+                }}
+              >
+                <Text style={{ color: 'white' }}>Take Picture</Text>
+              </Button>
+              <Button
+                onPress={() => {
+                  this.setState({
+                    type:
+                      this.state.type === Camera.Constants.Type.back
+                        ? Camera.Constants.Type.front
+                        : Camera.Constants.Type.back
+                  });
+                }}
+                style={{
+                  width: 150,
+                  backgroundColor: '#0e677c',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginLeft: 10
+                }}
+              >
+                <Text style={{ color: 'white' }}>Flip Camera</Text>
+              </Button>
             </View>
-          </Camera>
-          <Button
-            onPress={() => {
-              this.snapPhoto();
-              this.camera.pausePreview();
-              this.setState({ photoUploading: true });
-            }}
-            style={{ width: 200, color: '#0e677c' }}
-          >
-            <Text style={{ color: 'white' }}>Take Picture</Text>
-          </Button>
-          {this.state.photoUploading && <Text>Photo uploading!</Text>}
+          </View>
+          <View>
+            {this.state.photoUploading && (
+              <View style={{ justifyContent: 'center', marginTop: 20 }}>
+                <Text style={{ textAlign: 'center' }}>Photo uploading!</Text>
+              </View>
+            )}
+          </View>
         </View>
       );
     }
