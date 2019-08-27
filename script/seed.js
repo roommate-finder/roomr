@@ -71,7 +71,11 @@ async function seed() {
       bio: 'i love to code',
       age: '18',
       gender: 'MALE',
-      job: 'fullstack developer'
+      job: 'fullstack developer',
+      hasCat: true,
+      hasDog: true,
+      allergicToCat: false,
+      allergicToDog: false,
     }),
     User.create({
       firstName: 'Joey',
@@ -83,7 +87,11 @@ async function seed() {
       bio: 'cool dog looking for a nice place to live',
       age: '21',
       gender: 'MALE',
-      job: 'sprinter'
+      job: 'sprinter',
+      hasCat: true,
+      hasDog: false,
+      allergicToCat: false,
+      allergicToDog: true
     }),
     User.create({
       firstName: 'Rocky',
@@ -95,7 +103,11 @@ async function seed() {
       bio: 'rock enthusiast',
       age: '24',
       gender: 'MALE',
-      job: 'mailman'
+      job: 'mailman',
+      hasCat: false,
+      hasDog: false,
+      allergicToCat: true,
+      allergicToDog: false
     }),
     User.create({
       firstName: 'Baxter',
@@ -107,7 +119,11 @@ async function seed() {
       bio: 'a good boy',
       age: '24',
       gender: 'MALE',
-      job: 'mall cop'
+      job: 'mall cop',
+      hasCat: false,
+      hasDog: false,
+      allergicToCat: false,
+      allergicToDog: false
     }),
     User.create({
       firstName: 'Felix',
@@ -119,8 +135,94 @@ async function seed() {
       bio: 'cool cat',
       age: '24',
       gender: 'MALE',
-      job: 'chef'
+      job: 'chef',
+      hasCat: false,
+      hasDog: false,
+      allergicToCat: true,
+      allergicToDog: true
+
+    }),
+    User.create({
+      firstName: 'Jody',
+      lastName: 'Brown',
+      phone: 888,
+      password: '123',
+      email: 'jody@email.com',
+      photo: 'https://robohash.org/jody',
+      bio: 'i like birds',
+      age: '40',
+      gender: 'FEMALE',
+      job: 'bird watcher',
+      hasCat: false,
+      hasDog: false,
+      allergicToCat: true,
+      allergicToDog: true
+    }),
+    User.create({
+      firstName: 'Sue',
+      lastName: 'Jones',
+      phone: 999,
+      password: '123',
+      email: 'suejones@email.com',
+      photo: 'https://robohash.org/sue',
+      bio: 'ask me about my tempurpedic',
+      age: '25',
+      gender: 'FEMALE',
+      job: 'bank teller',
+      hasCat: false,
+      hasDog: false,
+      allergicToCat: true,
+      allergicToDog: true
+    }),
+    User.create({
+      firstName: 'Pat',
+      lastName: 'Stewart',
+      phone: 111,
+      password: '123',
+      email: 'patty@email.com',
+      photo: 'https://robohash.org/pat',
+      bio: 'i like long walks on the beach',
+      age: '20',
+      gender: 'OTHER',
+      job: 'food taster',
+      hasCat: false,
+      hasDog: false,
+      allergicToCat: true,
+      allergicToDog: true
+    }),
+    User.create({
+      firstName: 'Linda',
+      lastName: 'Baker',
+      phone: 100,
+      password: '123',
+      email: 'lindaaaaaa@email.com',
+      photo: 'https://robohash.org/linda',
+      bio: 'i have 20 cats',
+      age: '20',
+      gender: 'OTHER',
+      job: 'youtuber',
+      hasCat: true,
+      hasDog: false,
+      allergicToCat: false,
+      allergicToDog: true
+    }),
+    User.create({
+      firstName: 'Bryan',
+      lastName: 'Howard',
+      phone: 248,
+      password: '123',
+      email: 'mysteryband@email.com',
+      photo: 'https://robohash.org/bryan',
+      bio: 'find me on band camp',
+      age: '25',
+      gender: 'MALE',
+      job: 'band manager and lead vocalist and drummer',
+      hasCat: true,
+      hasDog: false,
+      allergicToCat: false,
+      allergicToDog: true
     })
+
   ]);
   const createApartments = [];
   apartments.forEach(apt => createApartments.push(Apartment.create(apt)));
