@@ -19,6 +19,18 @@ import { connect } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
 
 class ApartmentInfoFeed extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+
+      headerTitle: (
+        <View style={{ flexDirection: 'row' }}>
+          <Text>{navigation.state.params.apartment.name}</Text>
+        </View>
+      ),
+
+
+    };
+  };
   constructor() {
     super();
     this.state = {};
@@ -39,9 +51,6 @@ class ApartmentInfoFeed extends React.Component {
     return (
       <Container>
         <Container>
-          <Header>
-            <Text style={{ fontWeight: 'bold' }}>{aptInStore.name} Info</Text>
-          </Header>
           <Text style={{ fontSize: 12, margin: 20 }}>
             {aptInStore.description}
           </Text>
@@ -96,12 +105,12 @@ class ApartmentInfoFeed extends React.Component {
                       style={{ color: 'green' }}
                     />
                   ) : (
-                    <Icon
-                      type="FontAwesome"
-                      name="times"
-                      style={{ color: 'red' }}
-                    />
-                  )}
+                      <Icon
+                        type="FontAwesome"
+                        name="times"
+                        style={{ color: 'red' }}
+                      />
+                    )}
                 </Body>
               </ListItem>
 
@@ -117,12 +126,12 @@ class ApartmentInfoFeed extends React.Component {
                       style={{ color: 'green' }}
                     />
                   ) : (
-                    <Icon
-                      type="FontAwesome"
-                      name="times"
-                      style={{ color: 'red' }}
-                    />
-                  )}
+                      <Icon
+                        type="FontAwesome"
+                        name="times"
+                        style={{ color: 'red' }}
+                      />
+                    )}
                 </Body>
               </ListItem>
 
@@ -138,12 +147,12 @@ class ApartmentInfoFeed extends React.Component {
                       style={{ color: 'green' }}
                     />
                   ) : (
-                    <Icon
-                      type="FontAwesome"
-                      name="times"
-                      style={{ color: 'red' }}
-                    />
-                  )}
+                      <Icon
+                        type="FontAwesome"
+                        name="times"
+                        style={{ color: 'red' }}
+                      />
+                    )}
                 </Body>
               </ListItem>
               <ListItem>
@@ -158,12 +167,12 @@ class ApartmentInfoFeed extends React.Component {
                       style={{ color: 'green' }}
                     />
                   ) : (
-                    <Icon
-                      type="FontAwesome"
-                      name="times"
-                      style={{ color: 'red' }}
-                    />
-                  )}
+                      <Icon
+                        type="FontAwesome"
+                        name="times"
+                        style={{ color: 'red' }}
+                      />
+                    )}
                 </Body>
               </ListItem>
               <ListItem thumbnail>
