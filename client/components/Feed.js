@@ -122,6 +122,27 @@ class Feed extends React.Component {
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
       >
+        {this.state.loaded && (
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              paddingVertical: 10
+            }}
+          >
+            {this.props.feed[0].length === 0 ? (
+              <Text style={{ margin: 20, textAlign: 'center' }}>
+                You haven't liked any apartments... click the home icon to start
+                swiping!
+              </Text>
+            ) : (
+              <Text style={{ fontWeight: 'bold' }}>
+                Apartments You've Liked
+              </Text>
+            )}
+          </View>
+        )}
+
         {this.state.loaded &&
         this.props.feed[0] &&
         this.props.apartments.length > 0 &&

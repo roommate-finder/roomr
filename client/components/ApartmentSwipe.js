@@ -128,7 +128,10 @@ class ApartmentSwipe extends React.Component {
               }}
               renderEmpty={() => (
                 <View style={{ alignSelf: 'center' }}>
-                  <Text>Over</Text>
+                  <Text style={{ margin: 20, textAlign: 'center' }}>
+                    You've swiped on all the apartments we have for you right
+                    now. Check again later for more!
+                  </Text>
                 </View>
               )}
               renderItem={item => (

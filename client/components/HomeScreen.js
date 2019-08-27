@@ -47,7 +47,7 @@ export default class HomeScreen extends Component {
           <View
             style={{
               backgroundColor: 'white',
-              marginBottom: 10,
+              marginBottom: 20,
               borderRadius: 10,
               width: 125
             }}
