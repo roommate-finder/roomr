@@ -32,7 +32,7 @@ router.put('/login', async (req, res, next) => {
 });
 router.post('/createChatroom', async (req, res, next) => {
   try {
-    const chatroom = await Chatroom.create({
+    const chatroom = await Chatroom.findOrCreateChat({
       user1Id: req.body.user1Id,
       user2Id: req.body.user2Id
     });
