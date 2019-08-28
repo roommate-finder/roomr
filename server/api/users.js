@@ -15,16 +15,17 @@ router.put('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: {
-        phone: req.body.phone,
-        password: req.body.password
+        phone: req.body.phone
       }
     });
-    if (user) {
-      res.json(user);
+    if (!user) {
+      console.log('No such user found:', req.body.phone);
+      res.status(401).send('Wrong username and/or password');
+    } else if (!user.correctPassword(req.body.password)) {
+      console.log('Incorrect password for user:', req.body.phone);
+      res.status(401).send('Wrong username and/or password');
     } else {
-      const err = new Error('Incorrect phone number or password');
-      err.status = 401;
-      next(err);
+      res.json(user);
     }
   } catch (err) {
     next(err);
