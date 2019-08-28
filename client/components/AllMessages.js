@@ -131,12 +131,10 @@ class AllMessages extends React.Component {
               this.props.users[chat.user2Id - 1].id
             }`
           )
-          .limitToLast(1)
-          .on('child_added', snapshot => {
-            const items = snapshot.val();
-
+          .once('value')
+          .then(snapshot => {
+            let items = snapshot.val();
             let newState = [];
-
             for (let item in items) {
               newState.push({
                 id: item,
@@ -147,7 +145,7 @@ class AllMessages extends React.Component {
               items: newState
             });
           });
-        // console.log('LETSGETIT', items[item]);
+        console.log('LETSGETIT', firebases);
         const itemLen = this.state.items.length;
         if (chat.user1Id !== this.props.user.id)
           return (
@@ -244,22 +242,19 @@ class AllMessages extends React.Component {
                       }
                       subtitle={
                         <View>
-                          {console.log('STATE', this.state.items)}
-                          <Text>hi</Text>
-                          {/* {this.state.items.map((item, i) => {
-                            console.log('ITEMHERE', item);
-                            return <Text>{item.text}</Text>;
-                            // if (itemLen === i + 1) {
-                            //   return <Text>{item.text}</Text>;
-                            //   //   const txt = item.reduce(function(a, b) {
-                            //   //     if (a.indexOf(b.text) == -1) {
-                            //   //       a.push(b.name);
-                            //   //     }
-                            //   //     return a;
-                            //   //   }, []);
-                            //   //   return <Text>{txt}</Text>;
-                            // }
-                          })}  */}
+                          {this.state.items.map((item, i) => {
+                            if (itemLen === i + 1) {
+                              console.log('ITEMTEXT', item.text);
+                              return <Text>{item.text}</Text>;
+                              //   const txt = item.reduce(function(a, b) {
+                              //     if (a.indexOf(b.text) == -1) {
+                              //       a.push(b.name);
+                              //     }
+                              //     return a;
+                              //   }, []);
+                              //   return <Text>{txt}</Text>;
+                            }
+                          })}
                         </View>
 
                         // <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
