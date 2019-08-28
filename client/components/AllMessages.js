@@ -19,7 +19,9 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { ngrok } from '../../client/store';
 import getOtherUser from '../util/getOtherUser';
+import firebaseApp from '../../firebase/config';
 
+require('firebase/database');
 class AllMessages extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -70,6 +72,8 @@ class AllMessages extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentItem: '',
+      items: [],
       loading: false,
       messages: [],
       refreshing: false
@@ -83,7 +87,7 @@ class AllMessages extends React.Component {
 
   findUserInStore(match) {
     const userInStore = this.props.users.filter(user => user.id === match);
-    // console.log('---------------- USER IN STORE', userInStore)
+
     return userInStore;
   }
 
@@ -105,16 +109,14 @@ class AllMessages extends React.Component {
   );
   render() {
     const props = this.props.navigation.state.params;
-    console.log('PROPSUSER', this.props);
+
     if (!this.props.user) {
-      console.log('HERE NO USER');
       return (
         <View>
           <Text>Sorry no messages yet</Text>
         </View>
       );
     } else if (!this.props.user.chatrooms) {
-      console.log('HERE NO CHATS');
       return (
         <View>
           <Text>Sorry no messages yet</Text>
@@ -122,16 +124,37 @@ class AllMessages extends React.Component {
       );
     } else {
       return this.props.user.chatrooms.map(chat => {
-        console.log('HERE I AM', this.props.users[chat.user1Id - 1]);
-        console.log('CHAT1', chat.user1Id);
-        console.log('CHAT', chat);
+        const firebases = firebaseApp
+          .database()
+          .ref(
+            `chat${this.props.users[chat.user1Id - 1].id}-${
+              this.props.users[chat.user2Id - 1].id
+            }`
+          )
+          .limitToLast(1)
+          .on('child_added', snapshot => {
+            const items = snapshot.val();
+
+            let newState = [];
+
+            for (let item in items) {
+              newState.push({
+                id: item,
+                text: items[item].text
+              });
+            }
+            this.setState({
+              items: newState
+            });
+          });
+        // console.log('LETSGETIT', items[item]);
+        const itemLen = this.state.items.length;
         if (chat.user1Id !== this.props.user.id)
           return (
             <View style={{ height: 65 }}>
               <FlatList
                 data={[this.props.users[chat.user1Id - 1]]}
                 renderItem={({ item }) => {
-                  console.log('ITEM', item);
                   return (
                     <ListItem
                       key={item.id}
@@ -173,12 +196,35 @@ class AllMessages extends React.Component {
               <FlatList
                 data={[this.props.users[chat.user2Id - 1]]}
                 renderItem={({ item }) => {
-                  console.log('ITEM2', item);
                   return (
                     <ListItem
                       key={item.id}
                       leftAvatar={{ source: { uri: item.photo } }}
                       onPress={async () => {
+                        // console.log(
+                        //   'FIREBASE',
+                        //   firebaseApp
+                        //     .database()
+                        //     .ref(
+                        //       `chat${this.props.users[chat.user1Id - 1].id}-${
+                        //         this.props.users[chat.user2Id - 1].id
+                        //       }`
+                        //     )
+                        //     .once('value')
+                        //     .then(snapshot => {
+                        //       let items = snapshot.val();
+                        //       let newState = [];
+                        //       for (let item in items) {
+                        //         newState.push({
+                        //           id: item,
+                        //           text: items[item].text
+                        //         });
+                        //       }
+                        //       this.setState({
+                        //         items: newState
+                        //       });
+                        //     })
+                        // );
                         this.props.navigation.navigate('Chatroom', {
                           me: this.props.user,
                           other: getOtherUser(
@@ -197,7 +243,26 @@ class AllMessages extends React.Component {
                         </Text>
                       }
                       subtitle={
-                        <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
+                        <View>
+                          {console.log('STATE', this.state.items)}
+                          <Text>hi</Text>
+                          {/* {this.state.items.map((item, i) => {
+                            console.log('ITEMHERE', item);
+                            return <Text>{item.text}</Text>;
+                            // if (itemLen === i + 1) {
+                            //   return <Text>{item.text}</Text>;
+                            //   //   const txt = item.reduce(function(a, b) {
+                            //   //     if (a.indexOf(b.text) == -1) {
+                            //   //       a.push(b.name);
+                            //   //     }
+                            //   //     return a;
+                            //   //   }, []);
+                            //   //   return <Text>{txt}</Text>;
+                            // }
+                          })}  */}
+                        </View>
+
+                        // <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
                       }
                       chevron={true}
                       topDivider={true}
