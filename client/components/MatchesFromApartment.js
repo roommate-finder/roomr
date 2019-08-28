@@ -31,6 +31,7 @@ import { connect } from 'react-redux';
 import * as Font from 'expo-font';
 import axios from 'axios';
 import { ngrok } from '../../client/store';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class Feed extends React.Component {
   constructor() {
@@ -87,6 +88,7 @@ class Feed extends React.Component {
         backgroundColor: 'rgba(0,0,255,0.5)'
       }
     });
+
     return (
       <ScrollView>
         <Header style={{ height: 70, backgroundColor: 'white' }}>
@@ -144,29 +146,56 @@ class Feed extends React.Component {
 
             <CardItem>
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
+
               <Button
+                colors={['#0000FF', '#008080']}
+                style={{
+                  left: 200,
+                  marginTop: -55,
+                  borderRadius: 100
+                }}
                 // onSubmit={() => this.props.createUserChatroomThunk(user.id)}
                 onPress={async () => {
-                  await axios.post(`${ngrok}/api/users/createChatroom`, {
-                    user1Id: [id, this.props.user.id].sort()[0],
-                    user2Id: [id, this.props.user.id].sort()[1]
-                  });
-
+                  console.log('ID', id);
+                  console.log('PROPSID', this.props.user.id);
+                  const response = await axios.post(
+                    `${ngrok}/api/users/createChatroom`,
+                    {
+                      user1Id: this.props.user.id,
+                      user2Id: id
+                    }
+                  );
+                  const chatroom = response.data;
                   this.sendTextNotification(
                     this.props.user,
                     this.findUserInStore(Number(id))[0],
                     props.apartment.name
                   ); // send user 1 and 2 to axios req
-                  this.props.navigation.navigate('Chatroom', {
-                    me: this.props.user,
-                    other: this.findUserInStore(Number(id))[0],
-                    chatId: `chat${[id, this.props.user.id].sort()[0]}-${
-                      [id, this.props.user.id].sort()[1]
-                    }`
-                  });
+                  if (this.props.user.id === chatroom.user1Id) {
+                    this.props.navigation.navigate('Chatroom', {
+                      me: this.props.user,
+                      other: this.findUserInStore(chatroom.user2Id),
+                      chatId: `chat${chatroom.user1Id}-${chatroom.user2Id}`
+                    });
+                  } else {
+                    this.props.navigation.navigate('Chatroom', {
+                      me: this.props.user,
+                      other: this.findUserInStore(chatroom.user1Id),
+                      chatId: `chat${chatroom.user1Id}-${chatroom.user2Id}`
+                    });
+                  }
                 }}
               >
-                <Icon type="FontAwesome" name="comments" />
+                <LinearGradient
+                  colors={['#0000FF', '#008080']}
+                  style={{ height: 50, borderRadius: 50 / 2 }}
+                >
+                  <Icon
+                    type="FontAwesome"
+                    name="comments"
+                    style={{ marginTop: 12 }}
+                  />
+                </LinearGradient>
               </Button>
             </CardItem>
           </Card>

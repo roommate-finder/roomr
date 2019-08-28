@@ -136,12 +136,13 @@ class Feed extends React.Component {
                 swiping!
               </Text>
             ) : (
-                <View>
+                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                   <Text style={{ fontWeight: 'bold' }}>
                     Apartments You've Liked
               </Text>
-                  <Button onPress={() => this.props.navigation.navigate('FeedMap')}>
-                    <Text>Map</Text>
+                  <Button transparent onPress={() => this.props.navigation.navigate('FeedMap')}>
+                    <Text style={{ textAlign: 'center' }}>View on map </Text>
+
                   </Button>
                 </View>
 

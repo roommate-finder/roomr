@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableHighlight } from 'react-native';
 import {
     View,
     Text,
@@ -16,7 +16,7 @@ import {
 } from 'native-base';
 
 import { connect } from 'react-redux';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Callout } from 'react-native-maps';
 
 class FeedMap extends React.Component {
 
@@ -52,7 +52,8 @@ class FeedMap extends React.Component {
             >
                 {/* {this.props.feed.map(apt => <Text> {this.findApartmentById(apt.apartmentId).latitude}</Text>)} */}
                 {this.props.apartments && this.props.feed.map(apt =>
-                    <Marker title={this.findApartmentById(apt.apartmentId).name} coordinate={{ latitude: this.findApartmentById(apt.apartmentId).longitude, longitude: this.findApartmentById(apt.apartmentId).latitude }} />)}
+                    <Marker title={this.findApartmentById(apt.apartmentId).name} description={this.findApartmentById(apt.apartmentId).address} coordinate={{ latitude: this.findApartmentById(apt.apartmentId).longitude, longitude: this.findApartmentById(apt.apartmentId).latitude }}>
+                    </Marker>)}
             </MapView>
 
         );

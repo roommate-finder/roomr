@@ -22,7 +22,7 @@ const middleware = composeWithDevTools(
 );
 const store = createStore(reducer, middleware);
 
-export const ngrok = 'https://52a734cb.ngrok.io';
+export const ngrok = 'https://eae2fcf2.ngrok.io';
 
 export default store;
 // export * from './user'
