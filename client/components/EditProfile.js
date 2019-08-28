@@ -15,6 +15,7 @@ import {
 import CheckBox from 'react-native-check-box'
 import { updateUserThunk } from '../store/user';
 import { connect } from 'react-redux';
+import RNPickerSelect from 'react-native-picker-select';
 class EditProfile extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -32,7 +33,8 @@ class EditProfile extends Component {
     super();
     this.state = {
       bio: '',
-      job: ''
+      job: '',
+      allergicToCat: false
     };
     this.handleSave = this.handleSave.bind(this);
   }
@@ -100,6 +102,20 @@ class EditProfile extends Component {
               onChangeText={job => this.setState({ job })}
             />
           </Item>
+          <Item fixedLabel>
+            <Label>Allergic to cat</Label>
+
+            <CheckBox
+
+              onClick={() => {
+                this.setState({
+                  isChecked: !this.state.allergicToCat
+                })
+              }}
+              isChecked={this.state.allergicToCat}
+            />
+
+          </Item>
         </Form>
         <Button
           style={{ backgroundColor: '#0e677c', marginTop: 10 }}
@@ -107,16 +123,8 @@ class EditProfile extends Component {
         >
           <Text style={{ color: '#FFF' }}> Save</Text>
         </Button>
-        <CheckBox
-          style={{ flex: 1, padding: 10 }}
-          onClick={() => {
-            this.setState({
-              isChecked: !this.state.isChecked
-            })
-          }}
-          isChecked={this.state.isChecked}
-          leftText={"CheckBox"}
-        />
+
+
       </View>
     );
   }

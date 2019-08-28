@@ -145,7 +145,7 @@ class Feed extends React.Component {
             </CardItem>
 
             <CardItem>
-              <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
+              {/* <Text>{this.findUserInStore(Number(id))[0].bio} </Text> */}
 
               <Button
                 colors={['#0000FF', '#008080']}
