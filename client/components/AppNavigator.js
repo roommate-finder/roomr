@@ -14,6 +14,7 @@ import ApartmentInfoFeed from './ApartmentInfoFeed';
 import Chatroom from './Chatroom';
 import AllMessages from './AllMessages';
 import ChangeProfilePic from './ChangeProfilePic';
+import FeedMap from './FeedMap'
 
 const AppNavigator = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
@@ -31,7 +32,8 @@ const AppNavigator = createStackNavigator({
   Chatroom: { screen: Chatroom },
 
   AllMessages: { screen: AllMessages },
-  ChangeProfilePic: { screen: ChangeProfilePic }
+  ChangeProfilePic: { screen: ChangeProfilePic },
+  FeedMap: { screen: FeedMap }
 });
 
 const AppContainer = createAppContainer(AppNavigator);
