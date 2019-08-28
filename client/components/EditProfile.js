@@ -12,6 +12,7 @@ import {
   Button,
   Text
 } from 'native-base';
+import CheckBox from 'react-native-check-box'
 import { updateUserThunk } from '../store/user';
 import { connect } from 'react-redux';
 class EditProfile extends Component {
@@ -106,6 +107,16 @@ class EditProfile extends Component {
         >
           <Text style={{ color: '#FFF' }}> Save</Text>
         </Button>
+        <CheckBox
+          style={{ flex: 1, padding: 10 }}
+          onClick={() => {
+            this.setState({
+              isChecked: !this.state.isChecked
+            })
+          }}
+          isChecked={this.state.isChecked}
+          leftText={"CheckBox"}
+        />
       </View>
     );
   }
