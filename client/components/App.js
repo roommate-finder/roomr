@@ -16,8 +16,8 @@ import AppNavigator from './AppNavigator';
 //Redux stuff
 import { Provider } from 'react-redux';
 import store from '../store';
-
-YellowBox.ignoreWarnings(['Require cycle:']);
+console.disableYellowBox = true
+// YellowBox.ignoreWarnings(['Require cycle:']);
 
 var firebaseConfig = {
   apiKey: 'AIzaSyCK-JUgjVNvI71cYKKKQzJQEURX3DFFnqI',
