@@ -30,6 +30,7 @@ const AppNavigator = createStackNavigator({
   MatchesFromApartment: { screen: MatchesFromApartment },
   ApartmentInfoFeed: { screen: ApartmentInfoFeed },
   Chatroom: { screen: Chatroom },
+
   AllMessages: { screen: AllMessages },
   ChangeProfilePic: { screen: ChangeProfilePic },
   FeedMap: { screen: FeedMap }

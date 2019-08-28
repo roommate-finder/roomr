@@ -25,6 +25,9 @@ import { logoutUserThunk } from '../store/user';
 // import * as Font from 'expo-font';
 
 class UserProfile extends React.Component {
+  state = {
+    src: this.props.user.photo
+  };
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft: (
@@ -66,8 +69,16 @@ class UserProfile extends React.Component {
       )
     };
   };
+
+  componentWillReceiveProps() {
+    this.setState({
+      src: this.props.user.photo
+    });
+  }
+
   render() {
     const uri = 'https://placekitten.com/200/300';
+
     return (
       <View
         style={{
@@ -91,13 +102,8 @@ class UserProfile extends React.Component {
               borderRadius: 150 / 2,
               borderWidth: 1,
               borderColor: 'grey'
-              // shadow: {
-              //   shadowColor: '#202020',
-              //   shadowOffset: { width: 0, height: 0 },
-              //   shadowRadius: 5
-              // }
             }}
-            source={{ uri: this.props.user.photo }}
+            source={{ uri: this.state.src }}
           />
           <View style={{ marginTop: 20 }}>
             <Text>
@@ -123,7 +129,9 @@ class UserProfile extends React.Component {
               borderRadius: 65 / 2,
               justifyContent: 'center'
             }}
-            onPress={() => this.props.navigation.navigate('EditProfile')}
+            onPress={() =>
+              this.props.navigation.navigate('EditProfile', this.props.user)
+            }
           >
             <Icon
               type="FontAwesome"
