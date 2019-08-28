@@ -67,7 +67,7 @@ export const updateUserThunk = user => async dispatch => {
   try {
     console.log('USER IN UPDATE USER THUNK', user);
     const { data } = await axios.put(`${ngrok}/api/users/${user.id}`, user);
-    console.log('DATA', data);
+    console.log('DATA IN USER THUNK', data);
     dispatch(updateUser(data));
   } catch (error) {
     console.error(error);
@@ -84,6 +84,7 @@ export default function(state = {}, action) {
     case CREATE_USER:
       return action.user;
     case UPDATE_USER:
+      console.log('data in user reducer', action.user);
       return action.user;
     case GET_USER_CHATROOM:
       return action.user;
