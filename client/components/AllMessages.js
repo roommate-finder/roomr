@@ -242,19 +242,20 @@ class AllMessages extends React.Component {
                       }
                       subtitle={
                         <View>
-                          {this.state.items.map((item, i) => {
+                          {this.state.items.filter((item, i) => {
                             if (itemLen === i + 1) {
-                              console.log('ITEMTEXT', item.text);
                               return <Text>{item.text}</Text>;
-                              //   const txt = item.reduce(function(a, b) {
-                              //     if (a.indexOf(b.text) == -1) {
-                              //       a.push(b.name);
-                              //     }
-                              //     return a;
-                              //   }, []);
-                              //   return <Text>{txt}</Text>;
                             }
+
+                            //   const txt = item.reduce(function(a, b) {
+                            //     if (a.indexOf(b.text) == -1) {
+                            //       a.push(b.name);
+                            //     }
+                            //     return a;
+                            //   }, []);
+                            //   return <Text>{txt}</Text>;
                           })}
+                          )}
                         </View>
 
                         // <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
