@@ -136,66 +136,69 @@ class Feed extends React.Component {
                 swiping!
               </Text>
             ) : (
-                <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                  <Text style={{ fontWeight: 'bold' }}>
-                    Apartments You've Liked
-              </Text>
-                  <Button transparent onPress={() => this.props.navigation.navigate('FeedMap')}>
-                    <Text style={{ textAlign: 'center' }}>View on map </Text>
-
-                  </Button>
-                </View>
-
-              )}
+              <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                <Text style={{ fontWeight: 'bold' }}>
+                  Apartments You've Liked
+                </Text>
+                <Button
+                  transparent
+                  onPress={() => this.props.navigation.navigate('FeedMap')}
+                >
+                  <Text style={{ textAlign: 'center', color: '#0e677c' }}>
+                    View on map{' '}
+                  </Text>
+                </Button>
+              </View>
+            )}
           </View>
         )}
 
         {this.state.loaded &&
-          this.props.feed[0] &&
-          this.props.apartments.length > 0 &&
-          this.props.users.length > 0 ? (
-            this.props.feed[0].map(apt => (
-              <Card key={this.findApartmentInStore(apt)[0].id}>
-                <CardItem>
-                  <Left>
-                    <Body>
-                      <Text>{this.findApartmentInStore(apt)[0].name}</Text>
-                      <Text note>
-                        {this.findApartmentInStore(apt)[0].address}
-                      </Text>
-                    </Body>
-                  </Left>
-                  <Right
+        this.props.feed[0] &&
+        this.props.apartments.length > 0 &&
+        this.props.users.length > 0 ? (
+          this.props.feed[0].map(apt => (
+            <Card key={this.findApartmentInStore(apt)[0].id}>
+              <CardItem>
+                <Left>
+                  <Body>
+                    <Text>{this.findApartmentInStore(apt)[0].name}</Text>
+                    <Text note>
+                      {this.findApartmentInStore(apt)[0].address}
+                    </Text>
+                  </Body>
+                </Left>
+                <Right
+                  style={{
+                    justifyContent: 'center'
+                  }}
+                >
+                  <Button
                     style={{
+                      width: 70,
+                      height: 25,
+                      // borderRadius: 20 / 2,
+                      backgroundColor: '#0e677c',
+                      alignContent: 'center',
                       justifyContent: 'center'
                     }}
+                    transparent
+                    onPress={() => {
+                      this.props.deleteUserApartment(
+                        this.props.user.id,
+                        this.findApartmentInStore(apt)[0].id
+                      );
+                    }}
                   >
-                    <Button
+                    <Text
                       style={{
-                        width: 70,
-                        height: 25,
-                        // borderRadius: 20 / 2,
-                        backgroundColor: '#0e677c',
-                        alignContent: 'center',
-                        justifyContent: 'center'
-                      }}
-                      transparent
-                      onPress={() => {
-                        this.props.deleteUserApartment(
-                          this.props.user.id,
-                          this.findApartmentInStore(apt)[0].id
-                        );
+                        color: '#FFF',
+                        paddingRight: 25
                       }}
                     >
-                      <Text
-                        style={{
-                          color: '#FFF',
-                          paddingRight: 25
-                        }}
-                      >
-                        unlike
+                      unlike
                     </Text>
-                      {/* <Icon
+                    {/* <Icon
                       name="times"
                       type="FontAwesome"
                       style={{
@@ -204,24 +207,24 @@ class Feed extends React.Component {
                         marginBottom: 2
                       }}
                     /> */}
-                    </Button>
-                  </Right>
-                </CardItem>
-                <CardItem cardBody>
-                  <Slideshow
-                    dataSource={this.findApartmentInStore(apt)[0].photos}
-                  />
-                </CardItem>
-                <CardItem>
-                  {/* <Text>
+                  </Button>
+                </Right>
+              </CardItem>
+              <CardItem cardBody>
+                <Slideshow
+                  dataSource={this.findApartmentInStore(apt)[0].photos}
+                />
+              </CardItem>
+              <CardItem>
+                {/* <Text>
                                     <Text>
                                         {apt.matches_array !== null ? apt.matches_array.split(', ').length : 0} matches
                                     </Text>
                                     {apt.matches_array !== null ? apt.matches_array.split(', ').map(match => <Text>{this.findUserInStore(Number(match))[0].firstName} {this.findUserInStore(Number(match))[0].lastName}</Text>) : ''}
 
                                 </Text> */}
-                  <Left>
-                    {/* <Button
+                <Left>
+                  {/* <Button
                                             transparent
                                             onPress={() =>
                                                 this.props.navigation.navigate('MatchesFromApartment', {
@@ -237,58 +240,58 @@ class Feed extends React.Component {
                                                 matches
                       </Text>
                                         </Button> */}
-                    {apt.matches_array !== null ? (
-                      <Button
-                        transparent
-                        onPress={() =>
-                          this.props.navigation.navigate('MatchesFromApartment', {
-                            apartment: this.findApartmentInStore(apt)[0],
-                            matchIds: apt.matches_array.split(', ')
-                          })
-                        }
-                      >
-                        <Text>
-                          {apt.matches_array !== null
-                            ? apt.matches_array.split(', ').length
-                            : 0}{' '}
-                          matches
-                      </Text>
-                      </Button>
-                    ) : (
-                        <Text> No matches</Text>
-                      )}
-                  </Left>
-                  <Right>
+                  {apt.matches_array !== null ? (
                     <Button
                       transparent
                       onPress={() =>
-                        this.props.navigation.navigate('ApartmentInfoFeed', {
-                          apartment: this.findApartmentInStore(apt)[0]
+                        this.props.navigation.navigate('MatchesFromApartment', {
+                          apartment: this.findApartmentInStore(apt)[0],
+                          matchIds: apt.matches_array.split(', ')
                         })
                       }
                     >
-                      <Icon
-                        style={{ color: '#ED4A6A' }}
-                        type="FontAwesome"
-                        name="info-circle"
-                      />
+                      <Text style={{ color: '#0e677c', fontSize: 16 }}>
+                        {apt.matches_array !== null
+                          ? apt.matches_array.split(', ').length
+                          : 0}{' '}
+                        {apt.matches_array.length === 1 ? 'match' : 'matches'}
+                      </Text>
                     </Button>
-                  </Right>
-                </CardItem>
-              </Card>
-            ))
-          ) : (
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Text>Loading your likes and matches...</Text>
-              <CacheImage
-                source={{
-                  uri:
-                    'https://loading.io/spinners/wedges/lg.rotate-pie-preloader-gif.gif'
-                }}
-                style={{ width: 200, height: 200 }}
-              />
-            </View>
-          )}
+                  ) : (
+                    <Text> No matches</Text>
+                  )}
+                </Left>
+                <Right>
+                  <Button
+                    transparent
+                    onPress={() =>
+                      this.props.navigation.navigate('ApartmentInfoFeed', {
+                        apartment: this.findApartmentInStore(apt)[0]
+                      })
+                    }
+                  >
+                    <Icon
+                      style={{ color: '#ED4A6A', fontSize: 30 }}
+                      type="FontAwesome"
+                      name="info-circle"
+                    />
+                  </Button>
+                </Right>
+              </CardItem>
+            </Card>
+          ))
+        ) : (
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Loading your likes and matches...</Text>
+            <CacheImage
+              source={{
+                uri:
+                  'https://loading.io/spinners/wedges/lg.rotate-pie-preloader-gif.gif'
+              }}
+              style={{ width: 200, height: 200 }}
+            />
+          </View>
+        )}
       </ScrollView>
       // {/* </View> */}
 

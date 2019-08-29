@@ -134,7 +134,8 @@ class ChangeProfilePic extends React.Component {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
-                marginTop: 20
+                marginTop: 20,
+                marginRight: 25
               }}
             >
               <Button
@@ -180,16 +181,27 @@ class ChangeProfilePic extends React.Component {
               </View>
             )}
             {this.state.showBackButton && (
-              <View style={{ justifyContent: 'center', marginTop: 20 }}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  marginTop: 20,
+                  marginHorizontal: 20
+                }}
+              >
                 <Button
+                  style={{
+                    backgroundColor: '#0e677c',
+                    flexDirection: 'row',
+                    justifyContent: 'center'
+                  }}
                   onPress={() =>
                     this.props.navigation.navigate('UserProfile', {
                       placeholder: true
                     })
                   }
                 >
-                  <Text style={{ textAlign: 'center' }}>
-                    Upload complete! Click to go back to profile.
+                  <Text style={{ textAlign: 'center', color: 'white' }}>
+                    Upload complete! Go back to profile.
                   </Text>
                 </Button>
               </View>
