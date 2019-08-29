@@ -140,9 +140,8 @@ class ApartmentSwipe extends React.Component {
                     <Left>
                       <Body>
                         <Text>{item.name}</Text>
-                        <Text>Bedrooms: {item.numBedrooms}</Text>
-                        <Text>Monthly rent: ${item.monthlyRent}</Text>
-                        <Text note>{item.address}</Text>
+                        <Text note>Bedrooms: {item.numBedrooms}</Text>
+                        <Text note>Monthly rent: ${item.monthlyRent}</Text>
                       </Body>
                     </Left>
                   </CardItem>

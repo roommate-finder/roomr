@@ -164,7 +164,11 @@ class Feed extends React.Component {
                   <Body>
                     <Text>{this.findApartmentInStore(apt)[0].name}</Text>
                     <Text note>
-                      {this.findApartmentInStore(apt)[0].address}
+                      Bedrooms: {this.findApartmentInStore(apt)[0].numBedrooms}
+                    </Text>
+                    <Text note>
+                      Monthly rent: $
+                      {this.findApartmentInStore(apt)[0].monthlyRent}
                     </Text>
                   </Body>
                 </Left>
