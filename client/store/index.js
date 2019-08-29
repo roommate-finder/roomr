@@ -20,9 +20,10 @@ const reducer = combineReducers({
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
-const store = createStore(reducer, middleware);
 
-export const ngrok = 'https://eae2fcf2.ngrok.io';
+export const ngrok = 'https://7d91d877.ngrok.io';
+
+const store = createStore(reducer, middleware);
 
 export default store;
 // export * from './user'
