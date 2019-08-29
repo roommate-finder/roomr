@@ -19,9 +19,9 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { ngrok } from '../../client/store';
 import getOtherUser from '../util/getOtherUser';
-import firebaseApp from '../../firebase/config';
+// import firebaseApp from '../../firebase/config';
 
-require('firebase/database');
+// require('firebase/database');
 class AllMessages extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -124,29 +124,29 @@ class AllMessages extends React.Component {
       );
     } else {
       return this.props.user.chatrooms.map(chat => {
-        const firebases = firebaseApp
-          .database()
-          .ref(
-            `chat${this.props.users[chat.user1Id - 1].id}-${
-              this.props.users[chat.user2Id - 1].id
-            }`
-          )
-          .once('value')
-          .then(snapshot => {
-            let items = snapshot.val();
-            let newState = [];
-            for (let item in items) {
-              newState.push({
-                id: item,
-                text: items[item].text
-              });
-            }
-            this.setState({
-              items: newState
-            });
-          });
-        console.log('LETSGETIT', firebases);
-        const itemLen = this.state.items.length;
+        // const firebases = firebaseApp
+        //   .database()
+        //   .ref(
+        //     `chat${this.props.users[chat.user1Id - 1].id}-${
+        //       this.props.users[chat.user2Id - 1].id
+        //     }`
+        //   )
+        //   .once('value')
+        //   .then(snapshot => {
+        //     let items = snapshot.val();
+        //     let newState = [];
+        //     for (let item in items) {
+        //       newState.push({
+        //         id: item,
+        //         text: items[item].text
+        //       });
+        //     }
+        //     this.setState({
+        //       items: newState
+        //     });
+        //   });
+        // console.log('LETSGETIT', firebases);
+        // const itemLen = this.state.items.length;
         if (chat.user1Id !== this.props.user.id)
           return (
             <View style={{ height: 65 }}>
@@ -241,23 +241,23 @@ class AllMessages extends React.Component {
                         </Text>
                       }
                       subtitle={
-                        <View>
-                          {this.state.items.map((item, i) => {
-                            if (itemLen === i + 1) {
-                              console.log('ITEMTEXT', item.text);
-                              return <Text>{item.text}</Text>;
-                              //   const txt = item.reduce(function(a, b) {
-                              //     if (a.indexOf(b.text) == -1) {
-                              //       a.push(b.name);
-                              //     }
-                              //     return a;
-                              //   }, []);
-                              //   return <Text>{txt}</Text>;
-                            }
-                          })}
-                        </View>
+                        // <View>
+                        //   {this.state.items.map((item, i) => {
+                        //     if (itemLen === i + 1) {
+                        //       console.log('ITEMTEXT', item.text);
+                        //       return <Text>{item.text}</Text>;
+                        //       //   const txt = item.reduce(function(a, b) {
+                        //       //     if (a.indexOf(b.text) == -1) {
+                        //       //       a.push(b.name);
+                        //       //     }
+                        //       //     return a;
+                        //       //   }, []);
+                        //       //   return <Text>{txt}</Text>;
+                        //     }
+                        //   })}
+                        // </View>
 
-                        // <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
+                        <Text style={{ color: '#A0A0A0' }}>{item.bio}</Text>
                       }
                       chevron={true}
                       topDivider={true}
