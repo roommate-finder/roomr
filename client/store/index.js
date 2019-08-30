@@ -21,7 +21,9 @@ const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 
+
 export const ngrok = 'https://efa2f817.ngrok.io';
+
 
 const store = createStore(reducer, middleware);
 
