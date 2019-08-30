@@ -14,5 +14,6 @@ Roomr is an apartment and roommate finding app, inspired by Tinder. Users can sw
 
 ## Tech Stack
 
-Front-end:
-Back-end
+### Front-end
+
+### Back-end
