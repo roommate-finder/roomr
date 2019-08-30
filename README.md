@@ -4,6 +4,8 @@ Roomr is an apartment and roommate finding app, inspired by Tinder. Users can sw
 
 ## Features
 
+![screenshot](https://user-images.githubusercontent.com/37453945/64030465-42118000-cb0c-11e9-81b4-b4a063c23cb3.png)
+
 ### User Profile
 
 ### Apartment Swipe
