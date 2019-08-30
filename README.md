@@ -28,7 +28,7 @@ Our app features a chat where matched users can get to know each other.
 
 ### Front-end
 
-React, React Native, Expo, React Navigation, Twilio
+React, Redux, React Native, Expo, React Navigation, Twilio
 
 ### Back-end
 
