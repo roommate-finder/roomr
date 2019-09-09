@@ -33,7 +33,19 @@ import axios from 'axios';
 import { ngrok } from '../../client/store';
 import { LinearGradient } from 'expo-linear-gradient';
 
-class Feed extends React.Component {
+class MatchesFromApartment extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+
+      headerTitle: (
+        <View style={{ flexDirection: 'row' }}>
+          <Text>{navigation.state.params.apartment.name} Matches</Text>
+        </View>
+      ),
+
+
+    };
+  };
   constructor() {
     super();
     this.findUserInStore = this.findUserInStore.bind(this);
@@ -91,69 +103,28 @@ class Feed extends React.Component {
 
     return (
       <ScrollView>
-        <Header style={{ height: 70, backgroundColor: 'white' }}>
-          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-            Matches for {props.apartment.name}
-          </Text>
-        </Header>
+
         {props.matchIds.map(id => (
-          // eslint-disable-next-line react/jsx-key
-          // <Card style={{
-          //   flexDirection: 'row',
-          //   // justifyContent: 'space-around',
-          //   // alignItems: 'center',
-          //   // marginTop: 20
-          // }} >
-          //   <CardItem cardbody>
-          //     <Image
-          //       source={{ uri: this.findUserInStore(Number(id))[0].photo }}
-          //       style={{ height: 100, width: 100, flex: 1 }}
-          //     />
-          //   </CardItem>
-          //   <CardItem>
-          //     <Text>
-          //       {this.findUserInStore(Number(id))[0].firstName}{' '}
-          //       {this.findUserInStore(Number(id))[0].lastName}
-          //     </Text>
-          //   </CardItem>
-
-          // </Card>
-          <Card key={this.findUserInStore(Number(id))[0].id}>
+          <Card style={{ flexDirection: 'row' }}>
             <CardItem>
-              <Left>
-                <Body>
-                  <Header style={{ backgroundColor: 'white', maxWidth: 2000 }}>
-                    <Text style={{ left: -120, fontWeight: 'bold' }}>
-                      {this.findUserInStore(Number(id))[0].firstName}{' '}
-                      {this.findUserInStore(Number(id))[0].lastName}
-                    </Text>
-                  </Header>
-                </Body>
-              </Left>
+              <Image
+                source={{ uri: this.findUserInStore(Number(id))[0].photo }}
+                style={{ height: 150, width: 150 }}
+              />
             </CardItem>
-            <CardItem cardBody style={{ height: 300 }}>
-              <View style={styles.overlay}>
-                <Image
-                  source={{ uri: this.findUserInStore(Number(id))[0].photo }}
-                  style={{
-                    height: 320,
-                    width: null,
-                    flex: 1
-                  }}
-                />
-              </View>
-            </CardItem>
+            <CardItem style={{ flexDirection: 'column', marginTop: 30 }}>
+              <Text style={{ textAlign: 'right' }}>{this.findUserInStore(Number(id))[0].firstName} {this.findUserInStore(Number(id))[0].lastName}, {this.findUserInStore(Number(id))[0].age}</Text>
+              <Text>{this.findUserInStore(Number(id))[0].job}</Text>
+              <Text> </Text>
 
-            <CardItem>
               <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
-
               <Button
+                transparent
                 colors={['#0000FF', '#008080']}
-                style={{
-                  left: 200,
-                  marginTop: -55,
-                  borderRadius: 100
-                }}
+                // style={{
+                //   left: 80,
+                //   marginTop: 30
+                // }}
                 // onSubmit={() => this.props.createUserChatroomThunk(user.id)}
                 onPress={async () => {
                   console.log('ID', id);
@@ -186,20 +157,116 @@ class Feed extends React.Component {
                   }
                 }}
               >
-                <LinearGradient
-                  colors={['#0000FF', '#008080']}
-                  style={{ height: 50, borderRadius: 50 / 2 }}
-                >
-                  <Icon
-                    type="FontAwesome"
-                    name="comments"
-                    style={{ marginTop: 12 }}
-                  />
-                </LinearGradient>
-              </Button>
+                <Icon
+                  type="FontAwesome"
+                  name="comments"
+                /></Button>
             </CardItem>
           </Card>
-        ))}
+          // eslint-disable-next-line react/jsx-key
+          // <Card style={{
+          //   flexDirection: 'row',
+          //   // justifyContent: 'space-around',
+          //   // alignItems: 'center',
+          //   // marginTop: 20
+          // }} >
+          //   <CardItem cardbody>
+          //     <Image
+          //       source={{ uri: this.findUserInStore(Number(id))[0].photo }}
+          //       style={{ height: 100, width: 100, flex: 1 }}
+          //     />
+          //   </CardItem>
+          //   <CardItem>
+          //     <Text>
+          //       {this.findUserInStore(Number(id))[0].firstName}{' '}
+          //       {this.findUserInStore(Number(id))[0].lastName}
+          //     </Text>
+          //   </CardItem>
+
+          // </Card>
+          // <Card key={this.findUserInStore(Number(id))[0].id}>
+          //   <CardItem>
+          //     <Left>
+          //       <Body>
+          //         <Header style={{ backgroundColor: 'white', maxWidth: 2000 }}>
+          //           <Text style={{ left: -120, fontWeight: 'bold' }}>
+          //             {this.findUserInStore(Number(id))[0].firstName}{' '}
+          //             {this.findUserInStore(Number(id))[0].lastName}
+          //           </Text>
+          //         </Header>
+          //       </Body>
+          //     </Left>
+          //   </CardItem>
+          //   <CardItem cardBody style={{ height: 300 }}>
+          //     <View style={styles.overlay}>
+          //       <Image
+          //         source={{ uri: this.findUserInStore(Number(id))[0].photo }}
+          //         style={{
+          //           height: 320,
+          //           width: null,
+          //           flex: 1
+          //         }}
+          //       />
+          //     </View>
+          //   </CardItem>
+
+          //   <CardItem>
+          //     <Text>{this.findUserInStore(Number(id))[0].bio} </Text>
+
+          //     <Button
+          //       colors={['#0000FF', '#008080']}
+          //       style={{
+          //         left: 200,
+          //         marginTop: -55,
+          //         borderRadius: 100
+          //       }}
+          //       // onSubmit={() => this.props.createUserChatroomThunk(user.id)}
+          //       onPress={async () => {
+          //         console.log('ID', id);
+          //         console.log('PROPSID', this.props.user.id);
+          //         const response = await axios.post(
+          //           `${ngrok}/api/users/createChatroom`,
+          //           {
+          //             user1Id: this.props.user.id,
+          //             user2Id: id
+          //           }
+          //         );
+          //         const chatroom = response.data;
+          //         this.sendTextNotification(
+          //           this.props.user,
+          //           this.findUserInStore(Number(id))[0],
+          //           props.apartment.name
+          //         ); // send user 1 and 2 to axios req
+          //         if (this.props.user.id === chatroom.user1Id) {
+          //           this.props.navigation.navigate('Chatroom', {
+          //             me: this.props.user,
+          //             other: this.findUserInStore(chatroom.user2Id),
+          //             chatId: `chat${chatroom.user1Id}-${chatroom.user2Id}`
+          //           });
+          //         } else {
+          //           this.props.navigation.navigate('Chatroom', {
+          //             me: this.props.user,
+          //             other: this.findUserInStore(chatroom.user1Id),
+          //             chatId: `chat${chatroom.user1Id}-${chatroom.user2Id}`
+          //           });
+          //         }
+          //       }}
+          //     >
+          //       <LinearGradient
+          //         colors={['#0000FF', '#008080']}
+          //         style={{ height: 50, borderRadius: 50 / 2 }}
+          //       >
+          //         <Icon
+          //           type="FontAwesome"
+          //           name="comments"
+          //           style={{ marginTop: 12 }}
+          //         />
+          //       </LinearGradient>
+          //     </Button>
+          //   </CardItem>
+          // </Card>
+        ))
+        }
       </ScrollView>
     );
   }
@@ -223,4 +290,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Feed);
+)(MatchesFromApartment);
