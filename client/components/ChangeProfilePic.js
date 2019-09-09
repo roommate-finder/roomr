@@ -109,26 +109,7 @@ class ChangeProfilePic extends React.Component {
                   backgroundColor: 'transparent'
                   // flexDirection: 'row',
                 }}
-              >
-                {/* <TouchableOpacity
-                style={{
-                  justifyContent: 'center'
-                }}
-                onPress={() => {
-                  this.setState({
-                    type:
-                      this.state.type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back
-                  });
-                }}
-              >
-                <Text style={{ fontSize: 18, marginTop: 100, color: 'white' }}>
-                  {' '}
-                  Flip{' '}
-                </Text>
-              </TouchableOpacity> */}
-              </View>
+              ></View>
             </Camera>
             <View
               style={{

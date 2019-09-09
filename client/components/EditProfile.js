@@ -18,12 +18,6 @@ class EditProfile extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Edit Profile'
-      // headerRight: (
-      //     <Button
-      //         onPress={() => this.handleSave(navigation)}
-      //         title="Save"
-      //     />
-      // ),
     };
   };
 
@@ -66,18 +60,6 @@ class EditProfile extends Component {
       });
     }
   }
-
-  // componentDidUpdate(prevProps) {
-  //     console.log('HIHGIDHGODFLKHJGNDKLFGH')
-  //     if (prevProps.user !== this.props.user) {
-  //         const user = this.props.user;
-  //         console.log('USER', user)
-  //         this.setState({
-  //             bio: user.bio,
-  //             job: user.job
-  //         })
-  //     }
-  // }
 
   render() {
     return (
